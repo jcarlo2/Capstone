@@ -21,5 +21,6 @@ public class NorthButton extends JPanel {
         add(productAnalysis);
         add(importExport);
         add(logFile);
+        salesReport.setEnabled(false);
     }
 }

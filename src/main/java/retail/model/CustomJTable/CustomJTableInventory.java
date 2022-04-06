@@ -1,6 +1,7 @@
-package retail.model.inventory;
+package retail.model.CustomJTable;
 
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 import retail.dto.ProductObject;
 
 import javax.swing.*;
@@ -12,21 +13,19 @@ import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
 @Getter
-public class InventoryTable extends JTable {
+public class CustomJTableInventory extends JTable {
     private final DefaultTableModel model;
 
-    public InventoryTable(DefaultTableModel model) {
+    public CustomJTableInventory(DefaultTableModel model) {
         this.model = model;
         setModel(model);
-        model.setColumnCount(7);
         setUpJTable();
     }
 
-    public void populateInventoryJTable(ArrayList<ProductObject> list) {
+    public void populateInventoryJTable(@NotNull ArrayList<ProductObject> list) {
         getModel().setRowCount(0);
         int count = 0;
-        ArrayList<ProductObject> productEntities = list;
-            for (ProductObject productObject : productEntities) {
+            for (ProductObject productObject : list) {
                 String[] listData = new String[7];
                 listData[0] = String.valueOf(++count);
                 listData[1] = productObject.getId();
@@ -48,28 +47,12 @@ public class InventoryTable extends JTable {
         setDefaultEditor(Object.class,null); // DISABLE EDIT TABLE LIKE setEditable()
 
         addColumnName();
-        autoResizeJTable();
         setJTableColumnWidth();
         centerJTableText();
     }
 
-    private void autoResizeJTable() {
-        // AUTO SET JTable.setAutoResizeMode Whenever InventoryPanel resize
-        this.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(final ComponentEvent e) {
-                if (getPreferredSize().width < getParent().getWidth()) {
-                    setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-                } else {
-                    setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                }
-            }
-        });
-    }
-
     private void setJTableColumnWidth() {
         // DID NOT SET MIN_MAX_WIDTH OF COLUMN(2) DESCRIPTION TO FORCE TO TAKE THE EXTRA SPACE
-
         getColumnModel().getColumn(0).setMinWidth(35);
         getColumnModel().getColumn(0).setMaxWidth(35);
 

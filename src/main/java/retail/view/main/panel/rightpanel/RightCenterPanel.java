@@ -25,6 +25,6 @@ public class RightCenterPanel extends JPanel {
         add("prodAnalysis",prodAnalysis);
         add("salesReport", salesReport);
         add("inventory", inventoryPanel);
-        card.show(this,"inventory");
+        card.show(this,"salesReport");
     }
 }

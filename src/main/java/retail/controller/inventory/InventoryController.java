@@ -1,9 +1,7 @@
 package retail.controller.inventory;
 
-import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 import retail.constant.ConstantDialog;
-import retail.constant.ConstantString;
 import retail.controller.database.ProductController;
 import retail.dto.ProductObject;
 import retail.view.main.panel.leftpanel.LeftCenterPanel;
@@ -14,16 +12,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-
-import static retail.constant.ConstantString.*;
 
 public class InventoryController {
     private final ProductController controller = new ProductController();
     private final RightCenterPanel rightCenterPanel;
-    private final LeftCenterPanel leftCenterPanel;
     private final AddDeleteUpdateDetailPanel addDeleteUpdateDetailPanel;
     private final InventoryCardPanel inventoryCardPanel;
     private final UpdatePanel updatePanel;
@@ -35,7 +27,6 @@ public class InventoryController {
 
     public InventoryController(RightCenterPanel rightCenterPanel, @NotNull LeftCenterPanel leftCenterPanel) {
         this.rightCenterPanel = rightCenterPanel;
-        this.leftCenterPanel = leftCenterPanel;
         addDeleteUpdateDetailPanel = leftCenterPanel.getInventoryManipulator().getAddDeleteUpdateDetailPanel();
         inventoryCardPanel = leftCenterPanel.getInventoryManipulator().getInventoryCardPanel();
         deletePanel = leftCenterPanel.getInventoryManipulator().getDeletePanel();
@@ -72,7 +63,7 @@ public class InventoryController {
         addPanel.getAdd().addActionListener(e -> {
             if(e.getSource() == addPanel.getAdd()) {
                 try{
-                    String data[] = getStringInventoryAdd();
+                    String[] data = getStringInventoryAdd();
                     ProductObject product = createNewProductObject(data);
                         if(controller.ifProductExist(product.getId())) {
                             ConstantDialog.DUPLICATE_ID();
@@ -134,8 +125,6 @@ public class InventoryController {
         return true;
     }
 
-
-
     private void allClearButtonActionListener() {
         addPanel.getClear().addActionListener(e -> {
             if(e.getSource() == addPanel.getClear()) {
@@ -173,21 +162,21 @@ public class InventoryController {
     }
 
     private void inventoryTableEventListener() {
-        rightCenterPanel.getInventoryPanel().getInventoryTable().getSelectionModel().addListSelectionListener(e -> {
-            int row = rightCenterPanel.getInventoryPanel().getInventoryTable().getSelectedRow();
+        rightCenterPanel.getInventoryPanel().getCustomJTableInventory().getSelectionModel().addListSelectionListener(e -> {
+            int row = rightCenterPanel.getInventoryPanel().getCustomJTableInventory().getSelectedRow();
             if(addDeleteUpdateDetailPanel.getIsDetail()) {
                 setStringInventoryDetail(row);
             }
         });
 
-        rightCenterPanel.getInventoryPanel().getInventoryTable().addMouseListener(new MouseAdapter() {
+        rightCenterPanel.getInventoryPanel().getCustomJTableInventory().addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 Point point = e.getPoint();
-                int row = rightCenterPanel.getInventoryPanel().getInventoryTable().rowAtPoint(point);
+                int row = rightCenterPanel.getInventoryPanel().getCustomJTableInventory().rowAtPoint(point);
                     if(e.getClickCount() == 2
-                        && rightCenterPanel.getInventoryPanel().getInventoryTable().getSelectedRow() != -1) {
+                        && rightCenterPanel.getInventoryPanel().getCustomJTableInventory().getSelectedRow() != -1) {
                             if(addDeleteUpdateDetailPanel.getIsUpdate()) {
                                 setStringInventoryUpdate(row);
                             }
@@ -200,7 +189,7 @@ public class InventoryController {
         String[] data = new String[7];
         int NUMBER_OF_COLUMN = 7;
             for(int i = 0; i< NUMBER_OF_COLUMN; i++) {
-                data[i] = (String) rightCenterPanel.getInventoryPanel().getInventoryTable().getValueAt(row,i);
+                data[i] = (String) rightCenterPanel.getInventoryPanel().getCustomJTableInventory().getValueAt(row,i);
             }
         // ID
         detailPanel.getId().setText(data[1]);
@@ -222,7 +211,7 @@ public class InventoryController {
     String[] data = new String[7];
     int NUMBER_OF_COLUMN = 7;
         for(int i = 0; i< NUMBER_OF_COLUMN; i++) {
-            data[i] = (String) rightCenterPanel.getInventoryPanel().getInventoryTable().getValueAt(row,i);
+            data[i] = (String) rightCenterPanel.getInventoryPanel().getCustomJTableInventory().getValueAt(row,i);
         }
     // ID UP TO DATE
     updatePanel.getIdToUpdate().setText(data[1]);
@@ -260,7 +249,7 @@ public class InventoryController {
     }
 
     private void insertDataInInventoryTable() {
-        rightCenterPanel.getInventoryPanel().getInventoryTable().populateInventoryJTable(controller.show());
+        rightCenterPanel.getInventoryPanel().getCustomJTableInventory().populateInventoryJTable(controller.show());
     }
 
     private void leftInventoryActionListener() {

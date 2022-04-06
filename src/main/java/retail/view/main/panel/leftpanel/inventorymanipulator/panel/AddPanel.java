@@ -23,7 +23,6 @@ public class AddPanel extends JPanel {
         setLayout(new GridLayout(12,1));
 
         setTextField();
-        System.out.println("123");
         addClearPanel.setLayout(new GridLayout(1,2));
         addClearPanel.add(add);
         addClearPanel.add(clear);

@@ -9,7 +9,6 @@ import java.awt.*;
 public class ReportCardPanel extends JPanel {
     private final AddPanel addPanel = new AddPanel();
     private final DeletePanel deletePanel = new DeletePanel();
-    private final UpdatePanel updatePanel = new UpdatePanel();
     private final ViewPanel viewPanel = new ViewPanel();
     private final CardLayout cardLayout = new CardLayout();
 
@@ -17,8 +16,7 @@ public class ReportCardPanel extends JPanel {
         setLayout(cardLayout);
         add("add",addPanel);
         add("delete",deletePanel);
-        add("update",updatePanel);
         add("view",viewPanel);
-        cardLayout.show(this,"view");
+        cardLayout.show(this,"delete");
     }
 }

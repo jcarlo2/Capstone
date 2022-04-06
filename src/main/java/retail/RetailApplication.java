@@ -7,9 +7,15 @@ import retail.view.BuildGUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 
 public class RetailApplication {
     public static void main(String[] args) {
+        String date = LocalDate.now().toString();
+        System.out.println(date);
+
+
+
         try {
             UIManager.setLookAndFeel(new FlatDarculaLaf());
             EventQueue.invokeLater(() -> {

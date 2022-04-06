@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-public interface CreateSchemaAndTable {
+public interface CreateSchemaAndEmployeeTable {
      default void createSchemaAndAdminAccount() {
         String insertAdmin = "INSERT IGNORE INTO employee VALUES(?,?,?,?)";
         String createSchema = "CREATE TABLE IF NOT EXISTS employee(" +

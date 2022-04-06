@@ -18,6 +18,6 @@ public class LeftCenterPanel extends JPanel {
         setLayout(card);
         add("inventory",inventoryManipulator);
         add("salesReport", salesReportManipulator);
-        card.show(this, "inventory");
+        card.show(this, "salesReport");
     }
 }

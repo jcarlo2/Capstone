@@ -17,19 +17,19 @@ public class ProductController {
 
     public boolean ifProductExist(String id) {
         String query = "SELECT EXISTS (SELECT id FROM product WHERE id = ?)";
-        int flag = -1;
+        boolean flag = false;
         try {
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                flag = resultSet.getInt(1);
+                flag = resultSet.getInt(1) == 1;
             }
         }catch(Exception e) {
             e.printStackTrace();
         }
-        return flag == 1;
+        return flag;
     }
 
     public ArrayList<ProductObject> show() {

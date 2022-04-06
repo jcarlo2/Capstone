@@ -7,11 +7,13 @@ public class SalesCard extends JPanel {
     private final CardLayout cardLayout = new CardLayout();
     private final CompareSalesReport compareSalesReport = new CompareSalesReport();
     private final AddSalesReport addSalesReport = new AddSalesReport();
+    private final DeleteSalesReport deleteSalesReport = new DeleteSalesReport();
 
     public SalesCard() {
         setLayout(cardLayout);
         add("compareReport", compareSalesReport);
         add("addReport", addSalesReport);
-        cardLayout.show(this,"addReport");
+        add("deleteReport", deleteSalesReport);
+        cardLayout.show(this,"deleteReport");
     }
 }
