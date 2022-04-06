@@ -34,4 +34,8 @@ public class InventoryManipulator extends JPanel {
     public DeletePanel getDeletePanel() {
         return getInventoryCardPanel().getDeletePanel();
     }
+
+    public AddPanel getAddPanel() {
+        return getInventoryCardPanel().getAddPanel();
+    }
 }

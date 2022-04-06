@@ -1,7 +1,7 @@
-package retail.model;
+package retail.model.inventory;
 
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
+import retail.dto.ProductObject;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -9,10 +9,12 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
 
 @Getter
 public class InventoryTable extends JTable {
     private final DefaultTableModel model;
+
     public InventoryTable(DefaultTableModel model) {
         this.model = model;
         setModel(model);
@@ -20,15 +22,21 @@ public class InventoryTable extends JTable {
         setUpJTable();
     }
 
-    public void addRow(@NotNull ProductModel productModel) {
-        String[] data = new String[6];
-        data[0] = productModel.getId();
-        data[1] = productModel.getDescription();
-        data[2] = productModel.getPrice().toString();
-        data[3] = productModel.getQuantityPerPieces().toString();
-        data[4] = productModel.getPiecesPerBox().toString();
-        data[5] = productModel.getQuantityPerBox().toString();
-        model.addRow(data);
+    public void populateInventoryJTable(ArrayList<ProductObject> list) {
+        getModel().setRowCount(0);
+        int count = 0;
+        ArrayList<ProductObject> productEntities = list;
+            for (ProductObject productObject : productEntities) {
+                String[] listData = new String[7];
+                listData[0] = String.valueOf(++count);
+                listData[1] = productObject.getId();
+                listData[2] = productObject.getDescription();
+                listData[3] = String.valueOf(productObject.getPrice());
+                listData[4] = String.valueOf(productObject.getQuantityPerPieces());
+                listData[5] = String.valueOf(productObject.getQuantityPerBox());
+                listData[6] = String.valueOf(productObject.getPiecesPerBox());
+                getModel().addRow(listData);
+            }
     }
 
     private void setUpJTable() {

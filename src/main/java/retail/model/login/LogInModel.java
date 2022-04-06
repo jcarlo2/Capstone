@@ -1,4 +1,4 @@
-package retail.model;
+package retail.model.login;
 
 import lombok.Getter;
 import lombok.Setter;

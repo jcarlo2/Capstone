@@ -18,4 +18,5 @@ public interface ConstantString {
     String ID_DOES_NOT_EXIST = "Id does not exist! Check id ...";
     String INVALID_INPUT = "Invalid Input!!";
     String DUPLICATE_ID = "Duplicate product id";
+    String CHECK_ID_OR_PASSWORD = "Check id or password";
 }

@@ -21,7 +21,7 @@ public class DetailPanel extends JPanel {
 
     public DetailPanel() {
         setLayout(new BorderLayout());
-        center.setLayout(new GridLayout(12,1));
+        center.setLayout(new GridLayout(11,1));
 
         setTextField();
         setFullDescription();

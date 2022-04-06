@@ -5,15 +5,14 @@ import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
-import static retail.constant.ConstantString.*;
+import static retail.constant.ConstantString.LOGIN;
 
 @Getter
 @Setter
 public class LogIn extends JPanel{
-    private final JTextField id = new JTextField(EMPLOYEE_ID,15);
-    private final JPasswordField password = new JPasswordField(PASSWORD,15);
+    private final JTextField id = new JTextField("7777",15);
+    private final JPasswordField password = new JPasswordField("admin",15);
     private final JButton logIn = new JButton(LOGIN);
 
     public LogIn() {

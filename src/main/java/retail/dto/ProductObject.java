@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ProductEntity {
+public class ProductObject {
     private String id;
     private String description;
     private BigDecimal price;
@@ -19,7 +19,7 @@ public class ProductEntity {
 
     @Override
     public String toString() {
-        return "ProductEntity{" +
+        return "ProductObject{" +
                 "id='" + id + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +

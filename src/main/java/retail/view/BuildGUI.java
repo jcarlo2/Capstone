@@ -6,7 +6,6 @@ import retail.view.login.LogIn;
 import retail.view.login.LogInFrame;
 import retail.view.main.MainFrame;
 import retail.view.main.panel.leftpanel.LeftBorderPanel;
-import retail.view.main.panel.rightpanel.NorthButton;
 import retail.view.main.panel.rightpanel.RightBorderPanel;
 
 @Getter

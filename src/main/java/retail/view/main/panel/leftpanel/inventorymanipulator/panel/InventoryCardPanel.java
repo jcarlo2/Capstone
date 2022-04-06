@@ -20,9 +20,8 @@ public class InventoryCardPanel extends JPanel {
         add(deletePanel,"delete");
         add(updatePanel,"update");
         add(detailPanel,"detail");
-        cardLayout.show(this,"detail");
+        cardLayout.show(this,"add");
     }
-
 }
 
 
