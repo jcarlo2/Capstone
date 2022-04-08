@@ -11,6 +11,10 @@ import java.awt.*;
 public class AddPanel extends JPanel {
     private final JPanel addClearPanel = new JPanel();
     private final JPanel saveReset = new JPanel();
+    private final JPanel idPrice = new JPanel();
+    private final JPanel soldAndSoldTotal = new JPanel();
+    private final JPanel damExpAndTotal = new JPanel();
+
     private final CustomJComboBoxReport id = new CustomJComboBoxReport("ID");
     private final CustomJTextField price = new CustomJTextField("Price");
     private final CustomJTextField sold = new CustomJTextField("Sold By Piece");
@@ -26,7 +30,7 @@ public class AddPanel extends JPanel {
     private final JButton reset = new JButton("Generate ID");
 
     public AddPanel() {
-        setLayout(new GridLayout(12,1));
+        setLayout(new GridLayout(12,2));
         price.setEditable(false);
         reportId.setEditable(false);
         total.setEditable(false);
@@ -46,12 +50,21 @@ public class AddPanel extends JPanel {
         addClearPanel.add(delete);
         addClearPanel.add(clear);
 
-        add(id);
-        add(price);
-        add(sold);
-        add(soldTotal);
-        add(damage);
-        add(damageTotal);
+        idPrice.setLayout(new GridLayout(1,2));
+        idPrice.add(id);
+        idPrice.add(price);
+
+        soldAndSoldTotal.setLayout(new GridLayout(1,2));
+        soldAndSoldTotal.add(sold);
+        soldAndSoldTotal.add(soldTotal);
+
+        damExpAndTotal.setLayout(new GridLayout(1,2));
+        damExpAndTotal.add(damage);
+        damExpAndTotal.add(damageTotal);
+
+        add(idPrice);
+        add(soldAndSoldTotal);
+        add(damExpAndTotal);
         add(total);
         add(addClearPanel);
         add(reportId);

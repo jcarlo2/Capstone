@@ -17,7 +17,7 @@ public class UserPanel extends JPanel {
 
         employeeID.setEnabled(false);
         employeeID.setHorizontalAlignment(JTextField.CENTER);
-
+        setLayout(new GridLayout(1,3));
         add(employeeID);
         add(employeeLastName);
         add(logOut);
