@@ -1,7 +1,7 @@
 package retail.controller.database;
 
 import lombok.NonNull;
-import retail.dto.ProductObject;
+import retail.model.ProductObject;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -9,9 +9,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
-import static retail.constant.ConstantString.*;
+import static retail.constant.Constant.*;
 
 public class ProductController {
 

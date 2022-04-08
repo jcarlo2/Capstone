@@ -1,0 +1,8 @@
+CREATE MODEL FOR EACH SWING COMPONENTS
+    JTextField
+    JComboBox
+    DefaultListCellRenderer
+    DefaultTableCellRenderer
+
+    -----------------------
+    TRIM TEXT

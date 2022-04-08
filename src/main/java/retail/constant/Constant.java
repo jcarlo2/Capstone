@@ -1,6 +1,6 @@
 package retail.constant;
 
-public interface ConstantString {
+public interface Constant {
 
     // DATABASE CONNECTION
     String URL = "jdbc:mysql://localhost:3306/retail_management";
@@ -18,5 +18,9 @@ public interface ConstantString {
     String ID_DOES_NOT_EXIST = "Id does not exist! Check id ...";
     String INVALID_INPUT = "Invalid Input!!";
     String DUPLICATE_ID = "Duplicate product id";
-    String CHECK_ID_OR_PASSWORD = "Check id or password";
+    // OTHERS
+    Character ZERO = '0';
+    Character NINE = '9';
+    String EMPTY_REPORT_TABLE = "Empty Report Table!!";
+    String GENERATE_NEW_REPORT_ID = "Generate New Report ID!!";
 }

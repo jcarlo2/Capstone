@@ -16,7 +16,7 @@ public class RightCenterPanel extends JPanel {
     private final LogFile log = new LogFile();
     private final ProductAnalysis prodAnalysis = new ProductAnalysis();
     private final SalesCard salesReport = new SalesCard();
-    private final Inventory inventoryPanel = new Inventory();
+    private final Inventory inventory = new Inventory();
 
     public RightCenterPanel() {
         setLayout(card);
@@ -24,7 +24,7 @@ public class RightCenterPanel extends JPanel {
         add("log",log);
         add("prodAnalysis",prodAnalysis);
         add("salesReport", salesReport);
-        add("inventory", inventoryPanel);
+        add("inventory", inventory);
         card.show(this,"salesReport");
     }
 }

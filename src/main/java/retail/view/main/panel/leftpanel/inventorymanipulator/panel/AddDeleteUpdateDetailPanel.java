@@ -9,6 +9,8 @@ import java.awt.*;
 @Getter
 @Setter
 public class AddDeleteUpdateDetailPanel extends JPanel {
+    private final JPanel top = new JPanel();
+    private final JPanel bottom = new JPanel();
     private final JButton add = new JButton("Add");
     private final JButton delete = new JButton("Delete");
     private final JButton update = new JButton("Update");
@@ -17,30 +19,17 @@ public class AddDeleteUpdateDetailPanel extends JPanel {
     private Boolean isUpdate = false;
 
     public AddDeleteUpdateDetailPanel() {
-        setButtonPanel();
-    }
+        setLayout(new GridLayout(2,1));
+        top.setLayout(new GridLayout(1,1));
+        bottom.setLayout(new GridLayout(1,3));
 
-    public void setButtonPanel() {
-        setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
+        top.add(detail);
+        bottom.add(add);
+        bottom.add(delete);
+        bottom.add(update);
 
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        add(add,constraints);
-
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        add(delete,constraints);
-
-        constraints.gridx = 2;
-        constraints.gridy = 1;
-        add(update,constraints);
-
-        constraints.gridwidth = 3;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        add(detail,constraints);
+        add(top);
+        add(bottom);
     }
 }
 

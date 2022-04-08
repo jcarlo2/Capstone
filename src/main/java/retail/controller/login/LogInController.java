@@ -1,28 +1,66 @@
 package retail.controller.login;
 
+import org.jetbrains.annotations.NotNull;
 import retail.constant.ConstantDialog;
-import retail.model.login.LogInModel;
+import retail.controller.database.UserController;
 import retail.view.login.LogIn;
 import retail.view.main.MainFrame;
+import retail.view.main.panel.leftpanel.UserPanel;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import static retail.constant.ConstantString.*;
 
 public class LogInController {
+    private final UserController controller = new UserController();
     private final LogIn logIn;
-    private final LogInModel logInModel;
     private final MainFrame mainFrame;
-    public LogInController(LogIn logIn, LogInModel logInModel,MainFrame mainFrame) {
-        this.logIn = logIn;
-        this.logInModel = logInModel;
-        this.mainFrame = mainFrame;
+    private final UserPanel userPanel;
 
+    public LogInController(LogIn logIn, MainFrame mainFrame, UserPanel userPanel) {
+        this.logIn = logIn;
+        this.mainFrame = mainFrame;
+        this.userPanel = userPanel;
         addActionListener();
+    }
+
+    public void validateLogIn() {
+        String password = String.valueOf(logIn.getPassword().getPassword());
+        String id = logIn.getId().getText();
+        if(!isValidId(id)) {
+            ConstantDialog.INVALID_INPUT_DIALOG();
+            System.out.println("INVALID");
+            return;
+        }
+        if(password.equals("")) {
+            ConstantDialog.EMPTY_FIELD_DIALOG();
+            System.out.println("password");
+            return;
+        }
+
+        if(!controller.checkIdAndPasswordInDatabase(Long.parseLong(id),password)) {
+            ConstantDialog.INCORRECT_ID_PASSWORD();
+            return;
+        }
+        userPanel.getEmployeeID().setText(id);
+        userPanel.getEmployeeLastName().setText(controller.getLastName(id));
+        disposeLogInAndCreateMainFrame();
+    }
+
+    public boolean isValidId(@NotNull String employeeID) {
+        if(employeeID.equals("")) return false;
+        return isIdNumerical(employeeID);
+    }
+
+    private boolean isIdNumerical(@NotNull String id) {
+        for(int i=0;i<id.length();i++) {
+            if(!(id.charAt(i) >= '0' && id.charAt(i) <= '9')) return false;
+        }
+        return true;
+    }
+
+    public void disposeLogInAndCreateMainFrame() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(logIn);
+        mainFrame.setVisible(true);
+        frame.dispose();
     }
 
     public void addActionListener() {
@@ -31,49 +69,5 @@ public class LogInController {
                 validateLogIn();
             }
         });
-    }
-
-    public void validateLogIn() {
-        String idStr = logIn.getId().getText();
-            if(!logInModel.checkValidID(idStr)) {
-                ConstantDialog.INVALID_INPUT_DIALOG();
-                return;
-            }
-
-        Long id = Long.parseLong(idStr);
-        String password = String.valueOf(logIn.getPassword().getPassword());
-            if(idStr.equals("") || password.equals("")) {
-                ConstantDialog.EMPTY_FIELD_DIALOG();
-                return;
-            }
-            if(checkIdAndPasswordInDatabase(id,password)) {
-                disposeLogInAndCreateMainFrame();
-            }else {
-                ConstantDialog.CHECK_ID_OR_PASSWORD();
-            }
-    }
-
-    public boolean checkIdAndPasswordInDatabase(Long id, String password) {
-        String query = "SELECT EXISTS (SELECT last_name FROM employee WHERE id = ? and password = ?)";
-        boolean flag = false;
-        try {
-            Connection connection = DriverManager.getConnection(URL,USER,PASS);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setLong(1,id);
-            preparedStatement.setString(2,password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                flag = resultSet.getInt(1) == 1;
-            }
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-        return flag;
-    }
-
-    public void disposeLogInAndCreateMainFrame() {
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(logIn);
-        mainFrame.setVisible(true);
-        frame.dispose();
     }
 }

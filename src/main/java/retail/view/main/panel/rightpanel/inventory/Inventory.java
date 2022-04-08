@@ -1,17 +1,15 @@
 package retail.view.main.panel.rightpanel.inventory;
 
 import lombok.Getter;
-import retail.model.CustomJTable.CustomJTableInventory;
+import retail.component.jtable.CustomJTableInventory;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 @Getter
 public class Inventory extends JPanel {
-    public DefaultTableModel model = new DefaultTableModel(0,7);
-    private final CustomJTableInventory customJTableInventory = new CustomJTableInventory(model);
-    private final JScrollPane scroll = new JScrollPane(customJTableInventory);
+    private final CustomJTableInventory tableInventory = new CustomJTableInventory();
+    private final JScrollPane scroll = new JScrollPane(tableInventory);
 
     public Inventory() {
         setLayout(new BorderLayout());

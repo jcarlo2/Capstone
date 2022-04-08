@@ -5,34 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="Initial Commit: Applied MVC Architecture">
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/database/SalesReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/sales/SalesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/dto/SalesReportItemObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/dto/SalesReportObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/CustomJTable/CustomJTableSaleReport.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/view/login/CreateSalesReportTable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/sales/DeleteSalesReport.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NOTES TO DO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/component/jcombobox/CustomJComboBoxReport.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/component/jlist/CustomJListViewReport.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/component/jtextfield/CustomJTextField.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/database/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/login/Account.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/RetailApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/RetailApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/constant/ConstantDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/constant/ConstantDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/constant/ConstantString.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/constant/Constant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/database/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/database/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/database/SalesReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/database/SalesReportController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/inventory/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/inventory/InventoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/MainModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/MainModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/inventory/InventoryTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/CustomJTable/CustomJTableInventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/login/CreateSchemaAndTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/login/CreateSchemaAndEmployeeTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/login/LogInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/login/LogInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/sales/SalesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/sales/SalesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/dto/ProductObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/ProductObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/dto/SalesReportItemObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/SalesReportItemObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/dto/SalesReportObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/SalesReportObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/CustomJTable/CustomJTableInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/component/jtable/CustomJTableInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/CustomJTable/CustomJTableSaleReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/component/jtable/CustomJTableSalesReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/MainModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/login/LogInModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/BuildGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/BuildGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/login/CreateProductTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/login/CreateProductTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/login/CreateSalesReportTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/login/CreateSalesReportTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/login/CreateSchemaAndEmployeeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/login/CreateEmployeeTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/login/LogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/login/LogIn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/login/LogInFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/login/LogInFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/MainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/LeftCenterPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/LeftCenterPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/UserPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/UserPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/inventorymanipulator/panel/AddDeleteUpdateDetailPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/inventorymanipulator/panel/AddDeleteUpdateDetailPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/inventorymanipulator/panel/AddPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/inventorymanipulator/panel/AddPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/SalesReportManipulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/SalesReportManipulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/inventorymanipulator/panel/DetailPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/inventorymanipulator/panel/DetailPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/inventorymanipulator/panel/UpdatePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/inventorymanipulator/panel/UpdatePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/AddPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/AddPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/AddViewDeleteUpdatePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/AddViewDeletePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/DeletePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/DeletePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/AddViewDeletePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/AddViewDeletePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/ReportCardPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/ReportCardPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/UpdatePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/NorthButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/NorthButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/ViewPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/leftpanel/reportmanipulator/panel/ViewPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/RightCenterPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/RightCenterPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/inventory/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/inventory/Inventory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/sales/AddSalesReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/sales/AddSalesReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/sales/DeleteSalesReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/sales/DeleteSalesReport.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/sales/SalesCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/panel/rightpanel/sales/SalesCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,6 +70,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/com/fifesoft/rsyntaxtextarea/3.2.0/rsyntaxtextarea-3.2.0-sources.jar!/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/swinglabs/swingx/swingx-autocomplete/1.6.5-1/swingx-autocomplete-1.6.5-1-sources.jar!/org/jdesktop/swingx/autocomplete/AutoComplete.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -64,16 +86,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/darkm_000/Desktop/Portfolio/MVC/src/main/java/retail/model/CustomJTable",
-    "settings.editor.selected.configurable": "inlay.hints"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/darkm_000/Desktop/Portfolio/MVC&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\darkm_000\Desktop\Portfolio\MVC\src\main\java\retail\model\CustomJTable" />
@@ -88,7 +110,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="retail.RetailApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="RetailApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="retail.RetailApplication" />
       <module name="MVC" />
       <extension name="coverage">
@@ -103,7 +125,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.retail.RetailApplication" />
+        <item itemvalue="Application.RetailApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -130,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649217947136</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Initial Commit: Applied MVC Architecture">
+      <created>1649238414240</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1649238414240</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

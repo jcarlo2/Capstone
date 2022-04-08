@@ -2,7 +2,6 @@ package retail.view.main.panel.leftpanel;
 
 import lombok.Getter;
 import retail.view.main.panel.leftpanel.inventorymanipulator.InventoryManipulator;
-import retail.view.main.panel.leftpanel.inventorymanipulator.panel.UpdatePanel;
 import retail.view.main.panel.leftpanel.reportmanipulator.SalesReportManipulator;
 
 import javax.swing.*;

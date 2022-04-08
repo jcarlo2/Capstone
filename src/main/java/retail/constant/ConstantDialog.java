@@ -4,22 +4,31 @@ import javax.swing.*;
 
 public interface ConstantDialog {
     static void INVALID_INPUT_DIALOG() {
-        JOptionPane.showMessageDialog(new JFrame(), ConstantString.INVALID_INPUT);
+        JOptionPane.showMessageDialog(new JFrame(), Constant.INVALID_INPUT);
     }
 
     static void ID_DOES_NOT_EXIST_DIALOG() {
-        JOptionPane.showMessageDialog(new JFrame(), ConstantString.ID_DOES_NOT_EXIST);
+        JOptionPane.showMessageDialog(new JFrame(), Constant.ID_DOES_NOT_EXIST);
     }
 
     static void EMPTY_FIELD_DIALOG() {
-        JOptionPane.showMessageDialog(new JFrame(), ConstantString.CHECK_EMPTY_FIELD);
+        JOptionPane.showMessageDialog(new JFrame(), Constant.CHECK_EMPTY_FIELD);
     }
 
     static void DUPLICATE_ID() {
-        JOptionPane.showMessageDialog(new JFrame(), ConstantString.DUPLICATE_ID);
+        JOptionPane.showMessageDialog(new JFrame(), Constant.DUPLICATE_ID);
     }
 
-    static void CHECK_ID_OR_PASSWORD() {
-        JOptionPane.showMessageDialog(new JFrame(), ConstantString.CHECK_ID_OR_PASSWORD);
+    static void EMPTY_REPORT_TABLE() {
+        JOptionPane.showMessageDialog(new JFrame(), Constant.EMPTY_REPORT_TABLE);
+    }
+
+    static void GENERATE_NEW_REPORT_ID() {
+        JOptionPane.showMessageDialog(new JFrame(), Constant.GENERATE_NEW_REPORT_ID);
+    }
+
+
+    static void INCORRECT_ID_PASSWORD() {
+        JOptionPane.showMessageDialog(new JFrame(), Constant.INCORRECT_ID_PASSWORD);
     }
 }

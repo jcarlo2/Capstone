@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-public interface CreateSchemaAndEmployeeTable {
-     default void createSchemaAndAdminAccount() {
+public interface CreateEmployeeTable {
+     default void createEmployeeTableAndAdminAccount() {
         String insertAdmin = "INSERT IGNORE INTO employee VALUES(?,?,?,?)";
         String createSchema = "CREATE TABLE IF NOT EXISTS employee(" +
                                         "id INT NOT NULL PRIMARY KEY," +
@@ -15,7 +15,7 @@ public interface CreateSchemaAndEmployeeTable {
         try {
                 Connection connection = DriverManager.getConnection
                     ("jdbc:mysql://localhost:3306/retail_management","root","09212440633a");
-                // CREATE SCHEMA
+                // CREATE EMPLOYEE TABLE
                 PreparedStatement preparedStatement = connection.prepareStatement(createSchema);
                 preparedStatement.executeUpdate();
                 // CREATE TABLE

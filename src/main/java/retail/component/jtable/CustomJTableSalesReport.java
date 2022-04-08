@@ -1,17 +1,35 @@
-package retail.model.CustomJTable;
+package retail.component.jtable;
+
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import retail.model.SalesReportItemObject;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+@Getter
+public class CustomJTableSalesReport extends JTable {
+    private final DefaultTableModel model;
 
-public class CustomJTableSaleReport extends JTable {
-
-    public CustomJTableSaleReport(DefaultTableModel model) {
+    public CustomJTableSalesReport(DefaultTableModel model) {
+        this.model = model;
         setModel(model);
         setUpJTable();
+    }
+
+    public void addRow(@NotNull SalesReportItemObject report) {
+        String[] data = new String[8];
+        int row = model.getRowCount();
+        data[0] = String.valueOf(++row);
+        data[1] = report.getProductId();
+        data[2] = String.valueOf(report.getPrice());
+        data[3] = String.valueOf(report.getSold());
+        data[4] = String.valueOf(report.getSoldTotal());
+        data[5] = String.valueOf(report.getExpDamaged());
+        data[6] = String.valueOf(report.getExpDamagedTotal());
+        data[7] = String.valueOf(report.getTotalAmount());
+        model.addRow(data);
     }
 
     private void setUpJTable() {
@@ -37,8 +55,8 @@ public class CustomJTableSaleReport extends JTable {
     }
 
     private void addColumnName() {
-        String[] columnName = {"No.", "Product ID","Price","Sold","Sold Total"
-                              ,"Damaged/Expired","Damaged/Expired Total","Total Amount"};
+        String[] columnName = {"No.", "Product ID","Price","Sold Pieces","Sold Total"
+                              ,"Damaged/Expired Pieces","Damaged/Expired Total","Total Amount"};
         getColumnModel().getColumn(0).setHeaderValue(columnName[0]);
         getColumnModel().getColumn(1).setHeaderValue(columnName[1]);
         getColumnModel().getColumn(2).setHeaderValue(columnName[2]);
@@ -50,26 +68,27 @@ public class CustomJTableSaleReport extends JTable {
     }
 
     private void setJTableColumnWidth() {
-        // DID NOT SET MIN_MAX_WIDTH OF COLUMN(1) ProductID TO FORCE TO TAKE THE EXTRA SPACE
         getColumnModel().getColumn(0).setMinWidth(35);
         getColumnModel().getColumn(0).setMaxWidth(35);
 
-        getColumnModel().getColumn(2).setMinWidth(150);
-        getColumnModel().getColumn(2).setMaxWidth(150);
+        getColumnModel().getColumn(1).setMinWidth(100);
 
-        getColumnModel().getColumn(3).setMaxWidth(150);
-        getColumnModel().getColumn(3).setMinWidth(150);
+        getColumnModel().getColumn(2).setMinWidth(100);
+        getColumnModel().getColumn(2).setMaxWidth(100);
 
-        getColumnModel().getColumn(4).setMinWidth(150);
-        getColumnModel().getColumn(4).setMaxWidth(150);
+        getColumnModel().getColumn(3).setMaxWidth(120);
+        getColumnModel().getColumn(3).setMinWidth(120);
+
+        getColumnModel().getColumn(4).setMinWidth(120);
+        getColumnModel().getColumn(4).setMaxWidth(120);
 
         getColumnModel().getColumn(5).setMinWidth(150);
         getColumnModel().getColumn(5).setMaxWidth(150);
 
-        getColumnModel().getColumn(6).setMinWidth(150);
-        getColumnModel().getColumn(6).setMaxWidth(150);
+        getColumnModel().getColumn(6).setMinWidth(135);
+        getColumnModel().getColumn(6).setMaxWidth(135);
 
-        getColumnModel().getColumn(7).setMinWidth(150);
-        getColumnModel().getColumn(7).setMaxWidth(150);
+        getColumnModel().getColumn(7).setMinWidth(100);
+        getColumnModel().getColumn(7).setMaxWidth(100);
     }
 }

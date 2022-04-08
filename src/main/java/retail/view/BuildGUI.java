@@ -1,7 +1,7 @@
 package retail.view;
 
 import lombok.Getter;
-import retail.constant.ConstantString;
+import retail.constant.Constant;
 import retail.view.login.LogIn;
 import retail.view.login.LogInFrame;
 import retail.view.main.MainFrame;
@@ -14,9 +14,8 @@ public class BuildGUI {
     private final MainFrame mainFrame;
 
     public BuildGUI() {
-        logInFrame = new LogInFrame(ConstantString.RETAIL_MANAGEMENT);
-        mainFrame = new MainFrame(ConstantString.RETAIL_MANAGEMENT);
-
+        logInFrame = new LogInFrame(Constant.RETAIL_MANAGEMENT);
+        mainFrame = new MainFrame(Constant.RETAIL_MANAGEMENT);
     }
 
     public RightBorderPanel getRightBorderPanel() {

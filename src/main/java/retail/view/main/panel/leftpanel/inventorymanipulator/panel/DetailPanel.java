@@ -1,6 +1,7 @@
 package retail.view.main.panel.leftpanel.inventorymanipulator.panel;
 
 import lombok.Getter;
+import retail.component.jtextfield.CustomJTextField;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -10,12 +11,12 @@ import java.awt.*;
 @Getter
 public class DetailPanel extends JPanel {
     private final JPanel center = new JPanel();
-    private final JTextField id = new JTextField(15);
-    private final JTextField description = new JTextField(15);
-    private final JTextField price = new JTextField(15);
-    private final JTextField quantityByPiece = new JTextField(15);
-    private final JTextField quantityByBox = new JTextField(15);
-    private final JTextField piecesPerBox = new JTextField(15);
+    private final CustomJTextField id = new CustomJTextField("ID");
+    private final CustomJTextField description = new CustomJTextField("Description");
+    private final CustomJTextField price = new CustomJTextField("Price");
+    private final CustomJTextField quantityByPiece = new CustomJTextField("Quantity By Piece");
+    private final CustomJTextField quantityByBox = new CustomJTextField("Quantity By Box");
+    private final CustomJTextField piecesPerBox = new CustomJTextField("Pieces Per Box");
     private final JTextArea fullDescription = new JTextArea(3,15);
     private final JScrollPane scroll = new JScrollPane(fullDescription);
 

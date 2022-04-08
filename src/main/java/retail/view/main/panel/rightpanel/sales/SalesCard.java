@@ -1,8 +1,11 @@
 package retail.view.main.panel.rightpanel.sales;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 
+@Getter
 public class SalesCard extends JPanel {
     private final CardLayout cardLayout = new CardLayout();
     private final CompareSalesReport compareSalesReport = new CompareSalesReport();
@@ -14,6 +17,6 @@ public class SalesCard extends JPanel {
         add("compareReport", compareSalesReport);
         add("addReport", addSalesReport);
         add("deleteReport", deleteSalesReport);
-        cardLayout.show(this,"deleteReport");
+        cardLayout.show(this,"compareReport");
     }
 }

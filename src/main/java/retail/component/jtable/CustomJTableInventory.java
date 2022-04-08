@@ -1,23 +1,20 @@
-package retail.model.CustomJTable;
+package retail.component.jtable;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import retail.dto.ProductObject;
+import retail.model.ProductObject;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
 @Getter
 public class CustomJTableInventory extends JTable {
-    private final DefaultTableModel model;
+    private final DefaultTableModel model = new DefaultTableModel(0,7);
 
-    public CustomJTableInventory(DefaultTableModel model) {
-        this.model = model;
+    public CustomJTableInventory() {
         setModel(model);
         setUpJTable();
     }
@@ -29,12 +26,12 @@ public class CustomJTableInventory extends JTable {
                 String[] listData = new String[7];
                 listData[0] = String.valueOf(++count);
                 listData[1] = productObject.getId();
-                listData[2] = productObject.getDescription();
-                listData[3] = String.valueOf(productObject.getPrice());
-                listData[4] = String.valueOf(productObject.getQuantityPerPieces());
-                listData[5] = String.valueOf(productObject.getQuantityPerBox());
-                listData[6] = String.valueOf(productObject.getPiecesPerBox());
-                getModel().addRow(listData);
+                listData[2] = String.valueOf(productObject.getPrice());
+                listData[3] = String.valueOf(productObject.getQuantityPerPieces());
+                listData[4] = String.valueOf(productObject.getQuantityPerBox());
+                listData[5] = String.valueOf(productObject.getPiecesPerBox());
+                listData[6] = productObject.getDescription();
+                model.addRow(listData);
             }
     }
 
@@ -52,28 +49,29 @@ public class CustomJTableInventory extends JTable {
     }
 
     private void setJTableColumnWidth() {
-        // DID NOT SET MIN_MAX_WIDTH OF COLUMN(2) DESCRIPTION TO FORCE TO TAKE THE EXTRA SPACE
         getColumnModel().getColumn(0).setMinWidth(35);
         getColumnModel().getColumn(0).setMaxWidth(35);
 
         getColumnModel().getColumn(1).setMinWidth(200);
         getColumnModel().getColumn(1).setMaxWidth(200);
 
-        getColumnModel().getColumn(3).setMaxWidth(100);
-        getColumnModel().getColumn(3).setMinWidth(100);
+        getColumnModel().getColumn(2).setMaxWidth(100);
+        getColumnModel().getColumn(2).setMinWidth(100);
 
-        getColumnModel().getColumn(4).setMinWidth(120);
-        getColumnModel().getColumn(4).setMaxWidth(120);
+        getColumnModel().getColumn(3).setMaxWidth(120);
+        getColumnModel().getColumn(3).setMinWidth(120);
+
+        getColumnModel().getColumn(4).setMinWidth(100);
+        getColumnModel().getColumn(4).setMaxWidth(100);
 
         getColumnModel().getColumn(5).setMinWidth(100);
         getColumnModel().getColumn(5).setMaxWidth(100);
 
-        getColumnModel().getColumn(6).setMinWidth(100);
-        getColumnModel().getColumn(6).setMaxWidth(100);
+        getColumnModel().getColumn(6).setMinWidth(200);
     }
 
     private void addColumnName() {
-        String[] columnName = {"No.","ID","Description","Price","Quantity By Pieces","Pieces Per Box","Quantity By Box"};
+        String[] columnName = {"No.","ID","Price","Quantity By Pieces","Pieces Per Box","Quantity By Box","Description"};
         int COLUMN_NUMBER = 7;
         for(int i=0;i<COLUMN_NUMBER;i++) {
             getColumnModel().getColumn(i).setHeaderValue(columnName[i]);

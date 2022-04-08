@@ -1,26 +1,20 @@
 package retail.view.main.panel.rightpanel.sales;
 
 
-import retail.model.CustomJTable.CustomJTableInventory;
-import retail.model.CustomJTable.CustomJTableSaleReport;
+import lombok.Getter;
+import retail.component.jtable.CustomJTableSalesReport;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
+@Getter
 public class AddSalesReport extends JPanel {
     private final JPanel west = new JPanel();
     private final JPanel center = new JPanel();
     private final JPanel south = new JPanel();
-
-    private final JPanel addClearPanel = new JPanel();
-    private final JPanel addReportPanel = new JPanel();
-    private final JButton add = new JButton("Add");
-    private final JButton clear = new JButton("Clear");
-
-
     private final DefaultTableModel centerModel = new DefaultTableModel(0,8);
-    private final CustomJTableSaleReport centerTable = new CustomJTableSaleReport(centerModel);
+    private final CustomJTableSalesReport centerTable = new CustomJTableSalesReport(centerModel);
     private final JScrollPane centerScroll = new JScrollPane(centerTable);
 
     private final JTextField overall = new JTextField(15);

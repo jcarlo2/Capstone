@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-import static retail.constant.ConstantString.*;
+import static retail.constant.Constant.*;
 
 public interface CreateProductTable {
     default void createProductTable() {

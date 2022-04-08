@@ -17,6 +17,6 @@ public class ReportCardPanel extends JPanel {
         add("add",addPanel);
         add("delete",deletePanel);
         add("view",viewPanel);
-        cardLayout.show(this,"delete");
+        cardLayout.show(this,"view");
     }
 }
