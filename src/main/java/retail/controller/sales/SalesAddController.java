@@ -9,10 +9,10 @@ import retail.controller.database.ProductController;
 import retail.controller.database.SalesReportController;
 import retail.model.SalesReportItemObject;
 import retail.model.SalesReportObject;
-import retail.view.main.panel.leftpanel.LeftBorderPanel;
-import retail.view.main.panel.leftpanel.UserPanel;
-import retail.view.main.panel.leftpanel.reportmanipulator.panel.AddPanel;
-import retail.view.main.panel.rightpanel.RightCenterPanel;
+import retail.view.main.panel.bot.BottomBorderPanel;
+import retail.view.main.panel.bot.manipulator.reportmanipulator.panel.AddPanel;
+import retail.view.main.panel.top.TopBorderPanel;
+import retail.view.main.panel.top.UserPanel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -31,21 +31,19 @@ public class SalesAddController {
     private final UserPanel userPanel;
     private final CustomJListViewReport viewReport;
 
-    public SalesAddController(RightCenterPanel rightCenterPanel,LeftBorderPanel leftBorderPanel) {
-        salesTable = rightCenterPanel.getSalesReport().getAddSalesReport().getCenterTable();
-
-        addPanel = leftBorderPanel.getLeftCenterPanel().getSalesReportManipulator().getReportCardPanel().getAddPanel();
-        userPanel = leftBorderPanel.getUserPanel();
-        viewReport = leftBorderPanel.getLeftCenterPanel().getSalesReportManipulator().getReportCardPanel().getViewPanel().getViewReport();
-
-
+    public SalesAddController(@NotNull TopBorderPanel topBorderPanel, @NotNull BottomBorderPanel bottomBorderPanel) {
+        salesTable = bottomBorderPanel.getBottomMainCard().getSalesReport().getAddSalesReport().getCenterTable();
+        addPanel = bottomBorderPanel.getManipulatorCard().getSalesReportManipulator().getReportCardPanel().getAddPanel();
+        userPanel = topBorderPanel.getUserPanel();
+        viewReport = bottomBorderPanel.getManipulatorCard().getSalesReportManipulator().getReportCardPanel().getViewPanel().getViewReport();
 
         clear();
         addItemToSalesTable();
-        deleteRowAddPanel();
-        setAutomaticAmountAddPanel();
+        deleteRowFromTable();
+        productIdItemListener();
+        autoSetPrice();
         documentListenerOfAddPanelComponent();
-        generateReportIdActionListener();
+        reportIdActionListener();
         saveReportInDatabase();
         addPanel.getReportId().setText(generateReportId()); // Generate initial report id
     }
@@ -91,31 +89,40 @@ public class SalesAddController {
         return new SalesReportObject(reportId, date,lastName);
     }
 
-    private void deleteRowAddPanel() {
+    private void deleteRowFromTable() {
         addPanel.getDelete().addActionListener(e -> {
             if(e.getSource() == addPanel.getDelete()) {
                 int row = salesTable.getSelectedRow();
                 if(row > -1) {
                     salesTable.getModel().removeRow(row);
+                    fixNumberColumn();
                 }
             }
         });
     }
 
+    private void fixNumberColumn() {
+        int ROW = salesTable.getRowCount();
+        for(int i=0;i<ROW;i++) {
+            salesTable.setValueAt(i+1, i,0);
+        }
+    }
+
     private void addItemToSalesTable() {
         addPanel.getAdd().addActionListener(e -> {
-            if(isAllAddFieldValid()) {
-                String[] data = getDataAddPanelField();
+            if(isAllFieldValid()) {
+                String[] data = getFieldData();
                 salesTable.addRow(new SalesReportItemObject(data[0],new BigDecimal(data[1]),
                         new BigDecimal(data[2]),new BigDecimal(data[3]),new BigDecimal(data[4])
                         ,new BigDecimal(data[5]),new BigDecimal(data[6])));
+                        fixNumberColumn();
             } else {
                 ConstantDialog.INVALID_INPUT_DIALOG();
             }
         });
     }
 
-    private String @NotNull [] getDataAddPanelField() {
+    private String @NotNull [] getFieldData() {
         String[] data = new String[7];
         data[0] = (String) addPanel.getId().getSelectedItem();
         data[1] = addPanel.getPrice().getText();
@@ -127,7 +134,7 @@ public class SalesAddController {
         return data;
     }
 
-    private boolean isAllAddFieldValid() {
+    private boolean isAllFieldValid() {
         if(addPanel.getSold().getText().equals("")) return false;
         if(addPanel.getSoldTotal().getText().equals("")) return false;
         if(addPanel.getDamageTotal().getText().equals("")) return false;
@@ -154,7 +161,7 @@ public class SalesAddController {
         documentListenerOfDamagedExpiredTotal();
     }
 
-    private void generateReportIdActionListener() {
+    private void reportIdActionListener() {
         addPanel.getReset().addActionListener(e -> addPanel.getReportId().setText(generateReportId()));
     }
 
@@ -182,7 +189,7 @@ public class SalesAddController {
         });
     }
 
-    private void setTotalSalesAmountAddPanel() {
+    private void calculateTotalSales() {
         try {
             String soldTotal = addPanel.getSoldTotal().getText();
             String damExpTotal = addPanel.getDamageTotal().getText();
@@ -195,20 +202,16 @@ public class SalesAddController {
         }
     }
 
-    private void setAutomaticAmountAddPanel() {
-        setPriceAddPanel();
-        setIdAddPanelItemListener();
-    }
-
-    private void setPriceAddPanel() {
+    private void autoSetPrice() {
         String productID = (String) addPanel.getId().getSelectedItem();
+        // if(Objects.isNull(productID)) return;
         String price = String.valueOf(productController.get(productID).getPrice());
         addPanel.getPrice().setText(price);
     }
 
-    private void setIdAddPanelItemListener() {
+    private void productIdItemListener() {
         addPanel.getId().addItemListener(e -> {
-            setPriceAddPanel();
+            autoSetPrice();
             addPanel.getSold().setText("0");
             addPanel.getSoldTotal().setText("0");
             addPanel.getDamage().setText("0");
@@ -322,7 +325,7 @@ public class SalesAddController {
             }else {
                 textChange.setText(String.valueOf(divideToGetTotal(price,textGet.getText(),textGet)));
             }
-            setTotalSalesAmountAddPanel();
+            calculateTotalSales();
         }catch (NumberFormatException e) {
             ConstantDialog.INVALID_INPUT_DIALOG();
         }

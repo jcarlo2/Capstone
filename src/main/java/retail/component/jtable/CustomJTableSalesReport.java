@@ -20,8 +20,7 @@ public class CustomJTableSalesReport extends JTable {
 
     public void addRow(@NotNull SalesReportItemObject report) {
         String[] data = new String[8];
-        int row = model.getRowCount();
-        data[0] = String.valueOf(++row);
+        data[0] = "";
         data[1] = report.getProductId();
         data[2] = String.valueOf(report.getPrice());
         data[3] = String.valueOf(report.getSold());

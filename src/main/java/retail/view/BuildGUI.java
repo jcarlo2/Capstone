@@ -5,8 +5,8 @@ import retail.constant.Constant;
 import retail.view.login.LogIn;
 import retail.view.login.LogInFrame;
 import retail.view.main.MainFrame;
-import retail.view.main.panel.leftpanel.LeftBorderPanel;
-import retail.view.main.panel.rightpanel.RightBorderPanel;
+import retail.view.main.panel.bot.BottomBorderPanel;
+import retail.view.main.panel.top.TopBorderPanel;
 
 @Getter
 public class BuildGUI {
@@ -18,12 +18,12 @@ public class BuildGUI {
         mainFrame = new MainFrame(Constant.RETAIL_MANAGEMENT);
     }
 
-    public RightBorderPanel getRightBorderPanel() {
-        return mainFrame.getMain().getRightBorderPanel();
+    public TopBorderPanel getTopBorderPanel() {
+        return mainFrame.getMain().getTopBorderPanel();
     }
 
-    public LeftBorderPanel getLeftBorderPanel() {
-        return  mainFrame.getMain().getLeftBorderPanel();
+    public BottomBorderPanel getBottomBorderPanel() {
+        return mainFrame.getMain().getBottomBorderPanel();
     }
 
     public LogIn getLogIn() {

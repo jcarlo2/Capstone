@@ -1,21 +1,21 @@
 package retail.view.main;
 
 import lombok.Getter;
-import retail.view.main.panel.leftpanel.LeftBorderPanel;
-import retail.view.main.panel.rightpanel.RightBorderPanel;
+import retail.view.main.panel.bot.BottomBorderPanel;
+import retail.view.main.panel.top.TopBorderPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
 @Getter
 public class Main extends JPanel {
-    private final RightBorderPanel rightBorderPanel = new RightBorderPanel();
-    private final LeftBorderPanel leftBorderPanel = new LeftBorderPanel();
+    private final TopBorderPanel topBorderPanel = new TopBorderPanel();
+    private final BottomBorderPanel bottomBorderPanel = new BottomBorderPanel();
 
     public Main() {
         setLayout(new BorderLayout());
-        add(leftBorderPanel,BorderLayout.WEST);
-        add(rightBorderPanel,BorderLayout.CENTER);
+        add(topBorderPanel,BorderLayout.NORTH);
+        add(bottomBorderPanel,BorderLayout.CENTER);
     }
 }
 

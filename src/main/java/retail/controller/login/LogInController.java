@@ -5,7 +5,7 @@ import retail.constant.ConstantDialog;
 import retail.controller.database.UserController;
 import retail.view.login.LogIn;
 import retail.view.main.MainFrame;
-import retail.view.main.panel.leftpanel.UserPanel;
+import retail.view.main.panel.top.UserPanel;
 
 import javax.swing.*;
 

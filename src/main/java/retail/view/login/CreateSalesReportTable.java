@@ -12,7 +12,8 @@ public interface CreateSalesReportTable {
                                         "id VARCHAR(255) PRIMARY KEY," +
                                         "user VARCHAR(255) NOT NULL," +
                                         "date DATE AS (DATE(date_time)) NOT NULL," +
-                                        "date_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL)";
+                                        "date_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                                         "is_deletable BOOLEAN NOT NULL DEFAULT FALSE)";
         try{
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(createTable);

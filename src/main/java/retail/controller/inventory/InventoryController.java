@@ -1,13 +1,13 @@
 package retail.controller.inventory;
 
 import org.jetbrains.annotations.NotNull;
+import retail.component.jcombobox.CustomJComboBoxReport;
+import retail.component.jtable.CustomJTableInventory;
 import retail.constant.ConstantDialog;
 import retail.controller.database.ProductController;
 import retail.model.ProductObject;
-import retail.component.jtable.CustomJTableInventory;
-import retail.view.main.panel.leftpanel.LeftCenterPanel;
-import retail.view.main.panel.leftpanel.inventorymanipulator.panel.*;
-import retail.view.main.panel.rightpanel.RightCenterPanel;
+import retail.view.main.panel.bot.BottomBorderPanel;
+import retail.view.main.panel.bot.manipulator.inventorymanipulator.panel.*;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -22,23 +22,25 @@ public class InventoryController {
     private final DetailPanel detailPanel;
     private final DeletePanel deletePanel;
     private final AddPanel addPanel;
+    private final CustomJComboBoxReport salesId;
     private final CustomJTableInventory tableInventory;
     private final Font sansSerif = new Font("SansSerif",Font.BOLD,12);
     private final Font segoeUI = new Font("Segoe UI",Font.PLAIN,12);
 
-    public InventoryController(@NotNull RightCenterPanel rightCenterPanel, @NotNull LeftCenterPanel leftCenterPanel) {
-        addDeleteUpdateDetailPanel = leftCenterPanel.getInventoryManipulator().getAddDeleteUpdateDetailPanel();
-        inventoryCardPanel = leftCenterPanel.getInventoryManipulator().getInventoryCardPanel();
-        deletePanel = leftCenterPanel.getInventoryManipulator().getDeletePanel();
-        updatePanel = leftCenterPanel.getInventoryManipulator().getUpdatePanel();
-        detailPanel = leftCenterPanel.getInventoryManipulator().getDetailPanel();
-        addPanel = leftCenterPanel.getInventoryManipulator().getAddPanel();
-        tableInventory = rightCenterPanel.getInventory().getTableInventory();
+    public InventoryController(@NotNull BottomBorderPanel bottomBorderPanel) {
+        addDeleteUpdateDetailPanel = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getAddDeleteUpdateDetailPanel();
+        inventoryCardPanel = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getInventoryCardPanel();
+        deletePanel = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getDeletePanel();
+        updatePanel = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getUpdatePanel();
+        detailPanel = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getDetailPanel();
+        addPanel = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getAddPanel();
+        tableInventory = bottomBorderPanel.getBottomMainCard().getInventory().getTableInventory();
+        salesId =  bottomBorderPanel.getManipulatorCard().getSalesReportManipulator().getReportCardPanel().getAddPanel().getId();
 
         insertDataInInventoryTable();
         inventoryTableEventListener();
         leftInventoryActionListener();
-        setDeleteEventListener();
+        setDeleteActionListener();
         allClearButtonActionListener();
         updateInventoryProduct();
         addInventoryProduct();
@@ -72,6 +74,8 @@ public class InventoryController {
                         }
                     controller.save(product);
                     insertDataInInventoryTable();
+                    salesId.setProductIdList();
+
                 }catch (NumberFormatException a) {
                     ConstantDialog.INVALID_INPUT_DIALOG();
                 }
@@ -148,7 +152,7 @@ public class InventoryController {
         });
     }
 
-    private void setDeleteEventListener() {
+    private void setDeleteActionListener() {
         deletePanel.getDelete().addActionListener(e -> {
             if(e.getSource() == deletePanel.getDelete()) {
                 String id = deletePanel.getGetId().getText();
@@ -165,9 +169,7 @@ public class InventoryController {
     private void inventoryTableEventListener() {
         tableInventory.getSelectionModel().addListSelectionListener(e -> {
             int row = tableInventory.getSelectedRow();
-            if(addDeleteUpdateDetailPanel.getIsDetail()) {
-                setStringInventoryDetail(row);
-            }
+                if(addDeleteUpdateDetailPanel.getIsDetail()) setStringInventoryDetail(row);
         });
 
         tableInventory.addMouseListener(new MouseAdapter() {
@@ -178,9 +180,7 @@ public class InventoryController {
                 int row = tableInventory.rowAtPoint(point);
                     if(e.getClickCount() == 2
                         && tableInventory.getSelectedRow() != -1) {
-                            if(addDeleteUpdateDetailPanel.getIsUpdate()) {
-                                setStringInventoryUpdate(row);
-                            }
+                            if(addDeleteUpdateDetailPanel.getIsUpdate()) setStringInventoryUpdate(row);
                     }
             }
         });
@@ -209,25 +209,25 @@ public class InventoryController {
     }
 
     private void setStringInventoryUpdate(int row) {
-    String[] data = new String[7];
-    int NUMBER_OF_COLUMN = 7;
-        for(int i = 0; i< NUMBER_OF_COLUMN; i++) {
-            data[i] = (String) tableInventory.getValueAt(row,i);
-        }
-    // ID UP TO DATE
-    updatePanel.getIdToUpdate().setText(data[1]);
-    // ID
-    updatePanel.getId().setText(data[1]);
-    // DESCRIPTION
-    updatePanel.getDescription().setText(data[2]);
-    // PRICE
-    updatePanel.getPrice().setText(data[3]);
-    // QUANTITY BY PIECE
-    updatePanel.getQuantityByPiece().setText(data[4]);
-    // PIECES PER BOX
-    updatePanel.getPiecesPerBox().setText(data[5]);
-    // QUANTITY BY BOX
-    updatePanel.getQuantityByBox().setText(data[6]);
+        String[] data = new String[7];
+        int NUMBER_OF_COLUMN = 7;
+            for(int i = 0; i< NUMBER_OF_COLUMN; i++) {
+                data[i] = (String) tableInventory.getValueAt(row,i);
+            }
+        // ID UP TO DATE
+        updatePanel.getIdToUpdate().setText(data[1]);
+        // ID
+        updatePanel.getId().setText(data[1]);
+        // PRICE
+        updatePanel.getPrice().setText(data[2]);
+        // QUANTITY BY PIECE
+        updatePanel.getQuantityByPiece().setText(data[3]);
+        // PIECES PER BOX
+        updatePanel.getPiecesPerBox().setText(data[4]);
+        // QUANTITY BY BOX
+        updatePanel.getQuantityByBox().setText(data[5]);
+        // DESCRIPTION
+        updatePanel.getDescription().setText(data[6]);
     }
 
     private String @NotNull [] getStringInventoryUpdate() {
@@ -319,6 +319,4 @@ public class InventoryController {
             }
         });
     }
-
-
 }

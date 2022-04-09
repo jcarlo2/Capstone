@@ -11,12 +11,16 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CustomJComboBoxReport extends JComboBox<String> {
+    private  JScrollPane scroll;
     private final ProductController productController = new ProductController();
+    private final DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 
     public CustomJComboBoxReport(String title) {
         setCustomBorder(title);
         centerText();
-        setProductIdListAddPanel();
+        setProductIdList();
+        setModel(comboBoxModel);
+        setPrototypeDisplayValue("");
     }
 
     private void centerText() {
@@ -41,10 +45,11 @@ public class CustomJComboBoxReport extends JComboBox<String> {
     }
 
     // MUST CALL EVERY PRESSED IN ADD-JBUTTON IN ADD PANEL
-    public void setProductIdListAddPanel() {
+    public void setProductIdList() {
+        removeAllItems();
         ArrayList<String> list = getAllProductID();
             for(String id : list) {
-               addItem(id);
+               comboBoxModel.addElement(id);
             }
     }
 }
