@@ -1,8 +1,9 @@
-package retail.controller.sales;
+package retail.controller.component.sales;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
 import org.jetbrains.annotations.NotNull;
-import retail.component.jlist.CustomJListViewReport;
-import retail.component.jtable.CustomJTableSalesReport;
+import retail.customcomponent.jlist.CustomJListSalesReport;
+import retail.customcomponent.jtable.CustomJTableSalesReport;
 import retail.constant.Constant;
 import retail.constant.ConstantDialog;
 import retail.controller.database.ProductController;
@@ -22,6 +23,7 @@ import java.math.RoundingMode;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SalesAddController {
     private final SalesReportController salesReportController = new SalesReportController();
@@ -29,13 +31,13 @@ public class SalesAddController {
     private final CustomJTableSalesReport salesTable;
     private final AddPanel addPanel;
     private final UserPanel userPanel;
-    private final CustomJListViewReport viewReport;
+    private final CustomJListSalesReport reportList;
 
     public SalesAddController(@NotNull TopBorderPanel topBorderPanel, @NotNull BottomBorderPanel bottomBorderPanel) {
         salesTable = bottomBorderPanel.getBottomMainCard().getSalesReport().getAddSalesReport().getCenterTable();
         addPanel = bottomBorderPanel.getManipulatorCard().getSalesReportManipulator().getReportCardPanel().getAddPanel();
         userPanel = topBorderPanel.getUserPanel();
-        viewReport = bottomBorderPanel.getManipulatorCard().getSalesReportManipulator().getReportCardPanel().getViewPanel().getViewReport();
+        reportList = bottomBorderPanel.getManipulatorCard().getSalesReportManipulator().getReportCardPanel().getViewPanel().getViewReport();
 
         clear();
         addItemToSalesTable();
@@ -60,7 +62,7 @@ public class SalesAddController {
                     return;
                 }
                 salesReportController.addReport(createSalesReport(),getAllItemReportAtSalesTable());
-                viewReport.populateSalesReportList();
+                reportList.populateSalesReportList();
             }
         });
     }
@@ -72,7 +74,7 @@ public class SalesAddController {
         for(int i=0;i<ROW;i++) {
             String[] data = new String[8];
             for(int j=0;j<COLUMN;j++) {
-                data[j] = (String) salesTable.getModel().getValueAt(i,j);
+                data[j] = salesTable.getModel().getValueAt(i,j).toString();
             }
             itemReport.add(new SalesReportItemObject(data[1],new BigDecimal(data[2]),new BigDecimal(data[3])
                     ,new BigDecimal(data[4]),new BigDecimal(data[5])
@@ -96,6 +98,13 @@ public class SalesAddController {
                 if(row > -1) {
                     salesTable.getModel().removeRow(row);
                     fixNumberColumn();
+                    try {
+                        UIManager.setLookAndFeel(new FlatDarculaLaf());
+                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(addPanel);
+                        SwingUtilities.updateComponentTreeUI(frame);
+                    }catch (Exception a){
+                        a.printStackTrace();
+                    }
                 }
             }
         });
@@ -204,7 +213,7 @@ public class SalesAddController {
 
     private void autoSetPrice() {
         String productID = (String) addPanel.getId().getSelectedItem();
-        // if(Objects.isNull(productID)) return;
+            if(Objects.isNull(productID)) return; // PREVENT NULL POINTER EXCEPTION WHEN REMOVING ALL ELEMENTS
         String price = String.valueOf(productController.get(productID).getPrice());
         addPanel.getPrice().setText(price);
     }

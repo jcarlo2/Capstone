@@ -27,6 +27,9 @@ public interface ConstantDialog {
         JOptionPane.showMessageDialog(new JFrame(), Constant.GENERATE_NEW_REPORT_ID);
     }
 
+    static void REPORT_NOT_DELETABLE() {
+        JOptionPane.showMessageDialog(new JFrame(), "Cannot delete report!!");
+    }
 
     static void INCORRECT_ID_PASSWORD() {
         JOptionPane.showMessageDialog(new JFrame(), Constant.INCORRECT_ID_PASSWORD);

@@ -2,23 +2,25 @@ package retail.view.main.panel.bot.manipulator.inventorymanipulator.panel;
 
 import lombok.Getter;
 import lombok.Setter;
-import retail.component.jtextfield.CustomJTextField;
+import retail.customcomponent.jtextfield.CustomJTextField;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static retail.constant.Constant.COLOR_WHITE;
 
 @Getter
 @Setter
 public class UpdatePanel extends JPanel {
     private final JPanel addClearPanel = new JPanel();
     private final JTextField updateValueMessage = new JTextField(15);
-    private final CustomJTextField id = new CustomJTextField("ID");
-    private final CustomJTextField idToUpdate = new CustomJTextField("ID To Update");
-    private final CustomJTextField description = new CustomJTextField("Description");
-    private final CustomJTextField price = new CustomJTextField("Price");
-    private final CustomJTextField quantityByPiece = new CustomJTextField("Quantity By Piece");
-    private final CustomJTextField quantityByBox = new CustomJTextField("Quantity By Box");
-    private final CustomJTextField piecesPerBox = new CustomJTextField("Pieces Per Box");
+    private final CustomJTextField id = new CustomJTextField("ID",COLOR_WHITE);
+    private final CustomJTextField idToUpdate = new CustomJTextField("ID To Update",COLOR_WHITE);
+    private final CustomJTextField description = new CustomJTextField("Description",COLOR_WHITE);
+    private final CustomJTextField price = new CustomJTextField("Price",COLOR_WHITE);
+    private final CustomJTextField quantityByPiece = new CustomJTextField("Quantity By Piece",COLOR_WHITE);
+    private final CustomJTextField quantityByBox = new CustomJTextField("Quantity By Box",COLOR_WHITE);
+    private final CustomJTextField piecesPerBox = new CustomJTextField("Pieces Per Box",COLOR_WHITE);
     private final JButton update = new JButton("Update");
     private final JButton clear = new JButton("Clear");
 

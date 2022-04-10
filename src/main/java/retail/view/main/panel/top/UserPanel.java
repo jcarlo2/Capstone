@@ -1,25 +1,27 @@
 package retail.view.main.panel.top;
 
 import lombok.Getter;
-import retail.component.jtextfield.CustomJTextField;
+import retail.customcomponent.jtextfield.CustomJTextField;
 
 import javax.swing.*;
 import java.awt.*;
 
+import static retail.constant.Constant.COLOR_GREEN;
+
 @Getter
 public class UserPanel extends JPanel {
     private final JPanel wrapper = new JPanel();
-    private final CustomJTextField employeeLastName = new CustomJTextField("Last Name");
-    private final CustomJTextField employeeID = new CustomJTextField("Employee ID");
+    private final CustomJTextField employeeLastName = new CustomJTextField("Last Name",COLOR_GREEN);
+    private final CustomJTextField employeeID = new CustomJTextField("Employee ID",COLOR_GREEN);
     private final JButton option = new JButton("Option");
     private final JButton logOut = new JButton("Log Out");
 
     public UserPanel() {
-        employeeLastName.setEnabled(false);
+        employeeLastName.setEditable(false);
         employeeLastName.setColumns(13);
         employeeLastName.setHorizontalAlignment(JTextField.CENTER);
 
-        employeeID.setEnabled(false);
+        employeeID.setEditable(false);
         employeeID.setHorizontalAlignment(JTextField.CENTER);
 
         setLayout(new GridLayout(2,1));

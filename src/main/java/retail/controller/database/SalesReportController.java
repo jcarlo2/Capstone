@@ -28,6 +28,59 @@ public class SalesReportController {
         return flag;
     }
 
+    private void deleteReportItem(String id) {
+        String query = "DELETE FROM sales_report_item WHERE unique_id = ?";
+        try {
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id);
+            preparedStatement.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteReport(String id) {
+        String query = "DELETE FROM sales_report WHERE id = ?";
+            try {
+                Connection connection = DriverManager.getConnection(URL,USER,PASS);
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1,id);
+                preparedStatement.executeUpdate();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            deleteReportItem(id);
+    }
+
+    public void changeIsDeletableStatus(String id) {
+        String query = "UPDATE sales_report SET is_deletable = NOT is_deletable WHERE id = ?";
+            try {
+                Connection connection = DriverManager.getConnection(URL,USER,PASS);
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1,id);
+                preparedStatement.executeUpdate();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+    }
+
+    public boolean isReportDeletable(String id) {
+        String query = "SELECT is_deletable FROM sales_report WHERE id = ?";
+        boolean isDeletable = false;
+            try {
+                Connection connection = DriverManager.getConnection(URL,USER,PASS);
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                resultSet.next();
+                isDeletable = resultSet.getInt(1) == 1;
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        return isDeletable;
+    }
+
     public void addReport(@NotNull SalesReportObject salesReport, ArrayList<SalesReportItemObject> salesReportItem) {
         saveSalesReport(salesReport);
         saveSalesReportItem(salesReport,salesReportItem);

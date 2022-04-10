@@ -1,4 +1,4 @@
-package retail.view.main;
+package retail.view.option;
 
 import lombok.Getter;
 
@@ -7,19 +7,19 @@ import java.awt.*;
 import java.util.Objects;
 
 @Getter
-public class MainFrame extends JFrame {
-    private final Main main = new Main();
+public class OptionFrame extends JFrame {
+    private final Option option = new Option();
 
-    public MainFrame(String TITLE) {
+    public OptionFrame(String TITLE) {
         setTitle(TITLE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // set to maximize at first
-        setMinimumSize(new Dimension(1000,600));
+        setPreferredSize(new Dimension(400,400));
         ImageIcon img = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/rmlogo.png")));
         setIconImage(img.getImage());
-
-        add(main);
+        add(option);
+        pack();
+        setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setVisible(false);
     }
 }

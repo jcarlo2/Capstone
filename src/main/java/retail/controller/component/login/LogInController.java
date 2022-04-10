@@ -1,4 +1,4 @@
-package retail.controller.login;
+package retail.controller.component.login;
 
 import org.jetbrains.annotations.NotNull;
 import retail.constant.ConstantDialog;

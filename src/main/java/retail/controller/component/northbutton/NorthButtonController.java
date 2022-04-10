@@ -1,4 +1,4 @@
-package retail.controller.northbutton;
+package retail.controller.component.northbutton;
 
 import org.jetbrains.annotations.NotNull;
 import retail.view.main.panel.bot.BottomBorderPanel;

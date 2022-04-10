@@ -1,4 +1,4 @@
-package retail.controller.sales;
+package retail.controller.component.sales;
 
 import org.jetbrains.annotations.NotNull;
 import retail.view.main.panel.bot.BottomBorderPanel;
@@ -18,8 +18,7 @@ public class SalesMainController {
 
     public SalesMainController(@NotNull TopBorderPanel topBorderPanel, @NotNull BottomBorderPanel bottomBorderPanel) {
         new SalesAddController(topBorderPanel,bottomBorderPanel);
-
-
+        new SalesDeleteController(bottomBorderPanel);
 
         addViewDeletePanel = bottomBorderPanel.getManipulatorCard().getSalesReportManipulator().getAddViewDeletePanel();
         reportCardPanel = bottomBorderPanel.getManipulatorCard().getSalesReportManipulator().getReportCardPanel();

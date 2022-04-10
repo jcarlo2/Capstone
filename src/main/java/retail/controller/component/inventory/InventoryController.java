@@ -1,8 +1,8 @@
-package retail.controller.inventory;
+package retail.controller.component.inventory;
 
 import org.jetbrains.annotations.NotNull;
-import retail.component.jcombobox.CustomJComboBoxReport;
-import retail.component.jtable.CustomJTableInventory;
+import retail.customcomponent.jcombobox.CustomJComboBoxReport;
+import retail.customcomponent.jtable.CustomJTableInventory;
 import retail.constant.ConstantDialog;
 import retail.controller.database.ProductController;
 import retail.model.ProductObject;
@@ -162,6 +162,7 @@ public class InventoryController {
                 }
                 controller.remove(id);
                 insertDataInInventoryTable();
+                salesId.setProductIdList();
             }
         });
     }

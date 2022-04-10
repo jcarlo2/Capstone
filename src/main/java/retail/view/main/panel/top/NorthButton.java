@@ -1,21 +1,18 @@
 package retail.view.main.panel.top;
 
 import lombok.Getter;
+import retail.customcomponent.CustomJButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 
 @Getter
 public class NorthButton extends JPanel {
-    JButton salesReport = new JButton("Sales Report");
-    JButton inventory = new JButton("Inventory");
-    JButton importExport = new JButton("Import/Export");
-    JButton productAnalysis = new JButton("Product Analysis");
-    JButton logFile = new JButton("Log File");
+    CustomJButton salesReport = new CustomJButton("Sales Report");
+    CustomJButton inventory = new CustomJButton("Inventory");
+    CustomJButton importExport = new CustomJButton("Import/Export");
+    CustomJButton productAnalysis = new CustomJButton("Analysis");
+    CustomJButton logFile = new CustomJButton("Log File");
 
     public NorthButton() {
         setLayout(new GridLayout());

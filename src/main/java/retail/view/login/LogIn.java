@@ -16,10 +16,6 @@ public class LogIn extends JPanel{
     private final JButton logIn = new JButton(LOGIN);
 
     public LogIn() {
-        logInSetUp();
-    }
-
-    public void logInSetUp() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;

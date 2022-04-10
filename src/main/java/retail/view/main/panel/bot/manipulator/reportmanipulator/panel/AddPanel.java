@@ -1,11 +1,14 @@
 package retail.view.main.panel.bot.manipulator.reportmanipulator.panel;
 
 import lombok.Getter;
-import retail.component.jcombobox.CustomJComboBoxReport;
-import retail.component.jtextfield.CustomJTextField;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import retail.customcomponent.jcombobox.CustomJComboBoxReport;
+import retail.customcomponent.jtextfield.CustomJTextField;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static retail.constant.Constant.COLOR_WHITE;
 
 @Getter
 public class AddPanel extends JPanel {
@@ -15,13 +18,13 @@ public class AddPanel extends JPanel {
     private final JPanel damExpAndTotal = new JPanel();
 
     private final CustomJComboBoxReport id = new CustomJComboBoxReport("ID");
-    private final CustomJTextField price = new CustomJTextField("Price");
-    private final CustomJTextField sold = new CustomJTextField("Sold By Piece");
-    private final CustomJTextField soldTotal = new CustomJTextField("Total");
-    private final CustomJTextField damage = new CustomJTextField("Null Product");
-    private final CustomJTextField damageTotal = new CustomJTextField("Total");
-    private final CustomJTextField total = new CustomJTextField("Total Sales");
-    private final CustomJTextField reportId = new CustomJTextField("Report ID");
+    private final CustomJTextField price = new CustomJTextField("Price",COLOR_WHITE);
+    private final CustomJTextField sold = new CustomJTextField("Sold By Piece",COLOR_WHITE);
+    private final CustomJTextField soldTotal = new CustomJTextField("Total",COLOR_WHITE);
+    private final CustomJTextField damage = new CustomJTextField("Null Product",COLOR_WHITE);
+    private final CustomJTextField damageTotal = new CustomJTextField("Total",COLOR_WHITE);
+    private final CustomJTextField total = new CustomJTextField("Total Sales",COLOR_WHITE);
+    private final CustomJTextField reportId = new CustomJTextField("Report ID",COLOR_WHITE);
     private final JButton add = new JButton("Add");
     private final JButton clear = new JButton("Clear");
     private final JButton delete = new JButton("Delete");
@@ -39,6 +42,9 @@ public class AddPanel extends JPanel {
         damage.setText("0");
         damageTotal.setText("0");
         total.setText("0");
+
+        AutoCompleteDecorator.decorate(id);
+        id.setEditable(true);
 
         saveReset.setLayout(new GridLayout(1,2));
         saveReset.add(save);

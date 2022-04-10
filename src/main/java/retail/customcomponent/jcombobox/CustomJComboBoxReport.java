@@ -1,4 +1,4 @@
-package retail.component.jcombobox;
+package retail.customcomponent.jcombobox;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductController;
@@ -11,7 +11,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CustomJComboBoxReport extends JComboBox<String> {
-    private  JScrollPane scroll;
     private final ProductController productController = new ProductController();
     private final DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 
@@ -30,7 +29,7 @@ public class CustomJComboBoxReport extends JComboBox<String> {
 
     private void setCustomBorder(String title) {
         setBorder(BorderFactory.createTitledBorder
-            (new LineBorder(Color.WHITE),title,
+            (new LineBorder(Color.BLACK),title,
                     TitledBorder.CENTER,TitledBorder.CENTER,
                     new Font("SansSerif",Font.BOLD,15)));
     }

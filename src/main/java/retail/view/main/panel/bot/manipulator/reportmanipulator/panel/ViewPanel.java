@@ -1,7 +1,7 @@
 package retail.view.main.panel.bot.manipulator.reportmanipulator.panel;
 
 import lombok.Getter;
-import retail.component.jlist.CustomJListViewReport;
+import retail.customcomponent.jlist.CustomJListSalesReport;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.awt.*;
 public class ViewPanel extends JPanel {
 
 
-    private final CustomJListViewReport viewReport = new CustomJListViewReport();
+    private final CustomJListSalesReport viewReport = new CustomJListSalesReport();
     private final JScrollPane scroll = new JScrollPane(viewReport);
     private final JPanel buttonPanel = new JPanel();
     private final JButton firstTable = new JButton("First");

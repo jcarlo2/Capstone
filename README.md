@@ -7,8 +7,8 @@ STI COLLEGE FAIRVIEW
 
 Thesis Group 2:
   1. Vendiola, John Carlo C.
-  2. Balatucan, Almmia
-  3. Habagat, Ian
+  2. Balatucan, Almmia P.
+  3. Habagat, Ian M.
   4. Cardenas, Joana Sofia
 
 Tools:
@@ -19,4 +19,7 @@ Dependencies in project:
   1. Lombok 1.18.22
   2. MySQL Driver 8.0.28
   3. Flatlaf 2.1
+  4. SwingX-autocomplete 1.6.5-1
+  5. org.jetbrains:annotation 23.0.0
+
 

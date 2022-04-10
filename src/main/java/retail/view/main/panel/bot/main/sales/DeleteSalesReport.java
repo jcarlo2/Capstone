@@ -1,6 +1,6 @@
 package retail.view.main.panel.bot.main.sales;
 
-import retail.component.jtable.CustomJTableSalesReport;
+import retail.customcomponent.jtable.CustomJTableSalesReport;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
