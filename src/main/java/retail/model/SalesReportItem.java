@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Getter
 @AllArgsConstructor
-public class SalesReportItemObject {
+public class SalesReportItem {
     private String productId;
     private BigDecimal price;
     private BigDecimal sold;

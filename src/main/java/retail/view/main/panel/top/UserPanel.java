@@ -6,7 +6,7 @@ import retail.customcomponent.jtextfield.CustomJTextField;
 import javax.swing.*;
 import java.awt.*;
 
-import static retail.constant.Constant.COLOR_GREEN;
+import static retail.util.constant.Constant.COLOR_GREEN;
 
 @Getter
 public class UserPanel extends JPanel {

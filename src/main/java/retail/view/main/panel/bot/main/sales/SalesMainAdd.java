@@ -5,17 +5,15 @@ import lombok.Getter;
 import retail.customcomponent.jtable.CustomJTableSalesReport;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 @Getter
-public class AddSalesReport extends JPanel {
-    private final DefaultTableModel centerModel = new DefaultTableModel(0,8);
-    private final CustomJTableSalesReport centerTable = new CustomJTableSalesReport(centerModel);
+public class SalesMainAdd extends JPanel {
+    private final CustomJTableSalesReport centerTable = new CustomJTableSalesReport();
     private final JScrollPane centerScroll = new JScrollPane(centerTable);
     private final JTextField totalAmount = new JTextField(15);
 
-    public AddSalesReport() {
+    public SalesMainAdd() {
         setLayout(new BorderLayout());
 
 

@@ -2,18 +2,15 @@ package retail.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Getter
-@Setter
 @AllArgsConstructor
-public class ProductObject {
-    private String id;
-    private String description;
+public class ProductReportItem {
+    private String productId;
     private BigDecimal price;
-    private BigDecimal quantityPerPieces;
+    private BigDecimal quantityByPieces;
+    private BigDecimal quantityByBox;
     private BigDecimal piecesPerBox;
-    private BigDecimal quantityPerBox;
 }

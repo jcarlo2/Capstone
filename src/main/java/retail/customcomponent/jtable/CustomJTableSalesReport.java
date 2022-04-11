@@ -2,33 +2,66 @@ package retail.customcomponent.jtable;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import retail.model.SalesReportItemObject;
+import retail.util.constant.ConstantDialog;
+import retail.model.SalesReportItem;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+
 @Getter
 public class CustomJTableSalesReport extends JTable {
-    private final DefaultTableModel model;
+    private final DefaultTableModel model = new DefaultTableModel(0,8);
 
-    public CustomJTableSalesReport(DefaultTableModel model) {
-        this.model = model;
+    public CustomJTableSalesReport() {
         setModel(model);
         setUpJTable();
     }
 
-    public void addRow(@NotNull SalesReportItemObject report) {
-        String[] data = new String[8];
-        data[0] = "";
-        data[1] = report.getProductId();
-        data[2] = String.valueOf(report.getPrice());
-        data[3] = String.valueOf(report.getSold());
-        data[4] = String.valueOf(report.getSoldTotal());
-        data[5] = String.valueOf(report.getExpDamaged());
-        data[6] = String.valueOf(report.getExpDamagedTotal());
-        data[7] = String.valueOf(report.getTotalAmount());
-        model.addRow(data);
+    public void addRow(@NotNull SalesReportItem report) {
+        if(!isDuplicate(report.getProductId())) {
+            String[] data = new String[8];
+            data[0] = "";
+            data[1] = report.getProductId();
+            data[2] = String.valueOf(report.getPrice());
+            data[3] = String.valueOf(report.getSold());
+            data[4] = String.valueOf(report.getSoldTotal());
+            data[5] = String.valueOf(report.getExpDamaged());
+            data[6] = String.valueOf(report.getExpDamagedTotal());
+            data[7] = String.valueOf(report.getTotalAmount());
+            model.addRow(data);
+        }
+    }
+
+    private boolean isDuplicate(String id) {
+        int ROW = getRowCount();
+        if(ROW == 0) return false;
+        for(int i=0;i<ROW;i++) {
+            if(id.equals(getValueAt(i,1))) {
+                ConstantDialog.DUPLICATE_ID();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addItem(@NotNull ArrayList<SalesReportItem> itemList) {
+        model.setRowCount(0);
+        int count = 0;
+        for(SalesReportItem item : itemList) {
+            String[] data = new String[8];
+            data[0] = String.valueOf(++count);
+            data[1] = item.getProductId();
+            data[2] = item.getPrice().toString();
+            data[3] = item.getSold().toString();
+            data[4] = item.getSoldTotal().toString();
+            data[5] = item.getExpDamaged().toString();
+            data[6] = item.getExpDamagedTotal().toString();
+            data[7] = item.getTotalAmount().toString();
+            model.addRow(data);
+        }
     }
 
     private void setUpJTable() {

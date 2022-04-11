@@ -9,6 +9,7 @@ public class CustomJTextField extends JTextField {
     public CustomJTextField(String title,Color color) {
         setTitledBorder(title,color);
         setHorizontalAlignment(SwingConstants.CENTER);
+        setText("0");
     }
 
     private void setTitledBorder(String title, Color color) {

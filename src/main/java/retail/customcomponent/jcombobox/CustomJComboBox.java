@@ -2,23 +2,21 @@ package retail.customcomponent.jcombobox;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductController;
-import retail.model.ProductObject;
+import retail.model.Product;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class CustomJComboBoxReport extends JComboBox<String> {
-    private final ProductController productController = new ProductController();
+public class CustomJComboBox extends JComboBox<String> {
     private final DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 
-    public CustomJComboBoxReport(String title) {
+    public CustomJComboBox(String title) {
         setCustomBorder(title);
         centerText();
-        setProductIdList();
         setModel(comboBoxModel);
+        setProductIdList();
         setPrototypeDisplayValue("");
     }
 
@@ -29,21 +27,21 @@ public class CustomJComboBoxReport extends JComboBox<String> {
 
     private void setCustomBorder(String title) {
         setBorder(BorderFactory.createTitledBorder
-            (new LineBorder(Color.BLACK),title,
+            (null,title,
                     TitledBorder.CENTER,TitledBorder.CENTER,
                     new Font("SansSerif",Font.BOLD,15)));
     }
 
     private @NotNull ArrayList<String> getAllProductID() {
-        ArrayList<ProductObject> product = productController.show();
+        ArrayList<Product> product = new ProductController().showProduct();
         ArrayList<String> list = new ArrayList<>();
-            for(ProductObject item : product) {
+            for(Product item : product) {
                 list.add(item.getId());
             }
         return list;
     }
 
-    // MUST CALL EVERY PRESSED IN ADD-JBUTTON IN ADD PANEL
+    // MUST CALL EVERY PRESSED IN ADD-JBUTTON IN INVENTORY PRODUCT PANEL
     public void setProductIdList() {
         removeAllItems();
         ArrayList<String> list = getAllProductID();

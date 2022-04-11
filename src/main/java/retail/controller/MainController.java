@@ -3,10 +3,10 @@ package retail.controller;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import org.jetbrains.annotations.NotNull;
-import retail.controller.component.inventory.InventoryController;
+import retail.controller.component.inventory.MainInventoryController;
 import retail.controller.component.login.LogInController;
 import retail.controller.component.northbutton.NorthButtonController;
-import retail.controller.component.sales.SalesMainController;
+import retail.controller.component.sales.MainSalesController;
 import retail.view.BuildGUI;
 
 import javax.swing.*;
@@ -22,13 +22,15 @@ public class MainController {
         this.option = buildGUI.getMainFrame().getMain().getTopBorderPanel().getUserPanel().getOption();
         this.light = buildGUI.getOptionFrame().getOption().getLight();
         this.dark = buildGUI.getOptionFrame().getOption().getDark();
-        new LogInController(buildGUI.getLogIn(), buildGUI.getMainFrame(),buildGUI.getMainFrame().getMain().getTopBorderPanel().getUserPanel());
+
+        new LogInController(buildGUI.getLogIn(), buildGUI.getMainFrame(),buildGUI.getTopBorderPanel().getUserPanel());
 
         new NorthButtonController(buildGUI.getTopBorderPanel(), buildGUI.getBottomBorderPanel());
 
-        new InventoryController(buildGUI.getBottomBorderPanel());
+        new MainInventoryController(buildGUI.getBottomBorderPanel(),buildGUI.getTopBorderPanel());
 
-        new SalesMainController(buildGUI.getTopBorderPanel(),buildGUI.getBottomBorderPanel());
+        new MainSalesController(buildGUI.getTopBorderPanel(),buildGUI.getBottomBorderPanel());
+
 
         setOption();
         setUIStyle();

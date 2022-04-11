@@ -8,34 +8,34 @@ import java.awt.*;
 
 @Getter
 public class InventoryManipulator extends JPanel {
-    private final AddDeleteUpdateDetailPanel addDeleteUpdateDetailPanel = new AddDeleteUpdateDetailPanel();
-    private final InventoryCardPanel inventoryCardPanel = new InventoryCardPanel();
+    private final AddViewDelete addViewDelete = new AddViewDelete();
+    private final InventoryManipulatorCard inventoryManipulatorCard = new InventoryManipulatorCard();
     private final Font sansSerif = new Font("SansSerif",Font.BOLD,12);
     private final Font segoeUI = new Font("Segoe UI",Font.PLAIN,12);
 
     public InventoryManipulator() {
         setLayout(new BorderLayout());
 
-        addDeleteUpdateDetailPanel.getAdd().setFont(sansSerif);
-        addDeleteUpdateDetailPanel.getAdd().setEnabled(false);
+        addViewDelete.getProduct().setFont(sansSerif);
+        addViewDelete.getProduct().setEnabled(false);
 
-        add(addDeleteUpdateDetailPanel,BorderLayout.NORTH);
-        add(inventoryCardPanel,BorderLayout.CENTER);
+        add(addViewDelete,BorderLayout.NORTH);
+        add(inventoryManipulatorCard,BorderLayout.CENTER);
     }
 
-    public UpdatePanel getUpdatePanel() {
-        return getInventoryCardPanel().getUpdatePanel();
+    public View getView() {
+        return getInventoryManipulatorCard().getView();
     }
 
-    public DetailPanel getDetailPanel() {
-        return getInventoryCardPanel().getDetailPanel();
+    public ProductList getProduct() {
+        return getInventoryManipulatorCard().getProductList();
     }
 
-    public DeletePanel getDeletePanel() {
-        return getInventoryCardPanel().getDeletePanel();
+    public Delete getDeletePanel() {
+        return getInventoryManipulatorCard().getDelete();
     }
 
-    public AddPanel getAddPanel() {
-        return getInventoryCardPanel().getAddPanel();
+    public Add getAddPanel() {
+        return getInventoryManipulatorCard().getAdd();
     }
 }

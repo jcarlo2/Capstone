@@ -6,7 +6,7 @@ public class ProductAnalysis extends JPanel {
 
     public ProductAnalysis() {
         JTextArea text = new JTextArea(35,50);
-        text.setText("Product Analysis");
+        text.setText("ProductList Analysis");
         add(text);
 
         setFocusable(false);

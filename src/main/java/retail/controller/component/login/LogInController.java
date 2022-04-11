@@ -1,7 +1,7 @@
 package retail.controller.component.login;
 
 import org.jetbrains.annotations.NotNull;
-import retail.constant.ConstantDialog;
+import retail.util.constant.ConstantDialog;
 import retail.controller.database.UserController;
 import retail.view.login.LogIn;
 import retail.view.main.MainFrame;
@@ -26,12 +26,12 @@ public class LogInController {
         String password = String.valueOf(logIn.getPassword().getPassword());
         String id = logIn.getId().getText();
         if(!isValidId(id)) {
-            ConstantDialog.INVALID_INPUT_DIALOG();
+            ConstantDialog.INVALID_INPUT();
             System.out.println("INVALID");
             return;
         }
         if(password.equals("")) {
-            ConstantDialog.EMPTY_FIELD_DIALOG();
+            ConstantDialog.EMPTY_FIELD();
             System.out.println("password");
             return;
         }

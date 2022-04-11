@@ -1,17 +1,17 @@
-package retail.constant;
+package retail.util.constant;
 
 import javax.swing.*;
 
 public interface ConstantDialog {
-    static void INVALID_INPUT_DIALOG() {
+    static void INVALID_INPUT() {
         JOptionPane.showMessageDialog(new JFrame(), Constant.INVALID_INPUT);
     }
 
-    static void ID_DOES_NOT_EXIST_DIALOG() {
+    static void ID_DOES_NOT_EXIST() {
         JOptionPane.showMessageDialog(new JFrame(), Constant.ID_DOES_NOT_EXIST);
     }
 
-    static void EMPTY_FIELD_DIALOG() {
+    static void EMPTY_FIELD() {
         JOptionPane.showMessageDialog(new JFrame(), Constant.CHECK_EMPTY_FIELD);
     }
 
@@ -30,6 +30,11 @@ public interface ConstantDialog {
     static void REPORT_NOT_DELETABLE() {
         JOptionPane.showMessageDialog(new JFrame(), "Cannot delete report!!");
     }
+
+    static void SAVED_REPORT() {
+        JOptionPane.showMessageDialog(new JFrame(), "Report saved");
+    }
+
 
     static void INCORRECT_ID_PASSWORD() {
         JOptionPane.showMessageDialog(new JFrame(), Constant.INCORRECT_ID_PASSWORD);

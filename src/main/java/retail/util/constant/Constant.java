@@ -1,4 +1,4 @@
-package retail.constant;
+package retail.util.constant;
 
 import java.awt.*;
 
@@ -21,8 +21,9 @@ public interface Constant {
     String INVALID_INPUT = "Invalid Input!!";
     String DUPLICATE_ID = "Duplicate product id";
     // OTHERS
-    Color COLOR_WHITE = Color.BLACK;
+    Color COLOR_BLACK = Color.BLACK;
     Color COLOR_GREEN = Color.BLUE;
+
     Character ZERO = '0';
     Character NINE = '9';
     String EMPTY_REPORT_TABLE = "Empty Report Table!!";

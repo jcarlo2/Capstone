@@ -1,19 +1,18 @@
 package retail.view.main.panel.bot.main.sales;
 
+import lombok.Getter;
 import retail.customcomponent.jtable.CustomJTableSalesReport;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class DeleteSalesReport extends JPanel{
-    private final DefaultTableModel model = new DefaultTableModel(0,8);
-    private final CustomJTableSalesReport table = new CustomJTableSalesReport(model);
+@Getter
+public class SalesMainDelete extends JPanel{
+    private final CustomJTableSalesReport table = new CustomJTableSalesReport();
     private final JScrollPane scroll = new JScrollPane(table);
 
-    public DeleteSalesReport() {
+    public SalesMainDelete() {
         setLayout(new BorderLayout());
-
         add(scroll,BorderLayout.CENTER);
     }
 }

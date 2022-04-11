@@ -1,13 +1,14 @@
 package retail.controller.database;
 
 import org.jetbrains.annotations.NotNull;
-import retail.model.SalesReportObject;
-import retail.model.SalesReportItemObject;
+import retail.model.SalesReport;
+import retail.model.SalesReportItem;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
-import static retail.constant.Constant.*;
+import static retail.util.constant.Constant.*;
 
 public class SalesReportController {
 
@@ -26,6 +27,41 @@ public class SalesReportController {
                 e.printStackTrace();
             }
         return flag;
+    }
+
+    public ArrayList<SalesReportItem> getAllSalesReportItem(String id) {
+        ArrayList<SalesReportItem> itemList = new ArrayList<>();
+        String query = "SELECT * FROM sales_report_item WHERE unique_id = ?";
+            try {
+                Connection connection = DriverManager.getConnection(URL,USER,PASS);
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                    while(resultSet.next()) {
+                        setItemList(itemList,resultSet);
+                    }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            return itemList;
+    }
+
+    private void setItemList(ArrayList<SalesReportItem> itemList, ResultSet resultSet) {
+        try {
+            String prod_id = resultSet.getString("prod_id");
+            BigDecimal price = resultSet.getBigDecimal("price");
+            BigDecimal sold = resultSet.getBigDecimal("sold");
+            BigDecimal sold_total = resultSet.getBigDecimal("sold_total");
+            BigDecimal damaged_expired = resultSet.getBigDecimal("damaged_expired");
+            BigDecimal damaged_expired_total = resultSet.getBigDecimal("damaged_expired_total");
+            BigDecimal total_amount = resultSet.getBigDecimal("total_amount");
+
+            itemList.add(new SalesReportItem(prod_id,price,sold,
+                    sold_total,damaged_expired,
+                    damaged_expired_total,total_amount));
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void deleteReportItem(String id) {
@@ -66,6 +102,7 @@ public class SalesReportController {
     }
 
     public boolean isReportDeletable(String id) {
+        if(id.equals("")) return false;
         String query = "SELECT is_deletable FROM sales_report WHERE id = ?";
         boolean isDeletable = false;
             try {
@@ -73,20 +110,19 @@ public class SalesReportController {
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1,id);
                 ResultSet resultSet = preparedStatement.executeQuery();
-                resultSet.next();
-                isDeletable = resultSet.getInt(1) == 1;
+                if(resultSet.next()) isDeletable = resultSet.getInt(1) == 1;
             }catch (Exception e) {
                 e.printStackTrace();
             }
         return isDeletable;
     }
 
-    public void addReport(@NotNull SalesReportObject salesReport, ArrayList<SalesReportItemObject> salesReportItem) {
+    public void addReport(@NotNull SalesReport salesReport, ArrayList<SalesReportItem> salesReportItem) {
         saveSalesReport(salesReport);
         saveSalesReportItem(salesReport,salesReportItem);
     }
 
-    private void saveSalesReport(SalesReportObject salesReport) {
+    private void saveSalesReport(SalesReport salesReport) {
         String query = "INSERT INTO sales_report(id,user) VALUES(?,?)";
             try {
                 Connection connection = DriverManager.getConnection(URL,USER,PASS);
@@ -99,12 +135,12 @@ public class SalesReportController {
             }
     }
 
-    private void saveSalesReportItem(@NotNull SalesReportObject salesReport, ArrayList<SalesReportItemObject> salesReportItem) {
+    private void saveSalesReportItem(@NotNull SalesReport salesReport, ArrayList<SalesReportItem> salesReportItem) {
         String query = "INSERT INTO sales_report_item(prod_id,price,sold,sold_total" +
                             ",damaged_expired,damaged_expired_total,total_amount,unique_id) VALUES(?,?,?,?,?,?,?,?)";
 
             try {
-                for(SalesReportItemObject item : salesReportItem) {
+                for(SalesReportItem item : salesReportItem) {
                     Connection connection = DriverManager.getConnection(URL,USER,PASS);
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setString(1, item.getProductId());
@@ -122,8 +158,8 @@ public class SalesReportController {
             }
     }
 
-    public ArrayList<SalesReportObject> getSalesReportList() {
-        ArrayList<SalesReportObject> reportList = new ArrayList<>();
+    public ArrayList<SalesReport> getSalesReportList() {
+        ArrayList<SalesReport> reportList = new ArrayList<>();
         String query = "SELECT * FROM sales_report";
             try {
                 Connection connection = DriverManager.getConnection(URL,USER,PASS);
@@ -133,7 +169,7 @@ public class SalesReportController {
                         String id = resultSet.getString("id");
                         String user = resultSet.getString("user");
                         Date date = resultSet.getDate("date");
-                        reportList.add(new SalesReportObject(id,date,user));
+                        reportList.add(new SalesReport(id,date,user));
                     }
             }catch (Exception e) {
                 e.printStackTrace();

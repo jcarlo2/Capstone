@@ -7,15 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 
 @Getter
-public class Inventory extends JPanel {
-    private final CustomJTableInventory tableInventory = new CustomJTableInventory();
+public class InventoryMainAdd extends JPanel {
+    private final CustomJTableInventory tableInventory = new CustomJTableInventory(true);
     private final JScrollPane scroll = new JScrollPane(tableInventory);
 
-    public Inventory() {
+    public InventoryMainAdd() {
         setLayout(new BorderLayout());
-
-        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         add(scroll,BorderLayout.CENTER);
     }
 }

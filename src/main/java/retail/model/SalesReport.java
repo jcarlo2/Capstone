@@ -7,7 +7,7 @@ import java.sql.Date;
 
 @Getter
 @AllArgsConstructor
-public class SalesReportObject {
+public class SalesReport {
     private String id;
     private Date date;
     private String user;
