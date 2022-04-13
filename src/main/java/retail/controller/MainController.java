@@ -3,13 +3,15 @@ package retail.controller;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import org.jetbrains.annotations.NotNull;
-import retail.controller.component.inventory.MainInventoryController;
+import retail.controller.component.inventory.InventoryController;
 import retail.controller.component.login.LogInController;
 import retail.controller.component.northbutton.NorthButtonController;
-import retail.controller.component.sales.MainSalesController;
+import retail.controller.component.transaction.TransactionController;
 import retail.view.BuildGUI;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MainController {
     private final BuildGUI buildGUI;
@@ -27,13 +29,13 @@ public class MainController {
 
         new NorthButtonController(buildGUI.getTopBorderPanel(), buildGUI.getBottomBorderPanel());
 
-        new MainInventoryController(buildGUI.getBottomBorderPanel(),buildGUI.getTopBorderPanel());
+        new InventoryController(buildGUI.getBottomBorderPanel(),buildGUI.getTopBorderPanel());
 
-        new MainSalesController(buildGUI.getTopBorderPanel(),buildGUI.getBottomBorderPanel());
-
+        new TransactionController(buildGUI.getTopBorderPanel(),buildGUI.getBottomBorderPanel());
 
         setOption();
         setUIStyle();
+        hideOptionWhenMinimized();
     }
 
     private void setUIStyle() {
@@ -64,10 +66,21 @@ public class MainController {
         });
     }
 
+    private void hideOptionWhenMinimized() {
+        buildGUI.getOptionFrame().addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowIconified(WindowEvent e) {
+                super.windowIconified(e);
+                buildGUI.getOptionFrame().setVisible(false);
+            }
+        });
+    }
+
     private void setOption() {
         option.addActionListener(e -> {
             if(e.getSource() == option) {
                 buildGUI.getOptionFrame().setVisible(true);
+                buildGUI.getOptionFrame().toFront();
             }
         });
     }

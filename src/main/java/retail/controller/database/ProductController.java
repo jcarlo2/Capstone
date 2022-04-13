@@ -137,10 +137,12 @@ public class ProductController {
     }
 
     // PRODUCT REPORT
-
-    public void addReport(ArrayList<ProductReportItem> list, ProductReport report) {
+    public void addReport(ArrayList<ProductReportItem> list, ProductReport report, @NotNull ArrayList<Product> productList) {
         saveReport(report);
         saveReportItem(list,report);
+        for(Product product : productList) {
+            update(product);
+        }
     }
 
     private void deleteReportItem(String id) {

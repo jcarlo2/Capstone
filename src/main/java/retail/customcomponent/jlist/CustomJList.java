@@ -2,9 +2,8 @@ package retail.customcomponent.jlist;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.SalesReportController;
 import retail.model.ProductReport;
-import retail.model.SalesReport;
+import retail.model.TransactionReport;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,9 +21,9 @@ public class CustomJList extends JList<String> {
         setCellRenderer(renderer);
     }
 
-    public void populateSalesList(@NotNull ArrayList<SalesReport> list) {
+    public void populateSalesList(@NotNull ArrayList<TransactionReport> list) {
         getModel().removeAllElements();
-        for(SalesReport report : list) {
+        for(TransactionReport report : list) {
             String str = report.getId() + " - " + report.getDate();
             getModel().addElement(str);
         }

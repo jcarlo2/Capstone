@@ -6,12 +6,10 @@ import retail.view.main.panel.top.NorthButton;
 import retail.view.main.panel.top.TopBorderPanel;
 
 public class NorthButtonController {
-    private final TopBorderPanel topBorderPanel;
     private final BottomBorderPanel bottomBorderPanel;
     private final NorthButton northButton;
     
     public NorthButtonController(@NotNull TopBorderPanel topBorderPanel, BottomBorderPanel bottomBorderPanel) {
-        this.topBorderPanel = topBorderPanel;
         this.bottomBorderPanel = bottomBorderPanel;
         northButton = topBorderPanel.getNorthButton();
 
@@ -19,12 +17,12 @@ public class NorthButtonController {
     }
 
     private void northActionListener() {
-        northButton.getSalesReport().addActionListener(e -> {
-            if(e.getSource() == northButton.getSalesReport()) {
+        northButton.getTransaction().addActionListener(e -> {
+            if(e.getSource() == northButton.getTransaction()) {
                 bottomBorderPanel.getBottomMainCard().getCard().show(bottomBorderPanel.getBottomMainCard(), "salesReport");
                 bottomBorderPanel.getManipulatorCard().getCard().show(bottomBorderPanel.getManipulatorCard(), "salesReport");
 
-                northButton.getSalesReport().setEnabled(false);
+                northButton.getTransaction().setEnabled(false);
                 northButton.getInventory().setEnabled(true);
                 northButton.getProductAnalysis().setEnabled(true);
                 northButton.getImportExport().setEnabled(true);
@@ -37,7 +35,7 @@ public class NorthButtonController {
                 bottomBorderPanel.getBottomMainCard().getCard().show(bottomBorderPanel.getBottomMainCard(), "inventory");
                 bottomBorderPanel.getManipulatorCard().getCard().show(bottomBorderPanel.getManipulatorCard(), "inventory");
 
-                northButton.getSalesReport().setEnabled(true);
+                northButton.getTransaction().setEnabled(true);
                 northButton.getInventory().setEnabled(false);
                 northButton.getProductAnalysis().setEnabled(true);
                 northButton.getImportExport().setEnabled(true);
@@ -50,7 +48,7 @@ public class NorthButtonController {
                 bottomBorderPanel.getBottomMainCard().getCard().show(bottomBorderPanel.getBottomMainCard(), "prodAnalysis");
                 bottomBorderPanel.getManipulatorCard().getCard().show(bottomBorderPanel.getManipulatorCard(), "prodAnalysis");
 
-                northButton.getSalesReport().setEnabled(true);
+                northButton.getTransaction().setEnabled(true);
                 northButton.getInventory().setEnabled(true);
                 northButton.getProductAnalysis().setEnabled(false);
                 northButton.getImportExport().setEnabled(true);
@@ -63,7 +61,7 @@ public class NorthButtonController {
                 bottomBorderPanel.getBottomMainCard().getCard().show(bottomBorderPanel.getBottomMainCard(), "impExp");
                 bottomBorderPanel.getManipulatorCard().getCard().show(bottomBorderPanel.getManipulatorCard(), "impExp");
 
-                northButton.getSalesReport().setEnabled(true);
+                northButton.getTransaction().setEnabled(true);
                 northButton.getInventory().setEnabled(true);
                 northButton.getProductAnalysis().setEnabled(true);
                 northButton.getImportExport().setEnabled(false);
@@ -76,7 +74,7 @@ public class NorthButtonController {
                 bottomBorderPanel.getBottomMainCard().getCard().show(bottomBorderPanel.getBottomMainCard(), "log");
                 bottomBorderPanel.getManipulatorCard().getCard().show(bottomBorderPanel.getManipulatorCard(), "log");
 
-                northButton.getSalesReport().setEnabled(true);
+                northButton.getTransaction().setEnabled(true);
                 northButton.getInventory().setEnabled(true);
                 northButton.getProductAnalysis().setEnabled(true);
                 northButton.getImportExport().setEnabled(true);

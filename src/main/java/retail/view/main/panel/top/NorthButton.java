@@ -8,19 +8,19 @@ import java.awt.*;
 
 @Getter
 public class NorthButton extends JPanel {
-    CustomJButton salesReport = new CustomJButton("Sales Report");
+    CustomJButton transaction = new CustomJButton("Transaction");
     CustomJButton inventory = new CustomJButton("Inventory");
     CustomJButton importExport = new CustomJButton("Import/Export");
-    CustomJButton productAnalysis = new CustomJButton("Analysis");
+    CustomJButton productAnalysis = new CustomJButton("Sales Report");
     CustomJButton logFile = new CustomJButton("Log File");
 
     public NorthButton() {
         setLayout(new GridLayout());
-        add(salesReport);
+        add(transaction);
         add(inventory);
         add(productAnalysis);
         add(importExport);
         add(logFile);
-        salesReport.setEnabled(false);
+        transaction.setEnabled(false);
     }
 }
