@@ -1,7 +1,7 @@
 # RetailManagement
 ![rmlogo](https://user-images.githubusercontent.com/66005799/161222398-c0085cc3-4d03-410d-a07d-bca45e43aad3.png)
 
-Retail Management Of Small To Medium Local Store
+Retail Management Of HLC Groceries
 
 STI COLLEGE FAIRVIEW
 
