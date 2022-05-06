@@ -7,12 +7,15 @@ import javax.swing.*;
 @Getter
 public class LogInFrame extends JFrame implements CreateEmployeeTable,
                                                   CreateProductTable,
-                                                  CreateSalesReportTable {
+                                                  CreateTransactionTable {
     private final LogIn logIn = new LogIn();
+
     public LogInFrame(String TITLE) {
         setTitle(TITLE);
         createEmployeeTableAndAdminAccount();
         createProductTable();
+        createProductReport();
+        createProductReportItem();
         createSalesReportTable();
         createSalesReportTableItem();
 

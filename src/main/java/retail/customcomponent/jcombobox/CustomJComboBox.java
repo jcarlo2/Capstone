@@ -1,7 +1,7 @@
 package retail.customcomponent.jcombobox;
 
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.ProductController;
+import retail.controller.database.ProductDatabase;
 import retail.model.Product;
 
 import javax.swing.*;
@@ -33,7 +33,7 @@ public class CustomJComboBox extends JComboBox<String> {
     }
 
     private @NotNull ArrayList<String> getAllProductID() {
-        ArrayList<Product> product = new ProductController().showProduct();
+        ArrayList<Product> product = new ProductDatabase().showProduct();
         ArrayList<String> list = new ArrayList<>();
             for(Product item : product) {
                 list.add(item.getId());

@@ -6,8 +6,8 @@ import retail.view.option.OptionFrame;
 import retail.view.login.LogIn;
 import retail.view.login.LogInFrame;
 import retail.view.main.MainFrame;
-import retail.view.main.panel.bot.BottomBorderPanel;
-import retail.view.main.panel.top.TopBorderPanel;
+import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.top.TopBorderPanel;
 
 @Getter
 public class BuildGUI {

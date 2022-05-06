@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
     public MainFrame(String TITLE) {
         setTitle(TITLE);
         setExtendedState(JFrame.MAXIMIZED_BOTH); // set to maximize at first
-        setMinimumSize(new Dimension(1000,600));
+        setMinimumSize(new Dimension(1000,730));
         ImageIcon img = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/rmlogo.png")));
         setIconImage(img.getImage());
 

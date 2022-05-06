@@ -21,10 +21,10 @@ public class CustomJList extends JList<String> {
         setCellRenderer(renderer);
     }
 
-    public void populateSalesList(@NotNull ArrayList<TransactionReport> list) {
+    public void populateTransactionList(@NotNull ArrayList<TransactionReport> list) {
         getModel().removeAllElements();
         for(TransactionReport report : list) {
-            String str = report.getId() + " - " + report.getDate();
+            String str = report.getDate() + " - " +  report.getId();
             getModel().addElement(str);
         }
     }
@@ -32,7 +32,7 @@ public class CustomJList extends JList<String> {
     public void populateInventoryList(@NotNull ArrayList<ProductReport> list ) {
         getModel().removeAllElements();
         for(ProductReport report : list) {
-            String str = report.getId() + " - " + report.getDate();
+            String str = report.getDate() + " - " + report.getId();
             getModel().addElement(str);
         }
     }

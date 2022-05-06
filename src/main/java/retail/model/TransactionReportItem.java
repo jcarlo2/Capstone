@@ -12,7 +12,7 @@ public class TransactionReportItem {
     private BigDecimal price;
     private BigDecimal sold;
     private BigDecimal soldTotal;
-    private BigDecimal expDamaged;
-    private BigDecimal expDamagedTotal;
+    private BigDecimal discountPercentage;
+    private BigDecimal discountAmount;
     private BigDecimal totalAmount;
 }

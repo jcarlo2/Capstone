@@ -1,8 +1,8 @@
 package retail.view.main;
 
 import lombok.Getter;
-import retail.view.main.panel.bot.BottomBorderPanel;
-import retail.view.main.panel.top.TopBorderPanel;
+import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.top.TopBorderPanel;
 
 import javax.swing.*;
 import java.awt.*;

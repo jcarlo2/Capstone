@@ -1,6 +1,6 @@
 package retail;
 
-import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.FlatDarculaLaf;
 import retail.controller.MainController;
 import retail.view.BuildGUI;
 

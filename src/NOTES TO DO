@@ -6,3 +6,5 @@ CREATE MODEL FOR EACH SWING COMPONENTS
 
     -----------------------
     TRIM TEXT
+
+    FIX PRODUCT DATABASE

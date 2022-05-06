@@ -20,17 +20,17 @@ public class CustomJTableTransaction extends JTable {
         setUpJTable();
     }
 
-    public void addRow(@NotNull TransactionReportItem report) {
-        if(!isDuplicate(report.getProductId())) {
+    public void addRow(@NotNull TransactionReportItem item) {
+        if(!isDuplicate(item.getProductId())) {
             String[] data = new String[8];
             data[0] = "";
-            data[1] = report.getProductId();
-            data[2] = String.valueOf(report.getPrice());
-            data[3] = String.valueOf(report.getSold());
-            data[4] = String.valueOf(report.getSoldTotal());
-            data[5] = String.valueOf(report.getExpDamaged());
-            data[6] = String.valueOf(report.getExpDamagedTotal());
-            data[7] = String.valueOf(report.getTotalAmount());
+            data[1] = item.getProductId();
+            data[2] = item.getPrice().toString();
+            data[3] = item.getSold().toString();
+            data[4] = item.getSoldTotal().toString();
+            data[5] = item.getDiscountPercentage().toString();
+            data[6] = item.getDiscountAmount().toString();
+            data[7] = item.getTotalAmount().toString();
             model.addRow(data);
         }
     }
@@ -47,7 +47,7 @@ public class CustomJTableTransaction extends JTable {
         return false;
     }
 
-    public void addItem(@NotNull ArrayList<TransactionReportItem> itemList) {
+    public void addAllItems(@NotNull ArrayList<TransactionReportItem> itemList) {
         model.setRowCount(0);
         int count = 0;
         for(TransactionReportItem item : itemList) {
@@ -57,8 +57,8 @@ public class CustomJTableTransaction extends JTable {
             data[2] = item.getPrice().toString();
             data[3] = item.getSold().toString();
             data[4] = item.getSoldTotal().toString();
-            data[5] = item.getExpDamaged().toString();
-            data[6] = item.getExpDamagedTotal().toString();
+            data[5] = item.getDiscountPercentage().toString();
+            data[6] = item.getDiscountAmount().toString();
             data[7] = item.getTotalAmount().toString();
             model.addRow(data);
         }
@@ -87,8 +87,8 @@ public class CustomJTableTransaction extends JTable {
     }
 
     private void addColumnName() {
-        String[] columnName = {"No.", "Product ID","Price","Sold Pieces","Sold Total"
-                              ,"Damaged/Expired Pieces","Damaged/Expired Total","Total Amount"};
+        String[] columnName = {"No.", "Product ID","Price","Sold Pieces"
+                ,"Sold Total","Discount %%", "Discount Total", "Total Amount"};
         getColumnModel().getColumn(0).setHeaderValue(columnName[0]);
         getColumnModel().getColumn(1).setHeaderValue(columnName[1]);
         getColumnModel().getColumn(2).setHeaderValue(columnName[2]);
@@ -102,25 +102,5 @@ public class CustomJTableTransaction extends JTable {
     private void setJTableColumnWidth() {
         getColumnModel().getColumn(0).setMinWidth(35);
         getColumnModel().getColumn(0).setMaxWidth(35);
-
-        getColumnModel().getColumn(1).setMinWidth(100);
-
-        getColumnModel().getColumn(2).setMinWidth(100);
-        getColumnModel().getColumn(2).setMaxWidth(100);
-
-        getColumnModel().getColumn(3).setMaxWidth(120);
-        getColumnModel().getColumn(3).setMinWidth(120);
-
-        getColumnModel().getColumn(4).setMinWidth(120);
-        getColumnModel().getColumn(4).setMaxWidth(120);
-
-        getColumnModel().getColumn(5).setMinWidth(150);
-        getColumnModel().getColumn(5).setMaxWidth(150);
-
-        getColumnModel().getColumn(6).setMinWidth(135);
-        getColumnModel().getColumn(6).setMaxWidth(135);
-
-        getColumnModel().getColumn(7).setMinWidth(100);
-        getColumnModel().getColumn(7).setMaxWidth(100);
     }
 }

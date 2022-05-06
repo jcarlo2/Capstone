@@ -1,7 +1,6 @@
 package retail.customcomponent.jtable;
 
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.ProductController;
 import retail.model.Product;
 
 import javax.swing.*;
