@@ -1,4 +1,4 @@
-package retail.customcomponent.jtable;
+package retail.customcomponent.jtable.inventory;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;

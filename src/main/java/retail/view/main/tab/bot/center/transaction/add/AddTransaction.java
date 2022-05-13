@@ -2,7 +2,7 @@ package retail.view.main.tab.bot.center.transaction.add;
 
 
 import lombok.Getter;
-import retail.customcomponent.jtable.CustomJTableTransaction;
+import retail.customcomponent.jtable.transaction.CustomJTableTransaction;
 import retail.customcomponent.jtextfield.CustomJTextField;
 
 import javax.swing.*;

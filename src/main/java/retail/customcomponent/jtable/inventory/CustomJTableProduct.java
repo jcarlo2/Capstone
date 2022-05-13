@@ -1,4 +1,4 @@
-package retail.customcomponent.jtable;
+package retail.customcomponent.jtable.inventory;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.Product;

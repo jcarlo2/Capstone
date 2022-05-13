@@ -1,7 +1,9 @@
 package retail.view.main.tab.bot.center.transaction.add;
 
 import lombok.Getter;
-import retail.customcomponent.jtable.CustomJTableTransaction;
+import retail.customcomponent.jtable.transaction.CustomJTableTransaction;
+import retail.customcomponent.jtable.transaction.TableButtonRenderer;
+import retail.customcomponent.jtable.transaction.TableJComboBox;
 import retail.customcomponent.jtextfield.CustomJTextField;
 
 import javax.swing.*;
@@ -16,7 +18,7 @@ public class ReturnedTransaction extends JPanel {
     private final JScrollPane topScroll = new JScrollPane(topTable);
     private final CustomJTextField topTotal = new CustomJTextField("Total Amount", Color.BLACK);
 
-    private final CustomJTableTransaction botTable = new CustomJTableTransaction();
+    private final CustomJTableTransaction botTable = new CustomJTableTransaction(true);
     private final JScrollPane botScroll = new JScrollPane(botTable);
     private final CustomJTextField botTotal = new CustomJTextField("Total Amount", Color.BLACK);
 
@@ -37,6 +39,11 @@ public class ReturnedTransaction extends JPanel {
 
     private void setWrapper2() {
         wrapper2.setLayout(new BorderLayout());
+        botTable.getColumnModel().getColumn(9).setCellRenderer(new TableButtonRenderer());
+        botTable.getColumnModel().getColumn(9).setCellEditor(new DefaultCellEditor(new TableJComboBox(true)));
+        botTable.getColumnModel().getColumn(8).setCellRenderer(new TableButtonRenderer());
+        botTable.getColumnModel().getColumn(8).setCellEditor(new DefaultCellEditor(new TableJComboBox(false)));
+        botTable.getModel().addRow(new String[] {"1","2","3","4","5","6","7","8","Exp/Dam","None"});
         wrapper2.add(botTotal,BorderLayout.NORTH);
         wrapper2.add(botScroll,BorderLayout.CENTER);
     }

@@ -5,7 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="add ReturnedTransaction - need to fix">
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/customcomponent/jtable/transaction/TableButtonRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/customcomponent/jtable/transaction/TableJComboBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/AddController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/ViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/AddController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/ReturnedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/ReturnedController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/view/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/view/ViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/customcomponent/jtable/CustomJTableInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/customcomponent/jtable/inventory/CustomJTableInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/customcomponent/jtable/CustomJTableProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/customcomponent/jtable/inventory/CustomJTableProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/customcomponent/jtable/CustomJTableTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/customcomponent/jtable/transaction/CustomJTableTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/inventory/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/inventory/Add.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/inventory/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/inventory/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/inventory/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/inventory/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/transaction/ViewMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/transaction/ViewMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/transaction/add/AddTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/transaction/add/AddTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/transaction/add/ReturnedTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/center/transaction/add/ReturnedTransaction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651806985740</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add ReturnedTransaction - need to fix">
+      <created>1651807746982</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1651807746982</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

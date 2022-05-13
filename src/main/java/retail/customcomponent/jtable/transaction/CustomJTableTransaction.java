@@ -1,4 +1,4 @@
-package retail.customcomponent.jtable;
+package retail.customcomponent.jtable.transaction;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -14,8 +14,15 @@ import java.util.ArrayList;
 @Getter
 public class CustomJTableTransaction extends JTable {
     private final DefaultTableModel model = new DefaultTableModel(0,8);
+    private boolean isReturnedTable = false;
 
     public CustomJTableTransaction() {
+        setModel(model);
+        setUpJTable();
+    }
+
+    public CustomJTableTransaction(boolean isReturnedTable) {
+        this.isReturnedTable = isReturnedTable;
         setModel(model);
         setUpJTable();
     }
@@ -87,6 +94,11 @@ public class CustomJTableTransaction extends JTable {
     }
 
     private void addColumnName() {
+        if(isReturnedTable) {
+            model.addColumn("Reason");
+            model.addColumn("Action");
+        }
+
         String[] columnName = {"No.", "Product ID","Price","Sold Pieces"
                 ,"Sold Total","Discount %%", "Discount Total", "Total Amount"};
         getColumnModel().getColumn(0).setHeaderValue(columnName[0]);

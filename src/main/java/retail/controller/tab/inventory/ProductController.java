@@ -2,7 +2,7 @@ package retail.controller.tab.inventory;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductDatabase;
-import retail.customcomponent.jtable.CustomJTableProduct;
+import retail.customcomponent.jtable.inventory.CustomJTableProduct;
 import retail.util.constant.ConstantDialog;
 import retail.view.main.tab.bot.BottomBorderPanel;
 import retail.view.main.tab.bot.manipulator.inventory.panel.Product;

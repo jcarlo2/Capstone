@@ -3,7 +3,7 @@ package retail.controller.tab.transaction.view;
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.TransactionDatabase;
 import retail.customcomponent.jlist.CustomJList;
-import retail.customcomponent.jtable.CustomJTableTransaction;
+import retail.customcomponent.jtable.transaction.CustomJTableTransaction;
 import retail.model.TransactionReport;
 import retail.model.TransactionReportItem;
 import retail.view.main.tab.bot.BottomBorderPanel;

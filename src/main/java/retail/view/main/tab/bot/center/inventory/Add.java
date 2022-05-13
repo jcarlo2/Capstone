@@ -1,7 +1,7 @@
 package retail.view.main.tab.bot.center.inventory;
 
 import lombok.Getter;
-import retail.customcomponent.jtable.CustomJTableInventory;
+import retail.customcomponent.jtable.inventory.CustomJTableInventory;
 
 import javax.swing.*;
 import java.awt.*;

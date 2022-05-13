@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retail.controller.database.TransactionDatabase;
 import retail.customcomponent.jlist.CustomJList;
-import retail.customcomponent.jtable.CustomJTableTransaction;
+import retail.customcomponent.jtable.transaction.CustomJTableTransaction;
 import retail.model.TransactionReport;
 import retail.model.TransactionReportItem;
 import retail.view.main.tab.bot.BottomMainCard;
@@ -143,7 +143,7 @@ public class ReturnedController {
             @Override
             public void mousePressed(MouseEvent e) {
             super.mousePressed(e);
-            if(e.getClickCount() == 1) {
+            if(e.getClickCount() == 2) {
                 setReportId();
                 setDataToTopTable();
             }
