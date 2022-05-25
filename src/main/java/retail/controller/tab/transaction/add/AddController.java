@@ -3,16 +3,16 @@ package retail.controller.tab.transaction.add;
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductDatabase;
 import retail.controller.database.TransactionDatabase;
-import retail.customcomponent.jtable.inventory.CustomJTableProduct;
-import retail.customcomponent.jtable.transaction.CustomJTableTransaction;
-import retail.customcomponent.jtextfield.CustomJTextField;
+import retail.shared.customcomponent.jtable.JTableProduct;
+import retail.shared.customcomponent.jtable.JTableTransaction;
+import retail.shared.customcomponent.jtextfield.CustomJTextField;
 import retail.model.Product;
 import retail.model.TransactionReport;
 import retail.model.TransactionReportItem;
-import retail.util.constant.ConstantDialog;
+import retail.shared.constant.ConstantDialog;
 import retail.view.main.tab.bot.BottomBorderPanel;
-import retail.view.main.tab.bot.center.transaction.add.AddTransaction;
-import retail.view.main.tab.bot.manipulator.transaction.panel.add.AddCard;
+import retail.view.main.tab.bot.transaction.center.add.AddTransaction;
+import retail.view.main.tab.bot.transaction.manipulator.panel.add.AddCard;
 import retail.view.main.tab.top.TopBorderPanel;
 import retail.view.main.tab.top.UserPanel;
 
@@ -29,10 +29,10 @@ import java.util.Objects;
 public class AddController {
     private final TransactionDatabase transactionDatabase = new TransactionDatabase();
     private final ProductDatabase productDatabase = new ProductDatabase();
-    private final CustomJTableTransaction table;
+    private final JTableTransaction table;
     private final AddCard addCard;
     private final UserPanel userPanel;
-    private final CustomJTableProduct productTable;
+    private final JTableProduct productTable;
     private CustomJTextField sold;
     private CustomJTextField soldTotal;
     private CustomJTextField discountPercentage;
@@ -41,7 +41,7 @@ public class AddController {
 
     public AddController(@NotNull TopBorderPanel topBorderPanel, @NotNull BottomBorderPanel bottomBorderPanel) {
         table = bottomBorderPanel.getBottomMainCard().getTransactionCard().getAddCard().getAddTransaction().getCenterTable();
-        addCard = bottomBorderPanel.getManipulatorCard().getTransactionManipulator().getAddCard();
+        addCard = bottomBorderPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard();
         userPanel = topBorderPanel.getUserPanel();
         productTable = bottomBorderPanel.getBottomMainCard().getInventoryCard().getProduct().getTable();
 
@@ -79,7 +79,7 @@ public class AddController {
                     ConstantDialog.GENERATE_NEW_REPORT_ID();
                     return;
                 }
-                transactionDatabase.addReport(createSalesReport(),getAllItemReportAtSalesTable());
+                transactionDatabase.addReport(createTransactionReport(),getAllItemReportAtSalesTable());
                 subtractTransactItemsToInventory();
                 productTable.populateProductTable(productDatabase.showProduct());
                 ConstantDialog.SAVED_REPORT();
@@ -90,8 +90,8 @@ public class AddController {
     private void subtractTransactItemsToInventory() {
         for(TransactionReportItem item : getAllItemReportAtSalesTable()) {
             Product product = productDatabase.get(item.getProductId());
-            product.setQuantityPerPieces(product.getQuantityPerPieces().subtract(item.getSold()));
-            productDatabase.update(product,product.getId());
+            product.setQuantityPerPieces(product.getQuantityPerPieces() - item.getSold());
+            productDatabase.updateProductQuantity(product.getId(),product.getQuantityPerPieces());
         }
     }
 
@@ -104,20 +104,20 @@ public class AddController {
             for(int j=0;j<COLUMN;j++) {
                 data[j] = table.getModel().getValueAt(i,j).toString();
             }
-            itemReport.add(new TransactionReportItem(data[1],new BigDecimal(data[2]),new BigDecimal(data[3])
-                    ,new BigDecimal(data[4]),new BigDecimal(data[5]),
-                    new BigDecimal(data[6]),new BigDecimal(data[7])));
+            itemReport.add(new TransactionReportItem(data[1],Double.parseDouble(data[2]),Integer.parseInt(data[3])
+                    ,Double.parseDouble(data[4]),Double.parseDouble(data[5]),
+                    Double.parseDouble(data[6]),new BigDecimal(data[7])));
         }
         return itemReport;
     }
 
-    private @NotNull TransactionReport createSalesReport() {
+    private @NotNull TransactionReport createTransactionReport() {
         String reportId = addCard.getAdd().getReportId().getText();
         String lastName = userPanel.getEmployeeLastName().getText();
         Date date = Date.valueOf(LocalDate.now());
         BigDecimal total = new BigDecimal(totalAmount.getText());
 
-        return new TransactionReport(reportId, date,lastName,total);
+        return new TransactionReport(reportId, date,null,lastName,total);
     }
 
     private void autoCalculateTotalAmount() {
@@ -149,12 +149,16 @@ public class AddController {
 
     private void addItemToTable() {
         addCard.getAdd().getAdd().addActionListener(e -> {
+            if(sold.getText().equals("0")) {
+                ConstantDialog.EMPTY_FIELD();
+                return;
+            }
             if(isAllFieldValid()) {
                 String[] data = getFieldData();
-                table.addRow(new TransactionReportItem(data[0],new BigDecimal(data[1]),
-                        new BigDecimal(data[2]),new BigDecimal(data[3]),
-                        new BigDecimal(data[4]),new BigDecimal(data[5]),
-                        new BigDecimal(data[6])));
+                table.addReportItem(new TransactionReportItem(data[0],Double.parseDouble(data[1]),
+                        Integer.parseInt(data[2]),Double.parseDouble(data[3]),
+                        Double.parseDouble(data[4]),Double.parseDouble(data[5]),
+                        new BigDecimal(data[6])),"","");
                         fixNumberColumn();
                         autoCalculateTotalAmount();
             } else {
@@ -176,10 +180,8 @@ public class AddController {
     }
 
     private boolean isAllFieldValid() {
-        if(!discountPercentage.getText().equals("0")) return isValidNumber(discountPercentage.getText());
-        if(!discountTotal.getText().equals("0")) return isValidNumber(discountTotal.getText());
-        if(!isValidNumber(sold.getText())) return false;
-        return isValidNumber(soldTotal.getText());
+        return isValidNumber(discountPercentage.getText()) && isValidNumber(discountTotal.getText())
+                    && isValidNumber(sold.getText()) && isValidNumber(soldTotal.getText());
     }
 
     private void generateReportIdActionListener() {
@@ -195,7 +197,7 @@ public class AddController {
                 formatId = String.format("%013d",id);
                 if(!transactionDatabase.isReportExist(formatId)) flag = false;
             }
-        return "TR" + formatId;
+        return "TR" + formatId + "-A0";
     }
 
     private void clear() {

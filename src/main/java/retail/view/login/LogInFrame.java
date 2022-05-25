@@ -5,20 +5,11 @@ import lombok.Getter;
 import javax.swing.*;
 
 @Getter
-public class LogInFrame extends JFrame implements CreateEmployeeTable,
-                                                  CreateProductTable,
-                                                  CreateTransactionTable {
+public class LogInFrame extends JFrame {
     private final LogIn logIn = new LogIn();
 
     public LogInFrame(String TITLE) {
         setTitle(TITLE);
-        createEmployeeTableAndAdminAccount();
-        createProductTable();
-        createProductReport();
-        createProductReportItem();
-        createSalesReportTable();
-        createSalesReportTableItem();
-
         ImageIcon img = new ImageIcon("src/main/resources/images/rmlogo.png");
         setIconImage(img.getImage());
         add(logIn);

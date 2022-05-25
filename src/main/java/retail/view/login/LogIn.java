@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.swing.*;
 import java.awt.*;
 
-import static retail.util.constant.Constant.LOGIN;
+import static retail.shared.constant.Constant.LOGIN;
 
 @Getter
 @Setter

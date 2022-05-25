@@ -2,12 +2,12 @@ package retail.controller.tab.inventory;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductDatabase;
-import retail.customcomponent.jtable.inventory.CustomJTableInventory;
+import retail.shared.customcomponent.jtable.JTableInventory;
 import retail.model.ProductReport;
 import retail.model.ProductReportItem;
-import retail.util.constant.ConstantDialog;
+import retail.shared.constant.ConstantDialog;
 import retail.view.main.tab.bot.BottomBorderPanel;
-import retail.view.main.tab.bot.manipulator.inventory.panel.View;
+import retail.view.main.tab.bot.inventory.manipulator.panel.View;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class ViewController {
     private final ProductDatabase controller = new ProductDatabase();
     private final View view;
-    private final CustomJTableInventory table;
+    private final JTableInventory table;
 
     public ViewController(@NotNull BottomBorderPanel bottomBorderPanel) {
         view = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getView();

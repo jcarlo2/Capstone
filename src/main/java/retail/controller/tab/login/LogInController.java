@@ -1,7 +1,7 @@
 package retail.controller.tab.login;
 
 import org.jetbrains.annotations.NotNull;
-import retail.util.constant.ConstantDialog;
+import retail.shared.constant.ConstantDialog;
 import retail.controller.database.UserController;
 import retail.view.login.LogIn;
 import retail.view.main.MainFrame;

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
-import static retail.util.constant.Constant.*;
+import static retail.shared.constant.Constant.*;
 
 public class TransactionDatabase {
 
@@ -39,11 +39,11 @@ public class TransactionDatabase {
                 ResultSet resultSet = preparedStatement.executeQuery();
                     while(resultSet.next()) {
                         String productId = resultSet.getString("prod_id");
-                        BigDecimal price = resultSet.getBigDecimal("price");
-                        BigDecimal sold = resultSet.getBigDecimal("sold");
-                        BigDecimal soldTotal = resultSet.getBigDecimal("sold_total");
-                        BigDecimal discountPercentage = resultSet.getBigDecimal("discount_percentage");
-                        BigDecimal discountAmount = resultSet.getBigDecimal("discount_amount");
+                        Double price = resultSet.getDouble("price");
+                        Integer sold = resultSet.getInt("sold");
+                        Double soldTotal = resultSet.getDouble("sold_total");
+                        Double discountPercentage = resultSet.getDouble("discount_percentage");
+                        Double discountAmount = resultSet.getDouble("discount_amount");
                         BigDecimal totalAmount = resultSet.getBigDecimal("total_amount");
                         itemList.add(new TransactionReportItem(productId,price,sold,soldTotal,
                         discountPercentage,discountAmount,totalAmount));
@@ -134,11 +134,11 @@ public class TransactionDatabase {
                     Connection connection = DriverManager.getConnection(URL,USER,PASS);
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setString(1, item.getProductId());
-                    preparedStatement.setBigDecimal(2, item.getPrice());
-                    preparedStatement.setBigDecimal(3, item.getSold());
-                    preparedStatement.setBigDecimal(4, item.getSoldTotal());
-                    preparedStatement.setBigDecimal(5, item.getDiscountPercentage());
-                    preparedStatement.setBigDecimal(6, item.getDiscountAmount());
+                    preparedStatement.setDouble(2, item.getPrice());
+                    preparedStatement.setInt(3, item.getSold());
+                    preparedStatement.setDouble(4, item.getSoldTotal());
+                    preparedStatement.setDouble(5, item.getDiscountPercentage());
+                    preparedStatement.setDouble(6, item.getDiscountAmount());
                     preparedStatement.setBigDecimal(7, item.getTotalAmount());
                     preparedStatement.setString(8, transactionReport.getId());
                     preparedStatement.executeUpdate();
@@ -150,7 +150,7 @@ public class TransactionDatabase {
 
     public ArrayList<TransactionReport> getTransactionReportList() {
         ArrayList<TransactionReport> reportList = new ArrayList<>();
-        String query = "SELECT * FROM transaction_report";
+        String query = "SELECT * FROM transaction_report ORDER BY date_time DESC";
             try {
                 Connection connection = DriverManager.getConnection(URL,USER,PASS);
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -159,8 +159,9 @@ public class TransactionDatabase {
                         String id = resultSet.getString("id");
                         String user = resultSet.getString("user");
                         Date date = resultSet.getDate("date");
+                        Timestamp timestamp = resultSet.getTimestamp("date_time");
                         BigDecimal totalAmount = resultSet.getBigDecimal("total_amount");
-                        reportList.add(new TransactionReport(id,date,user,totalAmount));
+                        reportList.add(new TransactionReport(id,date,timestamp,user,totalAmount));
                     }
             }catch (Exception e) {
                 e.printStackTrace();
@@ -180,8 +181,9 @@ public class TransactionDatabase {
                 id = resultSet.getString("id");
                 String user = resultSet.getString("user");
                 Date date = resultSet.getDate("date");
+                Timestamp timestamp = resultSet.getTimestamp("date_time");
                 BigDecimal totalAmount = resultSet.getBigDecimal("total_amount");
-                report = new TransactionReport(id,date,user,totalAmount);
+                report = new TransactionReport(id,date,timestamp,user,totalAmount);
             }
         }catch (Exception e) {
             e.printStackTrace();

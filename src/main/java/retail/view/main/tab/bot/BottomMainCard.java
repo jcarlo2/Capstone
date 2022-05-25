@@ -1,10 +1,10 @@
 package retail.view.main.tab.bot;
 
 import lombok.Getter;
-import retail.view.main.tab.bot.center.inventory.InventoryMainCard;
-import retail.view.main.tab.bot.center.logfile.LogFile;
-import retail.view.main.tab.bot.center.salesreport.ProductAnalysis;
-import retail.view.main.tab.bot.center.transaction.TransactionMainCard;
+import retail.view.main.tab.bot.inventory.center.InventoryMainCard;
+import retail.view.main.tab.bot.logfile.LogFile;
+import retail.view.main.tab.bot.salesreport.ProductAnalysis;
+import retail.view.main.tab.bot.transaction.center.TransactionMainCard;
 
 import javax.swing.*;
 import java.awt.*;

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static retail.util.constant.Constant.*;
+import static retail.shared.constant.Constant.*;
 
 public class UserController {
     public boolean checkIdAndPasswordInDatabase(Long id, String password) {

@@ -2,13 +2,13 @@ package retail.controller.tab.inventory;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductDatabase;
-import retail.customcomponent.jtable.inventory.CustomJTableInventory;
+import retail.shared.customcomponent.jtable.JTableInventory;
 import retail.model.Product;
 import retail.model.ProductReport;
 import retail.model.ProductReportItem;
-import retail.util.constant.ConstantDialog;
+import retail.shared.constant.ConstantDialog;
 import retail.view.main.tab.bot.BottomBorderPanel;
-import retail.view.main.tab.bot.manipulator.inventory.panel.add.AddInventory;
+import retail.view.main.tab.bot.inventory.manipulator.panel.add.AddInventory;
 import retail.view.main.tab.top.TopBorderPanel;
 import retail.view.main.tab.top.UserPanel;
 
@@ -25,7 +25,7 @@ import java.util.Objects;
 public class AddController {
     private final ProductDatabase controller = new ProductDatabase();
     private final AddInventory add;
-    private final CustomJTableInventory table;
+    private final JTableInventory table;
     private final UserPanel userPanel;
     public AddController(@NotNull BottomBorderPanel bottomBorderPanel, @NotNull TopBorderPanel topBorderPanel) {
         userPanel = topBorderPanel.getUserPanel();
@@ -64,20 +64,16 @@ public class AddController {
 
     private @NotNull ArrayList<Product> updateProductQuantity(@NotNull ArrayList<ProductReportItem> itemList) {
         ArrayList<Product> productList = new ArrayList<>();
-        for (ProductReportItem productReportItem : itemList) {
-            String id = productReportItem.getProductId();
+        for (ProductReportItem item : itemList) {
+            String id = item.getProductId();
             String description = controller.get(id).getDescription();
-            BigDecimal price = productReportItem.getPrice();
-            BigDecimal quantityPerPieces = addProductQuantity(productReportItem.getQuantityByPieces(),id);
-            BigDecimal quantityPerBox = productReportItem.getQuantityByBox();
-            BigDecimal piecesPerBox = productReportItem.getPiecesPerBox();
+            BigDecimal price = item.getPrice();
+            Integer quantityPerPieces = item.getQuantityByPieces() + controller.get(id).getQuantityPerPieces();
+            Double quantityPerBox = item.getQuantityByBox();
+            Integer piecesPerBox = item.getPiecesPerBox();
             productList.add(new Product(id, description, price, quantityPerPieces, piecesPerBox, quantityPerBox));
         }
         return productList;
-    }
-
-    private @NotNull BigDecimal addProductQuantity(@NotNull BigDecimal quantityPerPieces, String id) {
-        return quantityPerPieces.add(controller.get(id).getQuantityPerPieces());
     }
 
     private @NotNull ProductReport createProductReport() {
@@ -97,7 +93,7 @@ public class AddController {
                     data[j] = table.getValueAt(i,j).toString();
                 }
                 list.add(new ProductReportItem(data[1],new BigDecimal(data[2]),
-                    new BigDecimal(data[3]),new BigDecimal(data[4]),new BigDecimal(data[5])));
+                    Integer.parseInt(data[3]),Double.parseDouble(data[4]),Integer.parseInt(data[5])));
             }
         return list;
     }
@@ -129,14 +125,12 @@ public class AddController {
     private void insertDataInTable() {
         add.getAdd().addActionListener(e -> {
             String id = (String) add.getId().getSelectedItem();
-            String price = add.getPrice().getText();
-            String quantityByPiece = add.getQuantityByPiece().getText();
-            String quantityByBox = add.getQuantityByBox().getText();
-            String piecesPerBox = add.getPiecesPerBox().getText();
-            BigDecimal oldCount = controller.get(id).getQuantityPerPieces();
-            Product product = new Product(id,"",new BigDecimal(price),
-                    new BigDecimal(quantityByPiece),new BigDecimal(piecesPerBox),
-                    new BigDecimal(quantityByBox));
+            BigDecimal price = new BigDecimal(add.getPrice().getText());
+            Integer quantityPerPiece = Integer.parseInt(add.getQuantityByPiece().getText());
+            Integer piecesPerBox = Integer.parseInt(add.getPiecesPerBox().getText());
+            Double quantityPerBox = Double.parseDouble(add.getQuantityByBox().getText());
+            Integer oldCount = controller.get(id).getQuantityPerPieces();
+            Product product = new Product(id,"",price, quantityPerPiece,piecesPerBox,quantityPerBox);
             table.addItem(product,oldCount);
             fixNumberColumn();
         });
@@ -153,7 +147,7 @@ public class AddController {
         return true;
     }
 
-    private BigDecimal getPiecesPerBox() {
+    private Integer getPiecesPerBox() {
         final String productID = (String) add.getId().getSelectedItem();
         return controller.get(productID).getPiecesPerBox();
     }
@@ -205,17 +199,17 @@ public class AddController {
         });
     }
 
-    private void autoCalculate(@NotNull JTextField textChange, JTextField textGet,BigDecimal num,boolean isMultiply) {
+    private void autoCalculate(@NotNull JTextField textChange, JTextField textGet,Integer num,boolean isMultiply) {
         if(isMultiply){
             textChange.setText(String.valueOf(multiplyToGetTotal(num,textGet.getText(),textGet)));
         }else {
-            textChange.setText(String.valueOf(divideToGetTotal(num,textGet.getText(),textGet)));
+            textChange.setText(String.valueOf(divideToGetTotal(BigDecimal.valueOf(num),textGet.getText(),textGet)));
         }
     }
 
-    private @NotNull BigDecimal multiplyToGetTotal(BigDecimal piecesPerBox, String input, @NotNull JTextField textField)  {
-        if (isValidNumber(input)) return new BigDecimal(textField.getText()).multiply(piecesPerBox);
-        return new BigDecimal("0");
+    private @NotNull Integer multiplyToGetTotal(Integer piecesPerBox, String input, @NotNull JTextField textField)  {
+        if (isValidNumber(input)) return Integer.parseInt(textField.getText()) * piecesPerBox;
+        return 0;
     }
 
     private @NotNull BigDecimal divideToGetTotal(BigDecimal piecesPerBox, String input, @NotNull JTextField textField)  {

@@ -2,9 +2,9 @@ package retail.controller.tab.inventory;
 
 import org.jetbrains.annotations.NotNull;
 import retail.view.main.tab.bot.BottomBorderPanel;
-import retail.view.main.tab.bot.center.inventory.InventoryMainCard;
-import retail.view.main.tab.bot.manipulator.inventory.panel.AddViewDelete;
-import retail.view.main.tab.bot.manipulator.inventory.panel.InventoryManipulatorCard;
+import retail.view.main.tab.bot.inventory.center.InventoryMainCard;
+import retail.view.main.tab.bot.inventory.manipulator.panel.AddViewDelete;
+import retail.view.main.tab.bot.inventory.manipulator.panel.InventoryManipulatorCard;
 import retail.view.main.tab.top.TopBorderPanel;
 
 import java.awt.*;

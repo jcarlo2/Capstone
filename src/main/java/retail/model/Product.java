@@ -13,7 +13,7 @@ public class Product {
     private String id;
     private String description;
     private BigDecimal price;
-    private BigDecimal quantityPerPieces;
-    private BigDecimal piecesPerBox;
-    private BigDecimal quantityPerBox;
+    private Integer quantityPerPieces;
+    private Integer piecesPerBox;
+    private Double quantityPerBox;
 }

@@ -1,8 +1,8 @@
 package retail.view.main.tab.bot;
 
 import lombok.Getter;
-import retail.view.main.tab.bot.manipulator.inventory.InventoryManipulator;
-import retail.view.main.tab.bot.manipulator.transaction.TransactionManipulator;
+import retail.view.main.tab.bot.inventory.manipulator.InventoryManipulator;
+import retail.view.main.tab.bot.transaction.manipulator.TransactionManipulator;
 
 import javax.swing.*;
 import java.awt.*;

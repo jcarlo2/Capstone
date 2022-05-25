@@ -2,17 +2,17 @@ package retail.controller.tab.inventory;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductDatabase;
-import retail.customcomponent.jtable.inventory.CustomJTableProduct;
-import retail.util.constant.ConstantDialog;
+import retail.shared.customcomponent.jtable.JTableProduct;
+import retail.shared.constant.ConstantDialog;
 import retail.view.main.tab.bot.BottomBorderPanel;
-import retail.view.main.tab.bot.manipulator.inventory.panel.Product;
+import retail.view.main.tab.bot.inventory.manipulator.panel.Product;
 
 import java.math.BigDecimal;
 
 public class ProductController {
     private final ProductDatabase controller = new ProductDatabase();
     private final Product product;
-    private final CustomJTableProduct table;
+    private final JTableProduct table;
 
     public ProductController(@NotNull BottomBorderPanel bottomBorderPanel) {
         product = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getProduct();
@@ -83,8 +83,8 @@ public class ProductController {
 
     private void addProduct(String @NotNull [] data) {
         controller.save(new retail.model.Product
-                (data[0],data[1],new BigDecimal(data[2]),new BigDecimal(data[3]),
-                        new BigDecimal(data[4]),new BigDecimal(data[5])));
+                (data[0],data[1],new BigDecimal(data[2]),Integer.parseInt(data[3]),
+                        Integer.parseInt(data[4]),Double.parseDouble(data[5])));
         table.populateProductTable(controller.showProduct());
     }
 

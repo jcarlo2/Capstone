@@ -1,7 +1,7 @@
 package retail.view;
 
 import lombok.Getter;
-import retail.util.constant.Constant;
+import retail.shared.constant.Constant;
 import retail.view.option.OptionFrame;
 import retail.view.login.LogIn;
 import retail.view.login.LogInFrame;

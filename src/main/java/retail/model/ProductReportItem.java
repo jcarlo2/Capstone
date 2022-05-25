@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class ProductReportItem {
     private String productId;
     private BigDecimal price;
-    private BigDecimal quantityByPieces;
-    private BigDecimal quantityByBox;
-    private BigDecimal piecesPerBox;
+    private Integer quantityByPieces;
+    private Double quantityByBox;
+    private Integer piecesPerBox;
 }
