@@ -1,8 +1,8 @@
 package retail.controller.database;
 
 import org.jetbrains.annotations.NotNull;
-import retail.model.TransactionReport;
-import retail.model.TransactionReportItem;
+import retail.shared.pojo.TransactionReport;
+import retail.shared.pojo.TransactionReportItem;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static retail.shared.constant.Constant.*;
 
-public class TransactionDatabase {
+public class AddTransactionDatabase {
 
     public boolean isReportExist(String id) {
         String query = "SELECT EXISTS (SELECT id FROM transaction_report WHERE id = ?)";
@@ -40,7 +40,7 @@ public class TransactionDatabase {
                     while(resultSet.next()) {
                         String productId = resultSet.getString("prod_id");
                         Double price = resultSet.getDouble("price");
-                        Integer sold = resultSet.getInt("sold");
+                        Double sold = resultSet.getDouble("sold");
                         Double soldTotal = resultSet.getDouble("sold_total");
                         Double discountPercentage = resultSet.getDouble("discount_percentage");
                         Double discountAmount = resultSet.getDouble("discount_amount");
@@ -135,7 +135,7 @@ public class TransactionDatabase {
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setString(1, item.getProductId());
                     preparedStatement.setDouble(2, item.getPrice());
-                    preparedStatement.setInt(3, item.getSold());
+                    preparedStatement.setDouble(3, item.getSold());
                     preparedStatement.setDouble(4, item.getSoldTotal());
                     preparedStatement.setDouble(5, item.getDiscountPercentage());
                     preparedStatement.setDouble(6, item.getDiscountAmount());

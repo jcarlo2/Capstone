@@ -9,7 +9,7 @@ public interface Constant {
     String USER = "root";
     String PASS = "09212440633a";
     // ******
-    String RETAIL_MANAGEMENT = "Retail Management";
+    String SALES_AND_INVENTORY_SYSTEM = "Computerized Sales And Inventory System";
     String INCORRECT_ID_PASSWORD = "Error! Incorrect ID or Password";
     // LOGIN
     String EMPLOYEE_ID = "Employee ID";
@@ -24,8 +24,8 @@ public interface Constant {
     Color COLOR_BLACK = Color.BLACK;
     Color COLOR_GREEN = Color.BLUE;
 
-    Character ZERO = '0';
-    Character NINE = '9';
     String EMPTY_REPORT_TABLE = "Empty Report Table!!";
     String GENERATE_NEW_REPORT_ID = "Generate New Report ID!!";
+
+
 }

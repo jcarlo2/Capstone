@@ -1,11 +1,11 @@
 package retail.controller.tab.transaction.view;
 
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.TransactionDatabase;
+import retail.controller.database.AddTransactionDatabase;
 import retail.shared.customcomponent.jlist.CustomJList;
 import retail.shared.customcomponent.jtable.JTableTransaction;
-import retail.model.TransactionReport;
-import retail.model.TransactionReportItem;
+import retail.shared.pojo.TransactionReport;
+import retail.shared.pojo.TransactionReportItem;
 import retail.view.main.tab.bot.BottomBorderPanel;
 import retail.view.main.tab.bot.transaction.center.view.View;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ViewController {
-    private final TransactionDatabase controller = new TransactionDatabase();
+    private final AddTransactionDatabase controller = new AddTransactionDatabase();
     private final retail.view.main.tab.bot.transaction.manipulator.panel.view.View viewManipulator;
     private final View view;
     private final JTableTransaction table;

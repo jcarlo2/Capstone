@@ -1,10 +1,5 @@
-CREATE MODEL FOR EACH SWING COMPONENTS
-    JTextField
-    JComboBox
-    DefaultListCellRenderer
-    DefaultTableCellRenderer
+RETURN TRANSACTION - REFLECT TO NULL INVENTORY
+INVENTORY TAB:: NEED FIX
+SALES REPORT TAB::
+LOG FILE TAB ::
 
-    -----------------------
-    TRIM TEXT
-
-    FIX PRODUCT DATABASE

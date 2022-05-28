@@ -2,9 +2,9 @@ package retail.controller.database;
 
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
-import retail.model.Product;
-import retail.model.ProductReport;
-import retail.model.ProductReportItem;
+import retail.shared.pojo.Product;
+import retail.shared.pojo.ProductReport;
+import retail.shared.pojo.ProductReportItem;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -42,9 +42,9 @@ public class ProductDatabase {
                 String id = resultSet.getString("id");
                 String description = resultSet.getString("description");
                 BigDecimal price = resultSet.getBigDecimal("price");
-                Integer quantityPerPieces = resultSet.getInt("quantity_per_pieces");
+                Double quantityPerPieces = resultSet.getDouble("quantity_per_pieces");
                 Double quantityPerBox = resultSet.getDouble("quantity_per_box");
-                Integer piecesPerBox = resultSet.getInt("pieces_per_box");
+                Double piecesPerBox = resultSet.getDouble("pieces_per_box");
                 productList.add(new Product(id,description,price,quantityPerPieces,piecesPerBox,quantityPerBox));
             }
         }catch(Exception e) {
@@ -58,9 +58,9 @@ public class ProductDatabase {
         String query = "SELECT * FROM product WHERE id = ?";
         String description = "";
         BigDecimal price = new BigDecimal("0");
-        int quantityPerPieces = 0;
+        double quantityPerPieces = 0.0;
         double quantityPerBox = 0.0;
-        int piecesPerBox = 0;
+        double piecesPerBox = 0.0;
         try {
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -70,9 +70,9 @@ public class ProductDatabase {
             id = resultSet.getString("id");
             description = resultSet.getString("description");
             price = resultSet.getBigDecimal("price");
-            quantityPerPieces = resultSet.getInt("quantity_per_pieces");
+            quantityPerPieces = resultSet.getDouble("quantity_per_pieces");
             quantityPerBox = resultSet.getDouble("quantity_per_box");
-            piecesPerBox = resultSet.getInt("pieces_per_box");
+            piecesPerBox = resultSet.getDouble("pieces_per_box");
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -93,9 +93,9 @@ public class ProductDatabase {
             preparedStatement.setString(1,product.getId());
             preparedStatement.setString(2, product.getDescription());
             preparedStatement.setBigDecimal(3,product.getPrice());
-            preparedStatement.setInt(4,product.getQuantityPerPieces());
+            preparedStatement.setDouble(4,product.getQuantityPerPieces());
             preparedStatement.setDouble(5,product.getQuantityPerBox());
-            preparedStatement.setInt(6,product.getPiecesPerBox());
+            preparedStatement.setDouble(6,product.getPiecesPerBox());
             preparedStatement.executeUpdate();
         }catch(Exception e) {
             e.printStackTrace();
@@ -114,12 +114,12 @@ public class ProductDatabase {
         }
     }
 
-    public void updateProductQuantity(String id, Integer quantity) {
-        String query = "UPDATE product SET quantity_per_pieces = ? WHERE id = ?";
+    public void updateProductQuantity(String id, Double quantity) {
+        String query = "UPDATE product SET quantity_per_pieces = quantity_per_pieces + ? WHERE id = ?";
         try {
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1,quantity);
+            preparedStatement.setDouble(1,quantity);
             preparedStatement.setString(2,id);
             preparedStatement.executeUpdate();
         }catch(Exception e) {
@@ -128,13 +128,6 @@ public class ProductDatabase {
     }
 
     // PRODUCT REPORT
-    public void addReport(ArrayList<ProductReportItem> list, ProductReport report, @NotNull ArrayList<Product> productList) {
-        saveReport(report);
-        saveReportItem(list,report);
-        for(Product product : productList) {
-            updateProductQuantity("product", 123);
-        }
-    }
 
     private void deleteReportItem(String id) {
         String query = "DELETE FROM product_report_item WHERE unique_id = ?";
@@ -182,9 +175,9 @@ public class ProductDatabase {
         try {
             String productId = resultSet.getString("prod_id");
             BigDecimal price = resultSet.getBigDecimal("price");
-            Integer quantityByPieces = resultSet.getInt("quantity_pieces");
+            Double quantityByPieces = resultSet.getDouble("quantity_pieces");
             Double quantityByBox = resultSet.getDouble("quantity_box");
-            Integer piecesPerBox = resultSet.getInt("pieces_per_box");
+            Double piecesPerBox = resultSet.getDouble("pieces_per_box");
 
             itemList.add(new ProductReportItem(productId,price,quantityByPieces,quantityByBox,piecesPerBox));
         }catch (Exception e) {
@@ -205,7 +198,7 @@ public class ProductDatabase {
     }
 
 
-    private void saveReport(ProductReport report) {
+    public void saveReport(ProductReport report) {
         String query = "INSERT INTO product_report(id,user) VALUES(?,?)";
             try {
                 Connection connection = DriverManager.getConnection(URL,USER,PASS);
@@ -292,7 +285,7 @@ public class ProductDatabase {
     }
 
     // PRODUCT REPORT ITEM
-    private void saveReportItem(@NotNull ArrayList<ProductReportItem> list, ProductReport report) {
+    public void saveReportItem(@NotNull ArrayList<ProductReportItem> list, ProductReport report) {
         for(ProductReportItem item : list) {
             String query = "INSERT INTO product_report_item(prod_id,price,quantity_pieces," +
                     "quantity_box,pieces_per_box,unique_id) VALUES(?,?,?,?,?,?)";
@@ -301,9 +294,9 @@ public class ProductDatabase {
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1,item.getProductId());
                 preparedStatement.setBigDecimal(2,item.getPrice());
-                preparedStatement.setInt(3,item.getQuantityByPieces());
+                preparedStatement.setDouble(3,item.getQuantityByPieces());
                 preparedStatement.setDouble(4,item.getQuantityByBox());
-                preparedStatement.setInt(5,item.getPiecesPerBox());
+                preparedStatement.setDouble(5,item.getPiecesPerBox());
                 preparedStatement.setString(6, report.getId());
                 preparedStatement.executeUpdate();
             }catch (Exception e) {

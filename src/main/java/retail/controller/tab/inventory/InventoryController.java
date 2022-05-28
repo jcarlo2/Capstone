@@ -1,6 +1,10 @@
 package retail.controller.tab.inventory;
 
 import org.jetbrains.annotations.NotNull;
+import retail.controller.tab.inventory.add.AddController;
+import retail.controller.tab.inventory.add.AddInventoryController;
+import retail.controller.tab.inventory.product.ProductController;
+import retail.controller.tab.inventory.view.ViewController;
 import retail.view.main.tab.bot.BottomBorderPanel;
 import retail.view.main.tab.bot.inventory.center.InventoryMainCard;
 import retail.view.main.tab.bot.inventory.manipulator.panel.AddViewDelete;

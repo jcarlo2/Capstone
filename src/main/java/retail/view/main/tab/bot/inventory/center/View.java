@@ -8,7 +8,7 @@ import java.awt.*;
 
 @Getter
 public class View extends JPanel {
-    private final JTableInventory tableInventory = new JTableInventory(false);
+    private final JTableInventory tableInventory = new JTableInventory();
     private final JScrollPane scroll = new JScrollPane(tableInventory);
 
     public View() {

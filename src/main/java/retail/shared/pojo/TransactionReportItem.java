@@ -1,4 +1,4 @@
-package retail.model;
+package retail.shared.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class TransactionReportItem {
     private String productId;
     private Double price;
-    private Integer sold;
+    private Double sold;
     private Double soldTotal;
     private Double discountPercentage;
     private Double discountAmount;

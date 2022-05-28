@@ -1,4 +1,4 @@
-package retail.model;
+package retail.shared.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

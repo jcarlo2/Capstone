@@ -1,6 +1,7 @@
 package retail.controller.tab.login;
 
 import org.jetbrains.annotations.NotNull;
+import retail.model.User;
 import retail.shared.constant.ConstantDialog;
 import retail.controller.database.UserController;
 import retail.view.login.LogIn;
@@ -14,11 +15,12 @@ public class LogInController {
     private final LogIn logIn;
     private final MainFrame mainFrame;
     private final UserPanel userPanel;
-
-    public LogInController(LogIn logIn, MainFrame mainFrame, UserPanel userPanel) {
+    private final User user;
+    public LogInController(LogIn logIn, MainFrame mainFrame, UserPanel userPanel, User user) {
         this.logIn = logIn;
         this.mainFrame = mainFrame;
         this.userPanel = userPanel;
+        this.user = user;
         addActionListener();
     }
 
@@ -40,11 +42,16 @@ public class LogInController {
             ConstantDialog.INCORRECT_ID_PASSWORD();
             return;
         }
+        saveUser(id);
         userPanel.getEmployeeID().setText(id);
-        userPanel.getEmployeeLastName().setText(controller.getLastName(id));
+        userPanel.getEmployeeLastName().setText(user.getLastName());
         disposeLogInAndCreateMainFrame();
     }
 
+    private void saveUser(String id) {
+        user.setId(id);
+        user.setLastName(controller.getLastName(id));
+    }
     public boolean isValidId(@NotNull String employeeID) {
         if(employeeID.equals("")) return false;
         return isIdNumerical(employeeID);

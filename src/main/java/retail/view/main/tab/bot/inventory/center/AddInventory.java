@@ -7,11 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 
 @Getter
-public class Add extends JPanel {
-    private final JTableInventory tableInventory = new JTableInventory(true);
-    private final JScrollPane scroll = new JScrollPane(tableInventory);
+public class AddInventory extends JPanel {
+    private final JTableInventory table = new JTableInventory();
+    private final JScrollPane scroll = new JScrollPane(table);
 
-    public Add() {
+    public AddInventory() {
         setLayout(new BorderLayout());
         add(scroll,BorderLayout.CENTER);
     }

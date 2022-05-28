@@ -2,7 +2,7 @@ package retail.shared.constant;
 
 import javax.swing.*;
 
-public interface ConstantDialog {
+public interface ConstantDialog extends ImageDirectory{
     static void INVALID_INPUT() {
         JOptionPane.showMessageDialog(new JFrame(), Constant.INVALID_INPUT);
     }
@@ -23,6 +23,10 @@ public interface ConstantDialog {
         JOptionPane.showMessageDialog(new JFrame(), Constant.EMPTY_REPORT_TABLE);
     }
 
+    static void SAVE_FAILED() {
+        JOptionPane.showMessageDialog(new JFrame(), "Saving failed ... check row count");
+    }
+
     static void GENERATE_NEW_REPORT_ID() {
         JOptionPane.showMessageDialog(new JFrame(), Constant.GENERATE_NEW_REPORT_ID);
     }
@@ -37,5 +41,13 @@ public interface ConstantDialog {
 
     static void INCORRECT_ID_PASSWORD() {
         JOptionPane.showMessageDialog(new JFrame(), Constant.INCORRECT_ID_PASSWORD);
+    }
+
+    static int ADD_ALL() {
+        return JOptionPane.showConfirmDialog(null, "Confirm Add All","Alert!!", JOptionPane.OK_CANCEL_OPTION);
+    }
+
+    static int DELETE_ALL() {
+        return JOptionPane.showConfirmDialog(null, "Confirm Delete All","Alert!!", JOptionPane.OK_CANCEL_OPTION);
     }
 }

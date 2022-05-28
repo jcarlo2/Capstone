@@ -2,26 +2,25 @@ package retail.shared.customcomponent.jtable;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import retail.model.Product;
-import retail.model.ProductReportItem;
+import retail.shared.pojo.Product;
+import retail.shared.pojo.ProductReportItem;
 import retail.shared.constant.ConstantDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 @Getter
 public class JTableInventory extends JTable {
     private final DefaultTableModel model = new DefaultTableModel(0,8);
-    boolean check;
 
-    public JTableInventory(boolean check) {
-        this.check = check;
+    public JTableInventory() {
         setModel(model);
         setUpJTable();
+        getColumnModel().getColumn(0).setMinWidth(35);
+        getColumnModel().getColumn(0).setMaxWidth(35);
     }
 
     public void addItemList(@NotNull ArrayList<ProductReportItem> itemList) {
@@ -39,7 +38,7 @@ public class JTableInventory extends JTable {
         }
     }
 
-    public void addItem(@NotNull Product product, Integer oldCount) {
+    public void addItem(@NotNull Product product, Double oldCount) {
         if(!isDuplicate(product.getId())) {
             String[] data = new String[8];
             data[0] = "";
@@ -75,32 +74,7 @@ public class JTableInventory extends JTable {
         setDefaultEditor(Object.class,null); // DISABLE EDIT TABLE LIKE setEditable()
 
         addColumnName();
-        setJTableColumnWidth();
         centerJTableText();
-    }
-
-    private void setJTableColumnWidth() {
-        getColumnModel().getColumn(0).setMinWidth(35);
-        getColumnModel().getColumn(0).setMaxWidth(35);
-        if(check) {
-            getColumnModel().getColumn(1).setMinWidth(200);
-            getColumnModel().getColumn(1).setMaxWidth(200);
-
-            getColumnModel().getColumn(2).setMaxWidth(100);
-            getColumnModel().getColumn(2).setMinWidth(100);
-
-            getColumnModel().getColumn(3).setMaxWidth(120);
-            getColumnModel().getColumn(3).setMinWidth(120);
-
-            getColumnModel().getColumn(4).setMinWidth(100);
-            getColumnModel().getColumn(4).setMaxWidth(100);
-
-            getColumnModel().getColumn(5).setMinWidth(100);
-            getColumnModel().getColumn(5).setMaxWidth(100);
-
-            getColumnModel().getColumn(6).setMinWidth(200);
-            getColumnModel().getColumn(7).setMinWidth(200);
-        }
     }
 
     private void addColumnName() {

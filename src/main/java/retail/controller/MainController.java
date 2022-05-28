@@ -7,6 +7,7 @@ import retail.controller.tab.inventory.InventoryController;
 import retail.controller.tab.login.LogInController;
 import retail.controller.tab.northbutton.NorthButtonController;
 import retail.controller.tab.transaction.TransactionController;
+import retail.model.User;
 import retail.view.BuildGUI;
 
 import javax.swing.*;
@@ -19,16 +20,16 @@ public class MainController {
     private final JRadioButton light;
     private final JRadioButton dark;
 
-    public  MainController(@NotNull BuildGUI buildGUI) {
+    public  MainController(@NotNull BuildGUI buildGUI, User user) {
         this.buildGUI = buildGUI;
         this.option = buildGUI.getMainFrame().getMain().getTopBorderPanel().getUserPanel().getOption();
         this.light = buildGUI.getOptionFrame().getOption().getLight();
         this.dark = buildGUI.getOptionFrame().getOption().getDark();
 
-        new LogInController(buildGUI.getLogIn(), buildGUI.getMainFrame(),buildGUI.getTopBorderPanel().getUserPanel());
+        new LogInController(buildGUI.getLogIn(), buildGUI.getMainFrame(),buildGUI.getTopBorderPanel().getUserPanel(), user);
         new NorthButtonController(buildGUI.getTopBorderPanel(), buildGUI.getBottomBorderPanel());
         new InventoryController(buildGUI.getBottomBorderPanel(),buildGUI.getTopBorderPanel());
-        new TransactionController(buildGUI.getTopBorderPanel(),buildGUI.getBottomBorderPanel());
+        new TransactionController(buildGUI.getTopBorderPanel(),buildGUI.getBottomBorderPanel(),user);
 
         setOption();
         setUIStyle();

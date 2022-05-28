@@ -1,7 +1,7 @@
 package retail.shared.customcomponent.jtable;
 
 import org.jetbrains.annotations.NotNull;
-import retail.model.Product;
+import retail.shared.pojo.Product;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

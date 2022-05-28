@@ -16,9 +16,9 @@ public class BuildGUI {
     private final OptionFrame optionFrame;
 
     public BuildGUI() {
-        logInFrame = new LogInFrame(Constant.RETAIL_MANAGEMENT);
-        mainFrame = new MainFrame(Constant.RETAIL_MANAGEMENT);
-        optionFrame = new OptionFrame(Constant.RETAIL_MANAGEMENT);
+        logInFrame = new LogInFrame(Constant.SALES_AND_INVENTORY_SYSTEM);
+        mainFrame = new MainFrame(Constant.SALES_AND_INVENTORY_SYSTEM);
+        optionFrame = new OptionFrame(Constant.SALES_AND_INVENTORY_SYSTEM);
     }
 
     public TopBorderPanel getTopBorderPanel() {

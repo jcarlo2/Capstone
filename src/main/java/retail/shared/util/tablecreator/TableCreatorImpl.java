@@ -1,4 +1,4 @@
-package retail.shared.util;
+package retail.shared.util.tablecreator;
 
 public class TableCreatorImpl implements CreateEmployeeTable, CreateProductTable,CreateTransactionTable {
     public TableCreatorImpl() {
@@ -6,7 +6,11 @@ public class TableCreatorImpl implements CreateEmployeeTable, CreateProductTable
         createProductTable();
         createProductReport();
         createProductReportItem();
-        createSalesReportTable();
-        createSalesReportTableItem();
+        createTransactionReport();
+        createTransactionReportItem();
+        createReturnedTransactionReport();
+        createReturnedTransactionReportItem();
+        createNullReport();
+        createNullReportItem();
     }
 }

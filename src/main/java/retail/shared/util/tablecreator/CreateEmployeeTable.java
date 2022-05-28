@@ -1,4 +1,4 @@
-package retail.shared.util;
+package retail.shared.util.tablecreator;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

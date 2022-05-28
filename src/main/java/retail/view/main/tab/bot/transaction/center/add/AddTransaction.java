@@ -12,11 +12,10 @@ import java.awt.*;
 public class AddTransaction extends JPanel {
     private final JTableTransaction centerTable = new JTableTransaction(false,false,false);
     private final JScrollPane centerScroll = new JScrollPane(centerTable);
-    private final CustomJTextField totalAmount = new CustomJTextField("Total Amount", Color.BLACK);
+    private final CustomJTextField totalAmount = new CustomJTextField("Total Amount", Color.BLACK,false);
 
     public AddTransaction() {
         setLayout(new BorderLayout());
-        totalAmount.setEditable(false);
         add(centerScroll,BorderLayout.CENTER);
         add(totalAmount,BorderLayout.NORTH);
     }

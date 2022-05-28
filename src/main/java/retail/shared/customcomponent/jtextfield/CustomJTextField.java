@@ -25,9 +25,10 @@ public class CustomJTextField extends JTextField {
         setText("0");
         setColumns(length);
         setEditable(false);
+//        setBackground(UIManager.getColor("TextField.background"));
     }
 
-    private void setTitledBorder(String title, Color color) {
+    public void setTitledBorder(String title, Color color) {
         setBorder(BorderFactory.createTitledBorder
                 (new LineBorder(color),title,
                         TitledBorder.CENTER,TitledBorder.CENTER,

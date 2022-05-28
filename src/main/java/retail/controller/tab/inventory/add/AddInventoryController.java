@@ -1,12 +1,13 @@
-package retail.controller.tab.inventory;
+package retail.controller.tab.inventory.add;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductDatabase;
-import retail.shared.customcomponent.jtable.JTableInventory;
-import retail.model.Product;
-import retail.model.ProductReport;
-import retail.model.ProductReportItem;
+import retail.shared.pojo.Product;
+import retail.shared.pojo.ProductReport;
+import retail.shared.pojo.ProductReportItem;
 import retail.shared.constant.ConstantDialog;
+import retail.shared.customcomponent.jcombobox.JComboBoxProduct;
+import retail.shared.customcomponent.jtable.JTableInventory;
 import retail.view.main.tab.bot.BottomBorderPanel;
 import retail.view.main.tab.bot.inventory.manipulator.panel.add.AddInventory;
 import retail.view.main.tab.top.TopBorderPanel;
@@ -21,18 +22,21 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public class AddController {
-    private final ProductDatabase controller = new ProductDatabase();
+public class AddInventoryController {
+    private final ProductDatabase productDatabase = new ProductDatabase();
     private final AddInventory add;
     private final JTableInventory table;
     private final UserPanel userPanel;
-    public AddController(@NotNull BottomBorderPanel bottomBorderPanel, @NotNull TopBorderPanel topBorderPanel) {
-        userPanel = topBorderPanel.getUserPanel();
-        add = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getAddPanel().getAddCard().getAdd();
-        table = bottomBorderPanel.getBottomMainCard().getInventoryCard().getAdd().getTableInventory();
 
-        addReportInDatabase();
+    public AddInventoryController(@NotNull BottomBorderPanel bottomBorderPanel, @NotNull TopBorderPanel topBorderPanel) {
+        userPanel = topBorderPanel.getUserPanel();
+        add = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getAddPanel().getAddInventory();
+        table = bottomBorderPanel.getBottomMainCard().getInventoryCard().getAdd().getTable();
+        addReport();
         insertDataInTable();
         deleteRowInTable();
         clear();
@@ -42,35 +46,87 @@ public class AddController {
         productIdItemListener();
         autoSetPrice();
         autoSetPiecesPerBox();
+        updateJComboBox();
         add.getReportId().setText(generateReportId()); // Generate initial report id at startup
     }
 
-    private void addReportInDatabase() {
+    private void updateJComboBox() {
+        Runnable runnable = () -> {
+            if(!isSameData(add.getId())) {
+                SwingUtilities.invokeLater(this::setProductIdList);
+            }
+        };
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        service.scheduleAtFixedRate(runnable,0,1, TimeUnit.SECONDS);
+    }
+
+    private boolean isSameData(@NotNull JComboBoxProduct box) {
+        int count = box.getItemCount();
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Product> prodList = productDatabase.showProduct();
+        for(int i=0;i<count;i++) {
+            list.add(box.getComboBoxModel().getElementAt(i));
+        }
+        for(Product product : prodList) {
+            if(!list.contains(product.getId())) return false;
+        }
+        return list.size() == prodList.size();
+    }
+
+    private @NotNull ArrayList<String> getAllProductID() {
+        ArrayList<Product> product = productDatabase.showProduct();
+        ArrayList<String> list = new ArrayList<>();
+        for(Product item : product) {
+            list.add(item.getId());
+        }
+        return list;
+    }
+
+    // MUST CALL EVERY PRESSED IN ADD-JBUTTON IN INVENTORY PRODUCT PANEL
+    public void setProductIdList() {
+        add.getId().removeAllItems();
+        ArrayList<String> list = getAllProductID();
+        for(String id : list) {
+            add.getId().getComboBoxModel().addElement(id);
+        }
+    }
+
+    private void addReport() {
         add.getSave().addActionListener(e -> {
             if(table.getRowCount() == 0) {
                 ConstantDialog.EMPTY_REPORT_TABLE();
                 return;
             }
-            if(controller.isReportExist(add.getReportId().getText())) {
+            if(productDatabase.isReportExist(add.getReportId().getText())) {
                 ConstantDialog.GENERATE_NEW_REPORT_ID();
                 return;
             }
             ArrayList<ProductReportItem> itemList = getAllItemsAtTable();
-
-            controller.addReport(itemList,createProductReport(),updateProductQuantity(itemList));
+            addReportInDatabase(itemList,createProductReport(),updateProductQuantity(itemList));
             ConstantDialog.SAVED_REPORT();
+            for(Product product: updateProductQuantity(itemList)) {
+                System.out.println(product.getQuantityPerPieces());
+            }
         });
+    }
+
+    public void addReportInDatabase(ArrayList<ProductReportItem> list, ProductReport report, @NotNull ArrayList<Product> productList) {
+        productDatabase.saveReport(report);
+        productDatabase.saveReportItem(list, report);
+        for (Product product : productList) {
+            productDatabase.updateProductQuantity(product.getId(), product.getQuantityPerPieces());
+        }
     }
 
     private @NotNull ArrayList<Product> updateProductQuantity(@NotNull ArrayList<ProductReportItem> itemList) {
         ArrayList<Product> productList = new ArrayList<>();
         for (ProductReportItem item : itemList) {
             String id = item.getProductId();
-            String description = controller.get(id).getDescription();
+            String description = productDatabase.get(id).getDescription();
             BigDecimal price = item.getPrice();
-            Integer quantityPerPieces = item.getQuantityByPieces() + controller.get(id).getQuantityPerPieces();
+            Double quantityPerPieces = item.getQuantityByPieces();
             Double quantityPerBox = item.getQuantityByBox();
-            Integer piecesPerBox = item.getPiecesPerBox();
+            Double piecesPerBox = item.getPiecesPerBox();
             productList.add(new Product(id, description, price, quantityPerPieces, piecesPerBox, quantityPerBox));
         }
         return productList;
@@ -79,7 +135,6 @@ public class AddController {
     private @NotNull ProductReport createProductReport() {
         String  id = add.getReportId().getText();
         String user = userPanel.getEmployeeLastName().getText();
-
         return new ProductReport(id, user, Date.valueOf(LocalDate.now()));
     }
 
@@ -93,7 +148,7 @@ public class AddController {
                     data[j] = table.getValueAt(i,j).toString();
                 }
                 list.add(new ProductReportItem(data[1],new BigDecimal(data[2]),
-                    Integer.parseInt(data[3]),Double.parseDouble(data[4]),Integer.parseInt(data[5])));
+                    Double.parseDouble(data[3]),Double.parseDouble(data[4]),Double.parseDouble(data[5])));
             }
         return list;
     }
@@ -126,10 +181,10 @@ public class AddController {
         add.getAdd().addActionListener(e -> {
             String id = (String) add.getId().getSelectedItem();
             BigDecimal price = new BigDecimal(add.getPrice().getText());
-            Integer quantityPerPiece = Integer.parseInt(add.getQuantityByPiece().getText());
-            Integer piecesPerBox = Integer.parseInt(add.getPiecesPerBox().getText());
+            Double quantityPerPiece = Double.parseDouble(add.getQuantityByPiece().getText());
+            Double piecesPerBox = Double.parseDouble(add.getPiecesPerBox().getText());
             Double quantityPerBox = Double.parseDouble(add.getQuantityByBox().getText());
-            Integer oldCount = controller.get(id).getQuantityPerPieces();
+            Double oldCount = productDatabase.get(id).getQuantityPerPieces();
             Product product = new Product(id,"",price, quantityPerPiece,piecesPerBox,quantityPerBox);
             table.addItem(product,oldCount);
             fixNumberColumn();
@@ -147,9 +202,9 @@ public class AddController {
         return true;
     }
 
-    private Integer getPiecesPerBox() {
+    private Double getPiecesPerBox() {
         final String productID = (String) add.getId().getSelectedItem();
-        return controller.get(productID).getPiecesPerBox();
+        return productDatabase.get(productID).getPiecesPerBox();
     }
 
     private void documentListenerQuantityByBox() {
@@ -199,7 +254,7 @@ public class AddController {
         });
     }
 
-    private void autoCalculate(@NotNull JTextField textChange, JTextField textGet,Integer num,boolean isMultiply) {
+    private void autoCalculate(@NotNull JTextField textChange, JTextField textGet,Double num,boolean isMultiply) {
         if(isMultiply){
             textChange.setText(String.valueOf(multiplyToGetTotal(num,textGet.getText(),textGet)));
         }else {
@@ -207,9 +262,9 @@ public class AddController {
         }
     }
 
-    private @NotNull Integer multiplyToGetTotal(Integer piecesPerBox, String input, @NotNull JTextField textField)  {
+    private @NotNull Double multiplyToGetTotal(Double piecesPerBox, String input, @NotNull JTextField textField)  {
         if (isValidNumber(input)) return Integer.parseInt(textField.getText()) * piecesPerBox;
-        return 0;
+        return 0.0;
     }
 
     private @NotNull BigDecimal divideToGetTotal(BigDecimal piecesPerBox, String input, @NotNull JTextField textField)  {
@@ -231,14 +286,14 @@ public class AddController {
     private void autoSetPiecesPerBox() {
         String productID = (String) add.getId().getSelectedItem();
         if(Objects.isNull(productID)) return; // PREVENT NULL POINTER EXCEPTION WHEN REMOVING ALL ELEMENTS
-        String piecesPerBox = String.valueOf(controller.get(productID).getPiecesPerBox());
+        String piecesPerBox = String.valueOf(productDatabase.get(productID).getPiecesPerBox());
         add.getPiecesPerBox().setText(piecesPerBox);
     }
 
     private void autoSetPrice() {
         String productID = (String) add.getId().getSelectedItem();
         if(Objects.isNull(productID)) return; // PREVENT NULL POINTER EXCEPTION WHEN REMOVING ALL ELEMENTS
-        String price = String.valueOf(controller.get(productID).getPrice());
+        String price = String.valueOf(productDatabase.get(productID).getPrice());
         add.getPrice().setText(price);
     }
 
@@ -253,8 +308,8 @@ public class AddController {
         while(flag) {
             id = (long) (Math.random() * 1000000000000L);
             formatId = String.format("%013d",id);
-            if(!controller.isReportExist(formatId)) flag = false;
+            if(!productDatabase.isReportExist(formatId)) flag = false;
         }
-        return "IR" + formatId;
+        return "IR" + formatId + "-A0";
     }
 }

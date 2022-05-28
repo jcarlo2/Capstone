@@ -17,12 +17,10 @@ public class Product extends JPanel {
     private final CustomJTextField id = new CustomJTextField("ID",COLOR_BLACK);
     private final CustomJTextField description = new CustomJTextField("Description",COLOR_BLACK);
     private final CustomJTextField price = new CustomJTextField("Price",COLOR_BLACK);
-    private final CustomJTextField quantityByPiece = new CustomJTextField("Quantity By Piece",COLOR_BLACK);
-    private final CustomJTextField quantityByBox = new CustomJTextField("Quantity By Box",COLOR_BLACK);
     private final CustomJTextField piecesPerBox = new CustomJTextField("Pieces Per Box",COLOR_BLACK);
     private final JTextArea fullDescription = new JTextArea(3,15);
     private final JScrollPane scroll = new JScrollPane(fullDescription);
-    private final JButton add = new JButton("Add/Update");
+    private final JButton add = new JButton("Add");
     private final JButton delete = new JButton("Delete");
     private final JButton clear = new JButton("Clear");
 
@@ -32,17 +30,13 @@ public class Product extends JPanel {
         id.setText("");
         description.setText("");
         price.setText("");
-        quantityByPiece.setText("");
-        quantityByBox.setText("");
         piecesPerBox.setText("");
         fullDescription.setText("");
 
         center.add(id);
         center.add(description);
         center.add(price);
-        center.add(quantityByPiece);
         center.add(piecesPerBox);
-        center.add(quantityByBox);
 
         wrapper.setLayout(new GridLayout(1,3));
         wrapper.add(add);

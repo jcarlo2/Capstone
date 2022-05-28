@@ -1,18 +1,23 @@
-package retail.controller.tab.inventory;
+package retail.controller.tab.inventory.view;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductDatabase;
-import retail.shared.customcomponent.jtable.JTableInventory;
-import retail.model.ProductReport;
-import retail.model.ProductReportItem;
+import retail.shared.pojo.ProductReport;
+import retail.shared.pojo.ProductReportItem;
 import retail.shared.constant.ConstantDialog;
+import retail.shared.customcomponent.jlist.CustomJList;
+import retail.shared.customcomponent.jtable.JTableInventory;
 import retail.view.main.tab.bot.BottomBorderPanel;
 import retail.view.main.tab.bot.inventory.manipulator.panel.View;
 
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ViewController {
     private final ProductDatabase controller = new ProductDatabase();
@@ -26,8 +31,28 @@ public class ViewController {
         deleteReport();
         searchList();
         populateTable();
-        // POPULATE LIST AT START UP
-//        view.getList().populateInventoryList(controller.getProductReportList());
+        update();
+        view.getList().populateInventoryList(controller.getProductReportList());
+    }
+
+    private void update() {
+        Runnable runnable = () -> {
+            if(!isSameData(view.getList())) {
+                SwingUtilities.invokeLater(() -> view.getList().populateInventoryList(controller.getProductReportList()));
+            }
+        };
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        service.scheduleAtFixedRate(runnable,0,1, TimeUnit.SECONDS);
+    }
+
+    private boolean isSameData(@NotNull CustomJList list) {
+        ArrayList<String> reportList = list.getAllElement();
+        ArrayList<ProductReport> report = controller.getProductReportList();
+        for(ProductReport productReport : report) {
+            if(!reportList.contains(productReport.getId())) return false;
+        }
+        System.out.println(report.size() + " " + reportList.size());
+        return reportList.size() == report.size();
     }
 
     private void populateTable() {
@@ -75,9 +100,9 @@ public class ViewController {
             view.getList().populateInventoryList(controller.getProductReportList());
             return;
         }
-        view.getList().getModel().removeAllElements();
+        view.getList().getListModel().removeAllElements();
         for (String str : checker(check)) {
-            view.getList().getModel().addElement(str);
+            view.getList().getListModel().addElement(str);
         }
     }
 

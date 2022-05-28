@@ -2,7 +2,8 @@ package retail;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import retail.controller.MainController;
-import retail.shared.util.TableCreatorImpl;
+import retail.model.User;
+import retail.shared.util.tablecreator.TableCreatorImpl;
 import retail.view.BuildGUI;
 
 import javax.swing.*;
@@ -12,8 +13,7 @@ public class RetailApplication {
         try {
             new TableCreatorImpl();
             UIManager.setLookAndFeel(new FlatDarculaLaf());
-            BuildGUI buildGUI = new BuildGUI();
-            new MainController(buildGUI);
+            new MainController(new BuildGUI(),new User());
         }catch (Exception e) {
             e.printStackTrace();
         }

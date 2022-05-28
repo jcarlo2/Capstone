@@ -18,10 +18,10 @@ public class AddTransaction extends JPanel {
     private final JPanel discountPercentageAndTotal = new JPanel();
 
     private final JComboBoxProduct id = new JComboBoxProduct("ID");
-    private final CustomJTextField price = new CustomJTextField("Price",COLOR_BLACK);
+    private final CustomJTextField price = new CustomJTextField("Price",COLOR_BLACK,false);
     private final CustomJTextField sold = new CustomJTextField("Sold By Piece",COLOR_BLACK);
-    private final CustomJTextField soldTotal = new CustomJTextField("Total",COLOR_BLACK);
-    private final CustomJTextField reportId = new CustomJTextField("Report ID",COLOR_BLACK);
+    private final CustomJTextField soldTotal = new CustomJTextField("Total",COLOR_BLACK,false);
+    private final CustomJTextField reportId = new CustomJTextField("Report ID",COLOR_BLACK,false);
     private final CustomJTextField discountPercentage = new CustomJTextField("Discount %",COLOR_BLACK);
     private final CustomJTextField discountTotal = new CustomJTextField("Total",COLOR_BLACK);
     private final JButton add = new JButton("Add");
@@ -33,11 +33,7 @@ public class AddTransaction extends JPanel {
     public AddTransaction() {
         setLayout(new GridLayout(12,2));
 
-        price.setEditable(false);
-        reportId.setEditable(false);
-
         AutoCompleteDecorator.decorate(id);
-        id.setEditable(true);
 
         saveGenerate.setLayout(new GridLayout(1,2));
         saveGenerate.add(save);
