@@ -1,10 +1,11 @@
 package retail.controller.tab.inventory.product;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.ProductDatabase;
 import retail.shared.customcomponent.jtable.JTableProduct;
 import retail.shared.constant.ConstantDialog;
-import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.bot.BottomPanel;
 import retail.view.main.tab.bot.inventory.manipulator.panel.Product;
 
 import javax.swing.*;
@@ -19,9 +20,9 @@ public class ProductController {
     private final Product productPanel;
     private final JTableProduct table;
 
-    public ProductController(@NotNull BottomBorderPanel bottomBorderPanel) {
-        productPanel = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getProduct();
-        table = bottomBorderPanel.getBottomMainCard().getInventoryCard().getProduct().getTable();
+    public ProductController(@NotNull BottomPanel bottomPanel) {
+        productPanel = bottomPanel.getManipulatorCard().getInventoryManipulator().getProduct();
+        table = bottomPanel.getBottomMainCard().getInventoryCard().getProduct().getTable();
 
         getDataFromTable();
         addInventoryProduct();
@@ -41,15 +42,32 @@ public class ProductController {
 
     private boolean isSameData(@NotNull JTableProduct table) {
         int count = table.getRowCount();
-        ArrayList<String> list = new ArrayList<>();
-        ArrayList<retail.shared.pojo.Product> prodList = productDatabase.showProduct();
+        ArrayList<String> productId = new ArrayList<>();
+        ArrayList<String> productQuantity = new ArrayList<>();
+        ArrayList<retail.shared.pojo.Product> productList = productDatabase.showProduct();
         for(int i=0;i<count;i++) {
-            list.add(table.getValueAt(i,1).toString());
+            productId.add(table.getValueAt(i,1).toString());
+            productQuantity.add(table.getValueAt(i,4).toString());
         }
-        for(retail.shared.pojo.Product product : prodList) {
-            if(!list.contains(product.getId())) return false;
+        return checkIdAndQuantity(productId, productQuantity, productList);
+    }
+
+    @Contract(pure = true)
+    private boolean checkIdAndQuantity(@NotNull ArrayList<String> productId, ArrayList<String> productQuantity, @NotNull ArrayList<retail.shared.pojo.Product> productList) {
+        String tableId;
+        String databaseId;
+        String tableQuantity;
+        String databaseQuantity;
+        for(int i=0;i<productId.size();i++) {
+            tableId = productId.get(i);
+            tableQuantity = productQuantity.get(i);
+            databaseId = productList.get(i).getId();
+            databaseQuantity = String.valueOf(productList.get(i).getQuantityPerPieces());
+            if(!tableId.equals(databaseId) || !tableQuantity.equals(databaseQuantity)) {
+                return false;
+            }
         }
-        return list.size() == prodList.size();
+        return productId.size() == productList.size();
     }
 
     private void getDataFromTable() {

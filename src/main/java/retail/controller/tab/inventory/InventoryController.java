@@ -2,10 +2,9 @@ package retail.controller.tab.inventory;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.tab.inventory.add.AddController;
-import retail.controller.tab.inventory.add.AddInventoryController;
 import retail.controller.tab.inventory.product.ProductController;
 import retail.controller.tab.inventory.view.ViewController;
-import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.bot.BottomPanel;
 import retail.view.main.tab.bot.inventory.center.InventoryMainCard;
 import retail.view.main.tab.bot.inventory.manipulator.panel.AddViewDelete;
 import retail.view.main.tab.bot.inventory.manipulator.panel.InventoryManipulatorCard;
@@ -20,14 +19,14 @@ public class InventoryController {
     private final Font sansSerif = new Font("SansSerif",Font.BOLD,12);
     private final Font segoeUI = new Font("Segoe UI",Font.PLAIN,12);
 
-    public InventoryController(@NotNull BottomBorderPanel bottomBorderPanel, TopBorderPanel topBorderPanel) {
-        this.addViewDelete = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getAddViewDelete();
-        this.manipulatorCard = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getInventoryManipulatorCard();
-        this.mainCard = bottomBorderPanel.getBottomMainCard().getInventoryCard();
+    public InventoryController(@NotNull BottomPanel bottomPanel, TopBorderPanel topBorderPanel) {
+        this.addViewDelete = bottomPanel.getManipulatorCard().getInventoryManipulator().getAddViewDelete();
+        this.manipulatorCard = bottomPanel.getManipulatorCard().getInventoryManipulator().getInventoryManipulatorCard();
+        this.mainCard = bottomPanel.getBottomMainCard().getInventoryCard();
 
-        new AddController(bottomBorderPanel,topBorderPanel);
-        new ViewController(bottomBorderPanel);
-        new ProductController(bottomBorderPanel);
+        new AddController(bottomPanel,topBorderPanel);
+        new ViewController(bottomPanel);
+        new ProductController(bottomPanel);
         inventoryActionListener();
     }
 

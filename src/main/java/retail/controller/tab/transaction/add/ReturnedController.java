@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import retail.controller.database.AddTransactionDatabase;
 import retail.controller.database.ProductDatabase;
 import retail.controller.database.ReturnedTransactionDatabase;
+import retail.controller.getter.transaction.add.ReturnTransaction;
 import retail.model.User;
 import retail.shared.constant.ConstantDialog;
 import retail.shared.customcomponent.CustomJDialog;
@@ -20,9 +21,6 @@ import retail.shared.util.calculate.CalculateDiscount;
 import retail.shared.util.calculate.CalculateSold;
 import retail.shared.util.calculate.ValidNumberChecker;
 import retail.shared.util.update.JComboBoxUpdate;
-import retail.view.main.tab.bot.BottomMainCard;
-import retail.view.main.tab.bot.BottomManipulatorCard;
-import retail.view.main.tab.bot.transaction.center.add.ReturnedTransaction;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -44,37 +42,58 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
     private final ProductDatabase productDB = new ProductDatabase();
     private final User user;
     private final CustomJDialog returnDialog = new CustomJDialog();
-    private final ReturnedTransaction center;
-    private final retail.view.main.tab.bot.transaction.manipulator.panel.add.ReturnedTransaction manipulator;
+
+    // MANIPULATOR
     private final CustomJList list;
+    private final CustomJTextField reportId;
+    private final JButton addAll;
+    private final JButton add;
+    private final JButton delete;
+    private final JButton deleteAll;
+    private final JButton save;
+    private final CustomJTextField newReportId;
+
+    // CENTER
     private final JTableTransaction topTable;
+    private final CustomJTextField topTotal;
     private final JTableTransaction botTable;
-    private final JButton addButton;
+    private final CustomJTextField credit;
+    private final CustomJTextField newTotal;
+
     private int initialCount;
     private double initialCredit;
     private String selectedId;
 
-    public ReturnedController(@NotNull BottomMainCard bottomMainCard, @NotNull BottomManipulatorCard bottomManipulatorCard, User user) {
+    public ReturnedController(ReturnTransaction returnTransaction, User user) {
         this.user = user;
-        center = bottomMainCard.getTransactionCard().getAddCard().getReturnedTransaction();
-        manipulator = bottomManipulatorCard.getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard().getReturnedTransaction();
-        list = manipulator.getList();
-        topTable = center.getTopTable();
-        botTable = center.getBotTable();
-        addButton = manipulator.getAdd();
+        list = returnTransaction.getList();
+        reportId = returnTransaction.getReportId();
+        addAll = returnTransaction.getAddAll();
+        add = returnTransaction.getAdd();
+        delete = returnTransaction.getDelete();
+        deleteAll = returnTransaction.getDeleteAll();
+        save = returnTransaction.getSave();
+        newReportId = returnTransaction.getNewReportId();
+
+        topTable = returnTransaction.getTopTable();
+        botTable = returnTransaction.getBotTable();
+        topTotal = returnTransaction.getTopTotal();
+        credit = returnTransaction.getCredit();
+        newTotal = returnTransaction.getNewTotal();
+
         autoSetPrice(productDB,returnDialog.getPrice(),returnDialog.getProduct());
-        setTotalAmount(botTable,center.getTopTotal());
+        setTotalAmount(botTable,topTotal);
         setReturnDialog();
-        documentListenerOfDiscountAmount(returnDialog);
-        documentListenerOfDiscountPercentage(returnDialog);
-        documentListenerOfSold(returnDialog);
+        documentListenerOfDiscountAmount();
+        documentListenerOfDiscountPercentage();
+        documentListenerOfSold();
         eventListenerForList();
         eventListenerForTable();
         search();
         saveReport();
         addAllButtonListener();
-        deleteButtonListener();
-        deleteButtonListener(manipulator.getDelete(),botTable);
+        deleteAllButtonListener();
+        deleteAllButtonListener(botTable);
         list.populateTransactionList(addTransactionDB.getTransactionReportList()); // POPULATE LIST AT START UP
     }
 
@@ -88,8 +107,8 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
         botTableChangeListener();
     }
 
-    private void deleteButtonListener() {
-        manipulator.getDeleteAll().addActionListener(e -> deleteAllItem());
+    private void deleteAllButtonListener() {
+        deleteAll.addActionListener(e -> deleteAllItem());
     }
 
     private void update() {
@@ -104,7 +123,7 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
 
     // GET PRODUCT COUNT AND REPORT AT NULL INVENTORY
     private void saveReport() {
-        manipulator.getSave().addActionListener( e -> {
+        save.addActionListener( e -> {
             if(topTable.getRowCount() != 0) {
                 ConstantDialog.SAVE_FAILED();
                 return;
@@ -115,13 +134,13 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
     }
 
     private @NotNull ReturnTransactionReport createReport() {
-        String id = manipulator.getNewReportId().getText();
+        String id = newReportId.getText();
         String oldId = selectedId;
         String user = this.user.getLastName();
-        BigDecimal credit = new BigDecimal(center.getCredit().getText());
-        BigDecimal total_amount = new BigDecimal(center.getNewTotal().getText());
+        BigDecimal credit = new BigDecimal(this.credit.getText());
+        BigDecimal totalAmount = new BigDecimal(newTotal.getText());
 
-        return new ReturnTransactionReport(id,oldId,null,null,user,total_amount,credit);
+        return new ReturnTransactionReport(id,oldId,null,null,user,totalAmount,credit);
     }
 
     private @NotNull ArrayList<TransactionReportItem> getAllItem() {
@@ -182,8 +201,8 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
         topTable.getModel().removeRow(row);
     }
 
-    private void deleteButtonListener(@NotNull JButton deleteButton, JTableTransaction table) {
-        deleteButton.addActionListener(e -> deleteSelectedItem(table));
+    private void deleteAllButtonListener(JTableTransaction table) {
+        delete.addActionListener(e -> deleteSelectedItem(table));
     }
 
     private void deleteSelectedItem(@NotNull JTableTransaction table) {
@@ -208,7 +227,7 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
     }
 
     private void addAllButtonListener() {
-        manipulator.getAddAll().addActionListener( e -> addAllItem());
+        addAll.addActionListener( e -> addAllItem());
     }
 
     private void addAllItem() {
@@ -372,14 +391,14 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
             ArrayList<TransactionReportItem> items = addTransactionDB.getAllTransactionReportItem(id);
             BigDecimal total = addTransactionDB.getTransactionReport(id).getTotalAmount();
             topTable.addAllReportItem(items);
-            center.getTopTotal().setText(total.toString());
-            center.getCredit().setText(total.multiply(BigDecimal.valueOf(-1)).toString());
-            initialCredit = Double.parseDouble(center.getCredit().getText());
+            topTotal.setText(total.toString());
+            credit.setText(total.multiply(BigDecimal.valueOf(-1)).toString());
+            initialCredit = Double.parseDouble(credit.getText());
         }
     }
 
     private void getSearchedTransactionReport() {
-        String str = manipulator.getReportId().getText().toLowerCase();
+        String str = reportId.getText().toLowerCase();
         ArrayList<TransactionReport> reportList = addTransactionDB.getTransactionReportList();
         ArrayList<TransactionReport> reports = new ArrayList<>();
         for (TransactionReport transactionReport : reportList) {
@@ -394,11 +413,11 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
     }
 
     private void search() {
-        manipulator.getReportId().getDocument().addDocumentListener(new DocumentListener() {
+        reportId.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (manipulator.getReportId().isFocusOwner()) {
-                    if (manipulator.getReportId().getText().equals("")) {
+                if (reportId.isFocusOwner()) {
+                    if (reportId.getText().equals("")) {
                         list.populateTransactionList(addTransactionDB.getTransactionReportList());
                         return;
                     }
@@ -409,8 +428,8 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (manipulator.getReportId().isFocusOwner()) {
-                    if (manipulator.getReportId().getText().equals("")) {
+                if (reportId.isFocusOwner()) {
+                    if (reportId.getText().equals("")) {
                         list.populateTransactionList(addTransactionDB.getTransactionReportList());
                         return;
                     }
@@ -426,7 +445,7 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
     }
 
     private void eventListenerForTable() {
-        addButton.addActionListener(e -> addIfNotDuplicateProduct());
+        add.addActionListener(e -> addIfNotDuplicateProduct());
 
         topTable.addMouseListener(new MouseAdapter() {
             @Override
@@ -499,8 +518,8 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
         for(int i=0;i<row;i++) {
             count += Double.parseDouble(botTable.getValueAt(i, 7).toString());
         }
-        center.getNewTotal().setText(String.valueOf(count));
-        center.getCredit().setText(String.valueOf(initialCredit + count));
+        newTotal.setText(String.valueOf(count));
+        credit.setText(String.valueOf(initialCredit + count));
     }
 
     private void calculateItemTotalAmount() {
@@ -512,8 +531,8 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
     private void setReportId() {
         String transId = getReportIdFromList();
         if(transId.equals("")) return;
-        manipulator.getReportId().setText(transId);
-        manipulator.getNewReportId().setText(convertReportId(transId));
+        reportId.setText(transId);
+        newReportId.setText(convertReportId(transId));
     }
 
     private @NotNull String convertReportId(String transId) {
@@ -566,7 +585,7 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
         });
     }
 
-    private void documentListenerOfDiscountPercentage(@NotNull CustomJDialog returnDialog) {
+    private void documentListenerOfDiscountPercentage() {
         returnDialog.getDiscountPercentage().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -588,7 +607,7 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
 
     }
 
-    private void documentListenerOfDiscountAmount(@NotNull CustomJDialog returnDialog) {
+    private void documentListenerOfDiscountAmount() {
         returnDialog.getDiscountTotal().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -613,7 +632,7 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
         });
     }
 
-    private void documentListenerOfSold(@NotNull CustomJDialog returnDialog) {
+    private void documentListenerOfSold() {
         returnDialog.getSold().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {

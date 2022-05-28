@@ -6,10 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 @Getter
-public class BottomBorderPanel extends JPanel {
+public class BottomPanel extends JPanel {
     BottomMainCard bottomMainCard = new BottomMainCard();
     BottomManipulatorCard manipulatorCard = new BottomManipulatorCard();
-    public BottomBorderPanel() {
+    public BottomPanel() {
         setLayout(new BorderLayout());
         add(bottomMainCard,BorderLayout.CENTER);
         add(manipulatorCard,BorderLayout.WEST);

@@ -8,7 +8,7 @@ import retail.shared.pojo.ProductReportItem;
 import retail.shared.constant.ConstantDialog;
 import retail.shared.customcomponent.jcombobox.JComboBoxProduct;
 import retail.shared.customcomponent.jtable.JTableInventory;
-import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.bot.BottomPanel;
 import retail.view.main.tab.bot.inventory.manipulator.panel.add.AddInventory;
 import retail.view.main.tab.top.TopBorderPanel;
 import retail.view.main.tab.top.UserPanel;
@@ -32,10 +32,10 @@ public class AddInventoryController {
     private final JTableInventory table;
     private final UserPanel userPanel;
 
-    public AddInventoryController(@NotNull BottomBorderPanel bottomBorderPanel, @NotNull TopBorderPanel topBorderPanel) {
+    public AddInventoryController(@NotNull BottomPanel bottomPanel, @NotNull TopBorderPanel topBorderPanel) {
         userPanel = topBorderPanel.getUserPanel();
-        add = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getAddPanel().getAddInventory();
-        table = bottomBorderPanel.getBottomMainCard().getInventoryCard().getAdd().getTable();
+        add = bottomPanel.getManipulatorCard().getInventoryManipulator().getAddPanel().getAddInventory();
+        table = bottomPanel.getBottomMainCard().getInventoryCard().getAdd().getTable();
         addReport();
         insertDataInTable();
         deleteRowInTable();
@@ -104,9 +104,6 @@ public class AddInventoryController {
             ArrayList<ProductReportItem> itemList = getAllItemsAtTable();
             addReportInDatabase(itemList,createProductReport(),updateProductQuantity(itemList));
             ConstantDialog.SAVED_REPORT();
-            for(Product product: updateProductQuantity(itemList)) {
-                System.out.println(product.getQuantityPerPieces());
-            }
         });
     }
 

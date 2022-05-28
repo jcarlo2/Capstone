@@ -6,7 +6,7 @@ import retail.shared.customcomponent.jlist.CustomJList;
 import retail.shared.customcomponent.jtable.JTableTransaction;
 import retail.shared.pojo.TransactionReport;
 import retail.shared.pojo.TransactionReportItem;
-import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.bot.BottomPanel;
 import retail.view.main.tab.bot.transaction.center.view.View;
 
 import java.util.ArrayList;
@@ -19,10 +19,10 @@ public class ViewController {
     private final JTableTransaction table;
     private final CustomJList list;
 
-    public ViewController(@NotNull BottomBorderPanel bottomBorderPanel) {
-        viewManipulator = bottomBorderPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getView();
-        view = bottomBorderPanel.getBottomMainCard().getTransactionCard().getView();
-        table = bottomBorderPanel.getBottomMainCard().getTransactionCard().getView().getTable();
+    public ViewController(@NotNull BottomPanel bottomPanel) {
+        viewManipulator = bottomPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getView();
+        view = bottomPanel.getBottomMainCard().getTransactionCard().getView();
+        table = bottomPanel.getBottomMainCard().getTransactionCard().getView().getTable();
         list = viewManipulator.getList();
 
         listSelectionListener();

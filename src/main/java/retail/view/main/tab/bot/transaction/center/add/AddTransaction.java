@@ -10,8 +10,8 @@ import java.awt.*;
 
 @Getter
 public class AddTransaction extends JPanel {
-    private final JTableTransaction centerTable = new JTableTransaction(false,false,false);
-    private final JScrollPane centerScroll = new JScrollPane(centerTable);
+    private final JTableTransaction table = new JTableTransaction(false,false,false);
+    private final JScrollPane centerScroll = new JScrollPane(table);
     private final CustomJTextField totalAmount = new CustomJTextField("Total Amount", Color.BLACK,false);
 
     public AddTransaction() {

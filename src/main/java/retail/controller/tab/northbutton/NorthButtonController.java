@@ -1,16 +1,16 @@
 package retail.controller.tab.northbutton;
 
 import org.jetbrains.annotations.NotNull;
-import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.bot.BottomPanel;
 import retail.view.main.tab.top.NorthButton;
 import retail.view.main.tab.top.TopBorderPanel;
 
 public class NorthButtonController {
-    private final BottomBorderPanel bottomBorderPanel;
+    private final BottomPanel bottomPanel;
     private final NorthButton northButton;
     
-    public NorthButtonController(@NotNull TopBorderPanel topBorderPanel, BottomBorderPanel bottomBorderPanel) {
-        this.bottomBorderPanel = bottomBorderPanel;
+    public NorthButtonController(@NotNull TopBorderPanel topBorderPanel, BottomPanel bottomPanel) {
+        this.bottomPanel = bottomPanel;
         northButton = topBorderPanel.getNorthButton();
 
         northActionListener();
@@ -19,8 +19,8 @@ public class NorthButtonController {
     private void northActionListener() {
         northButton.getTransaction().addActionListener(e -> {
             if(e.getSource() == northButton.getTransaction()) {
-                bottomBorderPanel.getBottomMainCard().getCard().show(bottomBorderPanel.getBottomMainCard(), "salesReport");
-                bottomBorderPanel.getManipulatorCard().getCard().show(bottomBorderPanel.getManipulatorCard(), "salesReport");
+                bottomPanel.getBottomMainCard().getCard().show(bottomPanel.getBottomMainCard(), "salesReport");
+                bottomPanel.getManipulatorCard().getCard().show(bottomPanel.getManipulatorCard(), "salesReport");
 
                 northButton.getTransaction().setEnabled(false);
                 northButton.getInventory().setEnabled(true);
@@ -31,8 +31,8 @@ public class NorthButtonController {
 
         northButton.getInventory().addActionListener(e -> {
             if(e.getSource() == northButton.getInventory()) {
-                bottomBorderPanel.getBottomMainCard().getCard().show(bottomBorderPanel.getBottomMainCard(), "inventory");
-                bottomBorderPanel.getManipulatorCard().getCard().show(bottomBorderPanel.getManipulatorCard(), "inventory");
+                bottomPanel.getBottomMainCard().getCard().show(bottomPanel.getBottomMainCard(), "inventory");
+                bottomPanel.getManipulatorCard().getCard().show(bottomPanel.getManipulatorCard(), "inventory");
 
                 northButton.getTransaction().setEnabled(true);
                 northButton.getInventory().setEnabled(false);
@@ -43,8 +43,8 @@ public class NorthButtonController {
 
         northButton.getProductAnalysis().addActionListener(e -> {
             if(e.getSource() == northButton.getProductAnalysis()) {
-                bottomBorderPanel.getBottomMainCard().getCard().show(bottomBorderPanel.getBottomMainCard(), "prodAnalysis");
-                bottomBorderPanel.getManipulatorCard().getCard().show(bottomBorderPanel.getManipulatorCard(), "prodAnalysis");
+                bottomPanel.getBottomMainCard().getCard().show(bottomPanel.getBottomMainCard(), "prodAnalysis");
+                bottomPanel.getManipulatorCard().getCard().show(bottomPanel.getManipulatorCard(), "prodAnalysis");
 
                 northButton.getTransaction().setEnabled(true);
                 northButton.getInventory().setEnabled(true);
@@ -55,8 +55,8 @@ public class NorthButtonController {
 
         northButton.getLogFile().addActionListener(e -> {
             if(e.getSource() == northButton.getLogFile()) {
-                bottomBorderPanel.getBottomMainCard().getCard().show(bottomBorderPanel.getBottomMainCard(), "log");
-                bottomBorderPanel.getManipulatorCard().getCard().show(bottomBorderPanel.getManipulatorCard(), "log");
+                bottomPanel.getBottomMainCard().getCard().show(bottomPanel.getBottomMainCard(), "log");
+                bottomPanel.getManipulatorCard().getCard().show(bottomPanel.getManipulatorCard(), "log");
 
                 northButton.getTransaction().setEnabled(true);
                 northButton.getInventory().setEnabled(true);

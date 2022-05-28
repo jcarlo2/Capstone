@@ -6,7 +6,7 @@ import retail.view.option.OptionFrame;
 import retail.view.login.LogIn;
 import retail.view.login.LogInFrame;
 import retail.view.main.MainFrame;
-import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.bot.BottomPanel;
 import retail.view.main.tab.top.TopBorderPanel;
 
 @Getter
@@ -25,8 +25,8 @@ public class BuildGUI {
         return mainFrame.getMain().getTopBorderPanel();
     }
 
-    public BottomBorderPanel getBottomBorderPanel() {
-        return mainFrame.getMain().getBottomBorderPanel();
+    public BottomPanel getBottomPanel() {
+        return mainFrame.getMain().getBottomPanel();
     }
 
     public LogIn getLogIn() {

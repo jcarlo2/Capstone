@@ -4,66 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="update ReturnedTransaction; need to fix">
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/database/ReturnedTransactionDatabase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/constant/ImageDirectory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/CustomJDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/ProductReportItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/ReturnTransactionReport.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/AutoSetPrice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/CalculateDiscount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/CalculateSold.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/ValidNumberChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/util/update/JComboBoxUpdate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/AddInventory.java" afterDir="false" />
+    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="updating ReturnedTransaction; need report to reflect in null inventory">
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/getter/transaction/add/AddTransaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/getter/transaction/add/ReturnTransaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NOTES TO DO" beforeDir="false" afterPath="$PROJECT_DIR$/src/NOTES TO DO" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/RetailApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/RetailApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/database/ProductDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/database/ProductDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/database/TransactionDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/database/AddTransactionDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddInventoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/InventoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/product/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/view/ViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/login/LogInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/login/LogInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddInventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddInventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/product/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/product/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/view/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/view/ViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/northbutton/NorthButtonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/northbutton/NorthButtonController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/TransactionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/AddController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/ReturnedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/ReturnedController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/view/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/view/ViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/ProductReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/ProductReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/ProductReportItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/TransactionReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/TransactionReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/TransactionReportItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/TransactionReportItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/login/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/constant/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/constant/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/constant/ConstantDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/constant/ConstantDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jcombobox/JComboBoxProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jcombobox/JComboBoxProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jlist/CustomJList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jlist/CustomJList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableInventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtextfield/CustomJTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtextfield/CustomJTextField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/CreateEmployeeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/CreateEmployeeTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/CreateProductTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/CreateProductTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/CreateTransactionTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/CreateTransactionTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/TableCreatorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/TableCreatorImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/BuildGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/BuildGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/Add.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/InventoryMainCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/InventoryMainCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/add/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/add/Add.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/add/AddCard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/add/NullProduct.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomBorderPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/ReturnedTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/ReturnedTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/ReturnedTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/ReturnedTransaction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,19 +57,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/darkm_000/Desktop/Portfolio/java/capstone&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/darkm_000/Desktop/Portfolio/java/capstone",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\darkm_000\Desktop\Portfolio\MVC\src\main\java\retail" />
@@ -256,7 +215,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653458774637</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="updating ReturnedTransaction; need report to reflect in null inventory">
+      <created>1653703468439</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1653703468439</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,7 +248,8 @@
     <MESSAGE value="add ReturnedTransaction - need to fix" />
     <MESSAGE value="update ReturnedTransaction" />
     <MESSAGE value="update ReturnedTransaction; need to fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="update ReturnedTransaction; need to fix" />
+    <MESSAGE value="updating ReturnedTransaction; need report to reflect in null inventory" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating ReturnedTransaction; need report to reflect in null inventory" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

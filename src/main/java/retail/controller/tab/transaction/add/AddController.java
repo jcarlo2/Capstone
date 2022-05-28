@@ -3,8 +3,10 @@ package retail.controller.tab.transaction.add;
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.AddTransactionDatabase;
 import retail.controller.database.ProductDatabase;
+import retail.controller.getter.transaction.add.AddTransaction;
 import retail.model.User;
 import retail.shared.constant.ConstantDialog;
+import retail.shared.customcomponent.jcombobox.JComboBoxProduct;
 import retail.shared.customcomponent.jtable.JTableProduct;
 import retail.shared.customcomponent.jtable.JTableTransaction;
 import retail.shared.customcomponent.jtextfield.CustomJTextField;
@@ -15,8 +17,6 @@ import retail.shared.util.calculate.AutoSetPrice;
 import retail.shared.util.calculate.CalculateDiscount;
 import retail.shared.util.calculate.CalculateSold;
 import retail.shared.util.update.JComboBoxUpdate;
-import retail.view.main.tab.bot.BottomBorderPanel;
-import retail.view.main.tab.bot.transaction.manipulator.panel.add.AddCard;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -32,45 +32,65 @@ import java.util.concurrent.TimeUnit;
 public class AddController implements JComboBoxUpdate, CalculateSold, CalculateDiscount, AutoSetPrice {
     private final AddTransactionDatabase addTransactionDatabase = new AddTransactionDatabase();
     private final ProductDatabase productDatabase = new ProductDatabase();
-    private final JTableTransaction table;
     private final User user;
-    private final AddCard addCard;
-    private final JTableProduct productTable;
+
+    // MANIPULATOR
+    private final JComboBoxProduct id;
+    private final CustomJTextField price;
     private final CustomJTextField sold;
     private final CustomJTextField soldTotal;
+    private final CustomJTextField reportId;
     private final CustomJTextField discountPercentage;
     private final CustomJTextField discountTotal;
+    private final JButton add;
+    private final JButton clear;
+    private final JButton delete;
+    private final JButton save;
+    private final JButton generateId;
+
+    // CENTER
+    private final JTableProduct productTable;
+    private final JTableTransaction transactionTable;
     private final CustomJTextField totalAmount;
 
-    public AddController(@NotNull User user, @NotNull BottomBorderPanel bottomBorderPanel) {
+    public AddController(@NotNull User user, @NotNull AddTransaction addTransaction) {
         this.user = user;
-        table = bottomBorderPanel.getBottomMainCard().getTransactionCard().getAddCard().getAddTransaction().getCenterTable();
-        addCard = bottomBorderPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard();
-        productTable = bottomBorderPanel.getBottomMainCard().getInventoryCard().getProduct().getTable();
-        sold = addCard.getAddTransaction().getSold();
-        soldTotal = addCard.getAddTransaction().getSoldTotal();
-        discountPercentage = addCard.getAddTransaction().getDiscountPercentage();
-        discountTotal = addCard.getAddTransaction().getDiscountTotal();
-        totalAmount = bottomBorderPanel.getBottomMainCard().getTransactionCard().getAddCard().getAddTransaction().getTotalAmount();
+
+        id = addTransaction.getId();
+        price = addTransaction.getPrice();
+        sold = addTransaction.getSold();
+        soldTotal = addTransaction.getSoldTotal();
+        reportId = addTransaction.getReportId();
+        discountPercentage = addTransaction.getDiscountPercentage();
+        discountTotal = addTransaction.getDiscountTotal();
+        add = addTransaction.getAdd();
+        clear = addTransaction.getClear();
+        delete = addTransaction.getDelete();
+        save = addTransaction.getSave();
+        generateId = addTransaction.getGenerateId();
+
+        transactionTable = addTransaction.getTable();
+        productTable = addTransaction.getProductTable();
+        totalAmount = addTransaction.getTotalAmount();
 
         clear();
         addItemToTable();
         deleteRowFromTable();
         productIdItemListener();
-        autoSetPrice(productDatabase,addCard.getAdd().getPrice(),addCard.getAdd().getId());
+        autoSetPrice(productDatabase,price,id);
         documentListenerOfSold();
         documentListenerOfDiscountAmount();
         documentListenerOfDiscountPercentage();
         saveReportInDatabase();
         generateReportIdActionListener();
         updateJComboBox();
-        addCard.getAdd().getReportId().setText(generateReportId()); // Generate initial report id at startup
+        reportId.setText(generateReportId()); // Generate initial report id at startup
     }
 
     private void updateJComboBox() {
         Runnable runnable = () -> {
-            if(isNotSameData(addCard.getAdd().getId(), productDatabase)) {
-                SwingUtilities.invokeLater(() -> setProductIdList(addCard.getAdd().getId(),productDatabase));
+            if(isNotSameData(id, productDatabase)) {
+                SwingUtilities.invokeLater(() -> setProductIdList(id,productDatabase));
             }
         };
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
@@ -78,13 +98,13 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
     }
 
     private void saveReportInDatabase() {
-        addCard.getAdd().getSave().addActionListener(e -> {
-            if(e.getSource() == addCard.getAdd().getSave()) {
-                if(table.getRowCount() == 0) {
+        save.addActionListener(e -> {
+            if(e.getSource() == save) {
+                if(transactionTable.getRowCount() == 0) {
                     ConstantDialog.EMPTY_REPORT_TABLE();
                     return;
                 }
-                if(addTransactionDatabase.isReportExist( addCard.getAdd().getReportId().getText())) {
+                if(addTransactionDatabase.isReportExist( reportId.getText())) {
                     ConstantDialog.GENERATE_NEW_REPORT_ID();
                     return;
                 }
@@ -105,12 +125,12 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
 
     private @NotNull ArrayList<TransactionReportItem> getAllItemReportAtSalesTable() {
         ArrayList<TransactionReportItem> itemReport = new ArrayList<>();
-        int ROW = table.getRowCount();
-        int COLUMN = table.getColumnCount();
+        int ROW = transactionTable.getRowCount();
+        int COLUMN = transactionTable.getColumnCount();
         for(int i=0;i<ROW;i++) {
             String[] data = new String[8];
             for(int j=0;j<COLUMN;j++) {
-                data[j] = table.getModel().getValueAt(i,j).toString();
+                data[j] = transactionTable.getModel().getValueAt(i,j).toString();
             }
             itemReport.add(new TransactionReportItem(data[1],Double.parseDouble(data[2]),Double.parseDouble(data[3])
                     ,Double.parseDouble(data[4]),Double.parseDouble(data[5]),
@@ -120,7 +140,7 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
     }
 
     private @NotNull TransactionReport createTransactionReport() {
-        String reportId = addCard.getAdd().getReportId().getText();
+        String reportId = this.reportId.getText();
         String lastName = user.getLastName();
         Date date = Date.valueOf(LocalDate.now());
         BigDecimal total = new BigDecimal(totalAmount.getText());
@@ -129,20 +149,20 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
     }
 
     private void autoCalculateTotalAmount() {
-        if(table.getRowCount() < 1) return;
+        if(transactionTable.getRowCount() < 1) return;
         BigDecimal num = new BigDecimal("0");
-            for(int i=0;i<table.getRowCount();i++) {
-               String value = (String) table.getValueAt(i,7);
+            for(int i = 0; i< transactionTable.getRowCount(); i++) {
+               String value = (String) transactionTable.getValueAt(i,7);
                num = num.add(new BigDecimal(value));
             }
         totalAmount.setText(num.toString());
     }
 
     private void deleteRowFromTable() {
-        addCard.getAdd().getDelete().addActionListener(e -> {
-            int row = table.getSelectedRow();
+        delete.addActionListener(e -> {
+            int row = transactionTable.getSelectedRow();
             if(row > -1) {
-                table.getModel().removeRow(row);
+                transactionTable.getModel().removeRow(row);
                 fixNumberColumn();
                 autoCalculateTotalAmount();
             }
@@ -150,21 +170,20 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
     }
 
     private void fixNumberColumn() {
-        for(int i=0;i<table.getRowCount();i++) {
-            table.setValueAt(i+1, i,0);
+        for(int i = 0; i< transactionTable.getRowCount(); i++) {
+            transactionTable.setValueAt(i+1, i,0);
         }
     }
 
     private void addItemToTable() {
-        addCard.getAdd().getAdd().addActionListener(e -> {
+        add.addActionListener(e -> {
             if(sold.getText().equals("0")) {
                 ConstantDialog.EMPTY_FIELD();
                 return;
             }
             if(isAllFieldValid()) {
                 String[] data = getFieldData();
-                System.out.println(data[2]);
-                table.addReportItem(new TransactionReportItem(data[0],Double.parseDouble(data[1]),
+                transactionTable.addReportItem(new TransactionReportItem(data[0],Double.parseDouble(data[1]),
                         Double.parseDouble(data[2]),Double.parseDouble(data[3]),
                         Double.parseDouble(data[4]),Double.parseDouble(data[5]),
                         new BigDecimal(data[6])),"");
@@ -178,8 +197,8 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
 
     private String @NotNull [] getFieldData() {
         String[] data = new String[7];
-        data[0] = (String) addCard.getAdd().getId().getSelectedItem();
-        data[1] = addCard.getAdd().getPrice().getText();
+        data[0] = (String) id.getSelectedItem();
+        data[1] = price.getText();
         data[2] = sold.getText();
         data[3] = soldTotal.getText();
         data[4] = discountPercentage.getText();
@@ -194,7 +213,7 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
     }
 
     private void generateReportIdActionListener() {
-        addCard.getAdd().getGenerateId().addActionListener(e -> addCard.getAdd().getReportId().setText(generateReportId()));
+        generateId.addActionListener(e -> reportId.setText(generateReportId()));
     }
 
     private @NotNull String generateReportId() {
@@ -210,20 +229,18 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
     }
 
     private void clear() {
-        addCard.getAdd().getClear().addActionListener(e -> {
-            if(e.getSource() == addCard.getAdd().getClear()) {
-                sold.setText("0");
-                soldTotal.setText("0");
-                discountPercentage.setText("0");
-                discountTotal.setText("0");
-                totalAmount.setText("0");
-            }
+        clear.addActionListener(e -> {
+            sold.setText("0");
+            soldTotal.setText("0");
+            discountPercentage.setText("0");
+            discountTotal.setText("0");
+            totalAmount.setText("0");
         });
     }
 
     private void productIdItemListener() {
-        addCard.getAdd().getId().addItemListener(e -> {
-            autoSetPrice(productDatabase,addCard.getAdd().getPrice(),addCard.getAdd().getId());
+        id.addItemListener(e -> {
+            autoSetPrice(productDatabase,price,id);
             sold.setText("0");
             soldTotal.setText("0");
             discountPercentage.setText("0");
@@ -281,7 +298,7 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
             @Override
             public void insertUpdate(DocumentEvent e) {
                 if(sold.isFocusOwner()) {
-                    autoCalculate(soldTotal, sold,true,productDatabase,addCard.getAdd().getId());
+                    autoCalculate(soldTotal, sold,true,productDatabase,id);
                     setDiscountAmount(discountTotal,discountPercentage,soldTotal);
                 }
             }
@@ -289,7 +306,7 @@ public class AddController implements JComboBoxUpdate, CalculateSold, CalculateD
             @Override
             public void removeUpdate(DocumentEvent e) {
                 if(sold.isFocusOwner()) {
-                    autoCalculate(soldTotal, sold,true,productDatabase,addCard.getAdd().getId());
+                    autoCalculate(soldTotal, sold,true,productDatabase,id);
                     setDiscountAmount(discountTotal,discountPercentage,soldTotal);
                 }
             }

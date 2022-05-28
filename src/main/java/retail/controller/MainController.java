@@ -27,9 +27,9 @@ public class MainController {
         this.dark = buildGUI.getOptionFrame().getOption().getDark();
 
         new LogInController(buildGUI.getLogIn(), buildGUI.getMainFrame(),buildGUI.getTopBorderPanel().getUserPanel(), user);
-        new NorthButtonController(buildGUI.getTopBorderPanel(), buildGUI.getBottomBorderPanel());
-        new InventoryController(buildGUI.getBottomBorderPanel(),buildGUI.getTopBorderPanel());
-        new TransactionController(buildGUI.getTopBorderPanel(),buildGUI.getBottomBorderPanel(),user);
+        new NorthButtonController(buildGUI.getTopBorderPanel(), buildGUI.getBottomPanel());
+        new InventoryController(buildGUI.getBottomPanel(),buildGUI.getTopBorderPanel());
+        new TransactionController(buildGUI.getBottomPanel(),user);
 
         setOption();
         setUIStyle();

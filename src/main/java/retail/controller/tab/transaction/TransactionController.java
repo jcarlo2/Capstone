@@ -2,18 +2,19 @@ package retail.controller.tab.transaction;
 
 import org.jetbrains.annotations.NotNull;
 import retail.controller.database.AddTransactionDatabase;
+import retail.controller.getter.transaction.add.AddTransaction;
+import retail.controller.getter.transaction.add.ReturnTransaction;
 import retail.controller.tab.transaction.add.AddController;
 import retail.controller.tab.transaction.add.ReturnedController;
 import retail.controller.tab.transaction.view.ViewController;
 import retail.model.User;
 import retail.shared.customcomponent.jlist.CustomJList;
-import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.bot.BottomPanel;
 import retail.view.main.tab.bot.transaction.center.TransactionMainCard;
 import retail.view.main.tab.bot.transaction.center.add.AddCard;
 import retail.view.main.tab.bot.transaction.manipulator.panel.AddViewPanel;
 import retail.view.main.tab.bot.transaction.manipulator.panel.TransactionManipulatorCard;
 import retail.view.main.tab.bot.transaction.manipulator.panel.add.Add;
-import retail.view.main.tab.top.TopBorderPanel;
 
 import java.awt.*;
 
@@ -29,16 +30,18 @@ public class TransactionController {
     private final Add add;
     private final CustomJList list;
 
-    public TransactionController(@NotNull TopBorderPanel topBorderPanel, @NotNull BottomBorderPanel bottomBorderPanel, User user) {
-        new AddController(user,bottomBorderPanel);
-        new ReturnedController(bottomBorderPanel.getBottomMainCard(),bottomBorderPanel.getManipulatorCard(),user);
-        viewController = new ViewController(bottomBorderPanel);
-        add = bottomBorderPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd();
-        addViewPanel = bottomBorderPanel.getManipulatorCard().getTransactionManipulator().getAddViewPanel();
-        transactionManipulatorCard = bottomBorderPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard();
-        transactionMainCard = bottomBorderPanel.getBottomMainCard().getTransactionCard();
+    public TransactionController(@NotNull BottomPanel bottomPanel, User user) {
+        new AddController(user, new AddTransaction(bottomPanel));
+        new ReturnedController(new ReturnTransaction(bottomPanel),user);
+
+
+        viewController = new ViewController(bottomPanel);
+        add = bottomPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd();
+        addViewPanel = bottomPanel.getManipulatorCard().getTransactionManipulator().getAddViewPanel();
+        transactionManipulatorCard = bottomPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard();
+        transactionMainCard = bottomPanel.getBottomMainCard().getTransactionCard();
         addCard = transactionMainCard.getAddCard();
-        list = bottomBorderPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard().getReturnedTransaction().getList();
+        list = bottomPanel.getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard().getReturnedTransaction().getList();
 
         transactionAddViewActionListener();
         addAndReturnedActionListener();

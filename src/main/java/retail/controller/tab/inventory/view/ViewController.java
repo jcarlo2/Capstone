@@ -7,7 +7,7 @@ import retail.shared.pojo.ProductReportItem;
 import retail.shared.constant.ConstantDialog;
 import retail.shared.customcomponent.jlist.CustomJList;
 import retail.shared.customcomponent.jtable.JTableInventory;
-import retail.view.main.tab.bot.BottomBorderPanel;
+import retail.view.main.tab.bot.BottomPanel;
 import retail.view.main.tab.bot.inventory.manipulator.panel.View;
 
 import javax.swing.*;
@@ -24,9 +24,9 @@ public class ViewController {
     private final View view;
     private final JTableInventory table;
 
-    public ViewController(@NotNull BottomBorderPanel bottomBorderPanel) {
-        view = bottomBorderPanel.getManipulatorCard().getInventoryManipulator().getView();
-        table = bottomBorderPanel.getBottomMainCard().getInventoryCard().getView().getTableInventory();
+    public ViewController(@NotNull BottomPanel bottomPanel) {
+        view = bottomPanel.getManipulatorCard().getInventoryManipulator().getView();
+        table = bottomPanel.getBottomMainCard().getInventoryCard().getView().getTableInventory();
 
         deleteReport();
         searchList();
