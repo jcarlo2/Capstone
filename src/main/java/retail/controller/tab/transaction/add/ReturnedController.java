@@ -3,10 +3,10 @@ package retail.controller.tab.transaction.add;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import retail.controller.database.AddTransactionDatabase;
-import retail.controller.database.ProductDatabase;
-import retail.controller.database.ReturnedTransactionDatabase;
-import retail.controller.getter.transaction.add.ReturnTransaction;
+import retail.dao.AddTransactionDAO;
+import retail.dao.ProductDAO;
+import retail.dao.ReturnedTransactionDAO;
+import retail.getter.transaction.add.ReturnTransaction;
 import retail.model.User;
 import retail.shared.constant.ConstantDialog;
 import retail.shared.customcomponent.CustomJDialog;
@@ -37,9 +37,9 @@ import java.util.concurrent.TimeUnit;
 import static retail.shared.constant.ConstantDialog.*;
 
 public class ReturnedController implements JComboBoxUpdate, CalculateSold, CalculateDiscount, AutoSetPrice, ValidNumberChecker {
-    private final AddTransactionDatabase addTransactionDB = new AddTransactionDatabase();
-    private final ReturnedTransactionDatabase returnedTransactionDB = new ReturnedTransactionDatabase();
-    private final ProductDatabase productDB = new ProductDatabase();
+    private final AddTransactionDAO addTransactionDB = new AddTransactionDAO();
+    private final ReturnedTransactionDAO returnedTransactionDB = new ReturnedTransactionDAO();
+    private final ProductDAO productDB = new ProductDAO();
     private final User user;
     private final CustomJDialog returnDialog = new CustomJDialog();
 
@@ -64,7 +64,7 @@ public class ReturnedController implements JComboBoxUpdate, CalculateSold, Calcu
     private double initialCredit;
     private String selectedId;
 
-    public ReturnedController(ReturnTransaction returnTransaction, User user) {
+    public ReturnedController(@NotNull ReturnTransaction returnTransaction, User user) {
         this.user = user;
         list = returnTransaction.getList();
         reportId = returnTransaction.getReportId();

@@ -1,7 +1,7 @@
 package retail.controller.tab.inventory.add;
 
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.ProductDatabase;
+import retail.dao.ProductDAO;
 import retail.shared.pojo.Product;
 import retail.shared.pojo.ProductReport;
 import retail.shared.pojo.ProductReportItem;
@@ -27,7 +27,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class AddInventoryController {
-    private final ProductDatabase productDatabase = new ProductDatabase();
+    private final ProductDAO productDAO = new ProductDAO();
     private final AddInventory add;
     private final JTableInventory table;
     private final UserPanel userPanel;
@@ -63,7 +63,7 @@ public class AddInventoryController {
     private boolean isSameData(@NotNull JComboBoxProduct box) {
         int count = box.getItemCount();
         ArrayList<String> list = new ArrayList<>();
-        ArrayList<Product> prodList = productDatabase.showProduct();
+        ArrayList<Product> prodList = productDAO.showProduct();
         for(int i=0;i<count;i++) {
             list.add(box.getComboBoxModel().getElementAt(i));
         }
@@ -74,7 +74,7 @@ public class AddInventoryController {
     }
 
     private @NotNull ArrayList<String> getAllProductID() {
-        ArrayList<Product> product = productDatabase.showProduct();
+        ArrayList<Product> product = productDAO.showProduct();
         ArrayList<String> list = new ArrayList<>();
         for(Product item : product) {
             list.add(item.getId());
@@ -97,7 +97,7 @@ public class AddInventoryController {
                 ConstantDialog.EMPTY_REPORT_TABLE();
                 return;
             }
-            if(productDatabase.isReportExist(add.getReportId().getText())) {
+            if(productDAO.isReportExist(add.getReportId().getText())) {
                 ConstantDialog.GENERATE_NEW_REPORT_ID();
                 return;
             }
@@ -108,10 +108,10 @@ public class AddInventoryController {
     }
 
     public void addReportInDatabase(ArrayList<ProductReportItem> list, ProductReport report, @NotNull ArrayList<Product> productList) {
-        productDatabase.saveReport(report);
-        productDatabase.saveReportItem(list, report);
+        productDAO.saveReport(report);
+        productDAO.saveReportItem(list, report);
         for (Product product : productList) {
-            productDatabase.updateProductQuantity(product.getId(), product.getQuantityPerPieces());
+            productDAO.updateProductQuantity(product.getId(), product.getQuantityPerPieces());
         }
     }
 
@@ -119,7 +119,7 @@ public class AddInventoryController {
         ArrayList<Product> productList = new ArrayList<>();
         for (ProductReportItem item : itemList) {
             String id = item.getProductId();
-            String description = productDatabase.get(id).getDescription();
+            String description = productDAO.get(id).getDescription();
             BigDecimal price = item.getPrice();
             Double quantityPerPieces = item.getQuantityByPieces();
             Double quantityPerBox = item.getQuantityByBox();
@@ -181,7 +181,7 @@ public class AddInventoryController {
             Double quantityPerPiece = Double.parseDouble(add.getQuantityByPiece().getText());
             Double piecesPerBox = Double.parseDouble(add.getPiecesPerBox().getText());
             Double quantityPerBox = Double.parseDouble(add.getQuantityByBox().getText());
-            Double oldCount = productDatabase.get(id).getQuantityPerPieces();
+            Double oldCount = productDAO.get(id).getQuantityPerPieces();
             Product product = new Product(id,"",price, quantityPerPiece,piecesPerBox,quantityPerBox);
             table.addItem(product,oldCount);
             fixNumberColumn();
@@ -201,7 +201,7 @@ public class AddInventoryController {
 
     private Double getPiecesPerBox() {
         final String productID = (String) add.getId().getSelectedItem();
-        return productDatabase.get(productID).getPiecesPerBox();
+        return productDAO.get(productID).getPiecesPerBox();
     }
 
     private void documentListenerQuantityByBox() {
@@ -283,14 +283,14 @@ public class AddInventoryController {
     private void autoSetPiecesPerBox() {
         String productID = (String) add.getId().getSelectedItem();
         if(Objects.isNull(productID)) return; // PREVENT NULL POINTER EXCEPTION WHEN REMOVING ALL ELEMENTS
-        String piecesPerBox = String.valueOf(productDatabase.get(productID).getPiecesPerBox());
+        String piecesPerBox = String.valueOf(productDAO.get(productID).getPiecesPerBox());
         add.getPiecesPerBox().setText(piecesPerBox);
     }
 
     private void autoSetPrice() {
         String productID = (String) add.getId().getSelectedItem();
         if(Objects.isNull(productID)) return; // PREVENT NULL POINTER EXCEPTION WHEN REMOVING ALL ELEMENTS
-        String price = String.valueOf(productDatabase.get(productID).getPrice());
+        String price = String.valueOf(productDAO.get(productID).getPrice());
         add.getPrice().setText(price);
     }
 
@@ -305,7 +305,7 @@ public class AddInventoryController {
         while(flag) {
             id = (long) (Math.random() * 1000000000000L);
             formatId = String.format("%013d",id);
-            if(!productDatabase.isReportExist(formatId)) flag = false;
+            if(!productDAO.isReportExist(formatId)) flag = false;
         }
         return "IR" + formatId + "-A0";
     }

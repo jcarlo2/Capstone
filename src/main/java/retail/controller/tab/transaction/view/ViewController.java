@@ -1,7 +1,7 @@
 package retail.controller.tab.transaction.view;
 
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.AddTransactionDatabase;
+import retail.dao.AddTransactionDAO;
 import retail.shared.customcomponent.jlist.CustomJList;
 import retail.shared.customcomponent.jtable.JTableTransaction;
 import retail.shared.pojo.TransactionReport;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ViewController {
-    private final AddTransactionDatabase controller = new AddTransactionDatabase();
+    private final AddTransactionDAO controller = new AddTransactionDAO();
     private final retail.view.main.tab.bot.transaction.manipulator.panel.view.View viewManipulator;
     private final View view;
     private final JTableTransaction table;

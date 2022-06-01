@@ -1,7 +1,7 @@
 package retail.controller.tab.inventory.view;
 
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.ProductDatabase;
+import retail.dao.ProductDAO;
 import retail.shared.pojo.ProductReport;
 import retail.shared.pojo.ProductReportItem;
 import retail.shared.constant.ConstantDialog;
@@ -20,7 +20,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ViewController {
-    private final ProductDatabase controller = new ProductDatabase();
+    private final ProductDAO controller = new ProductDAO();
     private final View view;
     private final JTableInventory table;
 

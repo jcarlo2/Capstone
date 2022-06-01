@@ -1,4 +1,4 @@
-package retail.controller.getter.transaction.add;
+package retail.getter.transaction.add;
 
 
 import lombok.Getter;

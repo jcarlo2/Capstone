@@ -1,4 +1,4 @@
-package retail.controller.database;
+package retail.dao;
 
 import org.jetbrains.annotations.NotNull;
 import retail.shared.pojo.ReturnTransactionReport;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static retail.shared.constant.Constant.*;
 
-public class ReturnedTransactionDatabase {
+public class ReturnedTransactionDAO {
 
     public void addReport(@NotNull ReturnTransactionReport report, ArrayList<TransactionReportItem> reportItems) {
         saveReturnReport(report);

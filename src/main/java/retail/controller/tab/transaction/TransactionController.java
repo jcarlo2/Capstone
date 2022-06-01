@@ -1,12 +1,12 @@
 package retail.controller.tab.transaction;
 
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.AddTransactionDatabase;
-import retail.controller.getter.transaction.add.AddTransaction;
-import retail.controller.getter.transaction.add.ReturnTransaction;
-import retail.controller.tab.transaction.add.AddController;
 import retail.controller.tab.transaction.add.ReturnedController;
 import retail.controller.tab.transaction.view.ViewController;
+import retail.controller.viewcontroller.TransactionAdd;
+import retail.dao.AddTransactionDAO;
+import retail.getter.transaction.add.AddTransaction;
+import retail.getter.transaction.add.ReturnTransaction;
 import retail.model.User;
 import retail.shared.customcomponent.jlist.CustomJList;
 import retail.view.main.tab.bot.BottomPanel;
@@ -19,7 +19,7 @@ import retail.view.main.tab.bot.transaction.manipulator.panel.add.Add;
 import java.awt.*;
 
 public class TransactionController {
-    private final AddTransactionDatabase addTransactionDatabase = new AddTransactionDatabase();
+    private final AddTransactionDAO addTransactionDAO = new AddTransactionDAO();
     private final AddViewPanel addViewPanel;
     private final TransactionManipulatorCard transactionManipulatorCard;
     private final TransactionMainCard transactionMainCard;
@@ -31,7 +31,8 @@ public class TransactionController {
     private final CustomJList list;
 
     public TransactionController(@NotNull BottomPanel bottomPanel, User user) {
-        new AddController(user, new AddTransaction(bottomPanel));
+        new TransactionAdd(user, new AddTransaction(bottomPanel));
+
         new ReturnedController(new ReturnTransaction(bottomPanel),user);
 
 
@@ -61,7 +62,7 @@ public class TransactionController {
             addCard.getCard().show(addCard,"return");
             add.getReturnReport().setEnabled(false);
             add.getAddReport().setEnabled(true);
-            list.populateTransactionList(addTransactionDatabase.getTransactionReportList());
+            list.populateTransactionList(addTransactionDAO.getTransactionReportList());
         });
     }
 

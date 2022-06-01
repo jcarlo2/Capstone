@@ -1,4 +1,4 @@
-package retail.controller.database;
+package retail.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 import static retail.shared.constant.Constant.*;
 
-public class UserController {
+public class UserDAO {
     public boolean checkIdAndPasswordInDatabase(Long id, String password) {
         String query = "SELECT EXISTS (SELECT last_name FROM employee WHERE id = ? and password = ?)";
         boolean flag = false;

@@ -2,7 +2,7 @@ package retail.controller.tab.inventory.product;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.ProductDatabase;
+import retail.dao.ProductDAO;
 import retail.shared.customcomponent.jtable.JTableProduct;
 import retail.shared.constant.ConstantDialog;
 import retail.view.main.tab.bot.BottomPanel;
@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ProductController {
-    private final ProductDatabase productDatabase = new ProductDatabase();
+    private final ProductDAO productDAO = new ProductDAO();
     private final Product productPanel;
     private final JTableProduct table;
 
@@ -33,7 +33,7 @@ public class ProductController {
     private void update() {
         Runnable runnable = () -> {
             if(!isSameData(table)) {
-                SwingUtilities.invokeLater(() -> table.populateProductTable(productDatabase.showProduct()));
+                SwingUtilities.invokeLater(() -> table.populateProductTable(productDAO.showProduct()));
             }
         };
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
@@ -44,7 +44,7 @@ public class ProductController {
         int count = table.getRowCount();
         ArrayList<String> productId = new ArrayList<>();
         ArrayList<String> productQuantity = new ArrayList<>();
-        ArrayList<retail.shared.pojo.Product> productList = productDatabase.showProduct();
+        ArrayList<retail.shared.pojo.Product> productList = productDAO.showProduct();
         for(int i=0;i<count;i++) {
             productId.add(table.getValueAt(i,1).toString());
             productQuantity.add(table.getValueAt(i,4).toString());
@@ -81,12 +81,12 @@ public class ProductController {
     private void removeInventoryProduct() {
         productPanel.getDelete().addActionListener(e -> {
                 String id = productPanel.getId().getText();
-                if(!productDatabase.ifProductExist(id)) {
+                if(!productDAO.ifProductExist(id)) {
                     ConstantDialog.ID_DOES_NOT_EXIST();
                     return;
                 }
-                productDatabase.remove(id);
-                table.populateProductTable(productDatabase.showProduct());
+                productDAO.remove(id);
+                table.populateProductTable(productDAO.showProduct());
         });
     }
 
@@ -121,10 +121,10 @@ public class ProductController {
     }
 
     private void addProduct(String @NotNull [] data) {
-        productDatabase.save(new retail.shared.pojo.Product
+        productDAO.save(new retail.shared.pojo.Product
                 (data[0],data[1],new BigDecimal(data[2]),Double.parseDouble(data[3]),
                         Double.parseDouble(data[4]),Double.parseDouble(data[5])));
-        table.populateProductTable(productDatabase.showProduct());
+        table.populateProductTable(productDAO.showProduct());
     }
 
 //    private void updateProduct(String @NotNull [] data) {
@@ -140,7 +140,7 @@ public class ProductController {
                 ConstantDialog.EMPTY_FIELD();
                 return;
             }
-            if(productDatabase.ifProductExist(data[0])) {
+            if(productDAO.ifProductExist(data[0])) {
 //                updateProduct(data);
             } else {
                 addProduct(data);

@@ -3,7 +3,7 @@ package retail.controller.tab.login;
 import org.jetbrains.annotations.NotNull;
 import retail.model.User;
 import retail.shared.constant.ConstantDialog;
-import retail.controller.database.UserController;
+import retail.dao.UserDAO;
 import retail.view.login.LogIn;
 import retail.view.main.MainFrame;
 import retail.view.main.tab.top.UserPanel;
@@ -11,7 +11,7 @@ import retail.view.main.tab.top.UserPanel;
 import javax.swing.*;
 
 public class LogInController {
-    private final UserController controller = new UserController();
+    private final UserDAO controller = new UserDAO();
     private final LogIn logIn;
     private final MainFrame mainFrame;
     private final UserPanel userPanel;

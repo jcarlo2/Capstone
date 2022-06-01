@@ -1,4 +1,4 @@
-package retail.controller.database;
+package retail.dao;
 
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import static retail.shared.constant.Constant.*;
 
-public class ProductDatabase {
+public class ProductDAO {
     // PRODUCT
     public boolean ifProductExist(String id) {
         String query = "SELECT EXISTS (SELECT id FROM product WHERE id = ?)";

@@ -1,7 +1,7 @@
 package retail.shared.util.calculate;
 
 import org.jetbrains.annotations.NotNull;
-import retail.controller.database.ProductDatabase;
+import retail.dao.ProductDAO;
 import retail.shared.customcomponent.jcombobox.JComboBoxProduct;
 
 import javax.swing.*;
@@ -23,10 +23,10 @@ public interface CalculateSold extends ValidNumberChecker{
     default void autoCalculate(@NotNull JTextField textChange,
                               JTextField textGet,
                               boolean isMultiply,
-                              @NotNull ProductDatabase productDatabase,
+                              @NotNull ProductDAO productDAO,
                               @NotNull JComboBoxProduct id) {
         String productID = (String)id.getSelectedItem();
-        BigDecimal price = productDatabase.get(productID).getPrice();
+        BigDecimal price = productDAO.get(productID).getPrice();
         String str = isMultiply ? String.valueOf(multiplyToGetTotal(price,textGet.getText()))
                                 : String.valueOf(divideToGetTotal(price,textGet.getText()));
         textChange.setText(str);

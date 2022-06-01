@@ -29,6 +29,8 @@ public class MainController {
         new LogInController(buildGUI.getLogIn(), buildGUI.getMainFrame(),buildGUI.getTopBorderPanel().getUserPanel(), user);
         new NorthButtonController(buildGUI.getTopBorderPanel(), buildGUI.getBottomPanel());
         new InventoryController(buildGUI.getBottomPanel(),buildGUI.getTopBorderPanel());
+
+        // REFACTORED COMPONENT
         new TransactionController(buildGUI.getBottomPanel(),user);
 
         setOption();

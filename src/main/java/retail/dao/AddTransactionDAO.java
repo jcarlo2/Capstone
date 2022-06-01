@@ -1,4 +1,4 @@
-package retail.controller.database;
+package retail.dao;
 
 import org.jetbrains.annotations.NotNull;
 import retail.shared.pojo.TransactionReport;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static retail.shared.constant.Constant.*;
 
-public class AddTransactionDatabase {
+public class AddTransactionDAO {
 
     public boolean isReportExist(String id) {
         String query = "SELECT EXISTS (SELECT id FROM transaction_report WHERE id = ?)";
