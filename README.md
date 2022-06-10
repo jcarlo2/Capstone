@@ -15,11 +15,4 @@ Tools:
   1. Java 18
   2. MySQL
 
-Dependencies in project:
-  1. Lombok 1.18.22
-  2. MySQL Driver 8.0.28
-  3. Flatlaf 2.1
-  4. SwingX-autocomplete 1.6.5-1
-  5. org.jetbrains:annotation 23.0.0
-
 
