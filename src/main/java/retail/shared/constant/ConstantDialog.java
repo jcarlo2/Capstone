@@ -4,31 +4,31 @@ import javax.swing.*;
 
 public interface ConstantDialog extends ImageDirectory{
     static void INVALID_INPUT() {
-        JOptionPane.showMessageDialog(new JFrame(), Constant.INVALID_INPUT);
+        JOptionPane.showMessageDialog(new JFrame(), "Invalid Input!!");
     }
 
     static void ID_DOES_NOT_EXIST() {
-        JOptionPane.showMessageDialog(new JFrame(), Constant.ID_DOES_NOT_EXIST);
+        JOptionPane.showMessageDialog(new JFrame(), "Id does not exist! Check id ...");
     }
 
     static void EMPTY_FIELD() {
-        JOptionPane.showMessageDialog(new JFrame(), Constant.CHECK_EMPTY_FIELD);
+        JOptionPane.showMessageDialog(new JFrame(), "Check Empty Field!!");
     }
 
     static void DUPLICATE_ID() {
-        JOptionPane.showMessageDialog(new JFrame(), Constant.DUPLICATE_ID);
+        JOptionPane.showMessageDialog(new JFrame(), "Duplicate product id");
     }
 
     static void EMPTY_REPORT_TABLE() {
-        JOptionPane.showMessageDialog(new JFrame(), Constant.EMPTY_REPORT_TABLE);
+        JOptionPane.showMessageDialog(new JFrame(), "Empty Report Table!!");
     }
 
     static void SAVE_FAILED() {
-        JOptionPane.showMessageDialog(new JFrame(), "Saving failed ... check row count");
+        JOptionPane.showMessageDialog(new JFrame(), "Saving failed ... check item count");
     }
 
     static void GENERATE_NEW_REPORT_ID() {
-        JOptionPane.showMessageDialog(new JFrame(), Constant.GENERATE_NEW_REPORT_ID);
+        JOptionPane.showMessageDialog(new JFrame(), "Generate New Report ID!!");
     }
 
     static void REPORT_NOT_DELETABLE() {
@@ -40,7 +40,7 @@ public interface ConstantDialog extends ImageDirectory{
     }
 
     static void INCORRECT_ID_PASSWORD() {
-        JOptionPane.showMessageDialog(new JFrame(), Constant.INCORRECT_ID_PASSWORD);
+        JOptionPane.showMessageDialog(new JFrame(), "Error! Incorrect ID or Password");
     }
 
     static int ADD_ALL() {

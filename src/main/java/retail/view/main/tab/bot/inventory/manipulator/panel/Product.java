@@ -1,7 +1,7 @@
 package retail.view.main.tab.bot.inventory.manipulator.panel;
 
 import lombok.Getter;
-import retail.shared.customcomponent.jtextfield.CustomJTextField;
+import retail.shared.custom.jtextfield.CustomJTextField;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

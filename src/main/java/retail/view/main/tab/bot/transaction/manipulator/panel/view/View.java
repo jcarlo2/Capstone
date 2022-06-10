@@ -1,8 +1,8 @@
 package retail.view.main.tab.bot.transaction.manipulator.panel.view;
 
 import lombok.Getter;
-import retail.shared.customcomponent.jlist.CustomJList;
-import retail.shared.customcomponent.jtextfield.CustomJTextField;
+import retail.shared.custom.jlist.CustomJList;
+import retail.shared.custom.jtextfield.CustomJTextField;
 
 import javax.swing.*;
 import java.awt.*;

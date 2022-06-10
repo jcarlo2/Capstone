@@ -1,8 +1,8 @@
 package retail.view.main.tab.bot.inventory.manipulator.panel.add;
 
 import lombok.Getter;
-import retail.shared.customcomponent.jcombobox.JComboBoxProduct;
-import retail.shared.customcomponent.jtextfield.CustomJTextField;
+import retail.shared.custom.jcombobox.JComboBoxProduct;
+import retail.shared.custom.jtextfield.CustomJTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class AddInventory extends JPanel {
     private final JPanel wrapper = new JPanel();
     private final JPanel wrapper1 = new JPanel();
     private final JComboBoxProduct id = new JComboBoxProduct("ID");
-    private final CustomJTextField price = new CustomJTextField("Price",COLOR_BLACK);
+    private final CustomJTextField price = new CustomJTextField("Price",COLOR_BLACK,true);
     private final CustomJTextField quantityByPiece = new CustomJTextField("Quantity By Piece",COLOR_BLACK);
     private final CustomJTextField quantityByBox = new CustomJTextField("Quantity By Box",COLOR_BLACK);
     private final CustomJTextField piecesPerBox = new CustomJTextField( "Pieces Per Box",COLOR_BLACK);

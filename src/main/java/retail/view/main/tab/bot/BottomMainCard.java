@@ -20,8 +20,9 @@ public class BottomMainCard extends JPanel {
         setLayout(card);
         add("log",log);
         add("prodAnalysis",prodAnalysis);
-        add("salesReport", transactionCard);
+
+        add("transaction", transactionCard);
         add("inventory", inventoryCard);
-        card.show(this,"salesReport");
+        card.show(this,"transaction");
     }
 }

@@ -7,22 +7,16 @@ import java.awt.*;
 
 @Getter
 public class AddCard extends JPanel {
-    private final AddTransaction addTransaction = new AddTransaction();
-    private final ReturnedTransaction returnedTransaction = new ReturnedTransaction();
+    private final AddTransactionManipulator addTransactionManipulator = new AddTransactionManipulator();
+    private final ReturnedTransactionManipulator returnedTransactionManipulator = new ReturnedTransactionManipulator();
     private final CardLayout card = new CardLayout();
 
     public AddCard() {
         setLayout(card);
-        add("add",addTransaction);
-        add("return",returnedTransaction);
+        add("add", addTransactionManipulator);
+        add("return", returnedTransactionManipulator);
         card.show(this,"add");
     }
 
-    public AddTransaction getAdd() {
-        return addTransaction;
-    }
 
-    public ReturnedTransaction getReturn() {
-        return returnedTransaction;
-    }
 }

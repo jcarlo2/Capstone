@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 @Getter
 public class AddViewPanel extends JPanel {
@@ -15,5 +16,13 @@ public class AddViewPanel extends JPanel {
         view.setEnabled(false);
         add(add);
         add(view);
+    }
+
+    public void addEventListener(ActionListener actionListener) {
+        add.addActionListener(actionListener);
+    }
+
+    public void viewEventListener(ActionListener actionListener) {
+        view.addActionListener(actionListener);
     }
 }

@@ -16,7 +16,7 @@ public class BottomManipulatorCard extends JPanel {
     public BottomManipulatorCard() {
         setLayout(card);
         add("inventory",inventoryManipulator);
-        add("salesReport", transactionManipulator);
-        card.show(this, "salesReport");
+        add("transaction", transactionManipulator);
+        card.show(this, "transaction");
     }
 }

@@ -1,19 +1,17 @@
 package retail.view.login;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
-import static retail.shared.constant.Constant.LOGIN;
 
 @Getter
-@Setter
 public class LogIn extends JPanel{
     private final JTextField id = new JTextField("7777",15);
     private final JPasswordField password = new JPasswordField("admin",15);
-    private final JButton logIn = new JButton(LOGIN);
+    private final JButton logIn = new JButton("Log In");
 
     public LogIn() {
         setLayout(new GridBagLayout());
@@ -27,8 +25,20 @@ public class LogIn extends JPanel{
         constraints.gridx = 0;
         constraints.gridy = 2;
         add(logIn,constraints);
-        setPreferredSize(new Dimension(300,150));
+        setPreferredSize(new Dimension(350,150));
         setFocusable(true);
         setVisible(true);
+    }
+
+    public String getId() {
+        return id.getText();
+    }
+
+    public String getPassword() {
+        return String.valueOf(password.getPassword());
+    }
+
+    public void logInActionListener(ActionListener actionListener) {
+        logIn.addActionListener(actionListener);
     }
 }
