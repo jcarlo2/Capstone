@@ -30,6 +30,7 @@ public class BotTableModel implements TableModelListener {
 
     private void calculateCredit() {
         BigDecimal credit = new BigDecimal(center.getTopTotal().getText());
+        credit = credit.multiply(BigDecimal.valueOf(-1));
         BigDecimal newTotal = new BigDecimal(center.getNewTotal().getText());
         center.getCredit().setText(credit.add(newTotal).toString());
     }

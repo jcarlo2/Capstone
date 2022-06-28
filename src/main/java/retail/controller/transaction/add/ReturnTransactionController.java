@@ -4,7 +4,9 @@ import org.jetbrains.annotations.NotNull;
 import retail.model.facade.transaction.add.ReturnTransactionFacade;
 import retail.shared.custom.CustomJDialog;
 import retail.shared.eventlistener.action.transaction.returned.AddAction;
+import retail.shared.eventlistener.action.transaction.returned.AddAllAction;
 import retail.shared.eventlistener.action.transaction.returned.DeleteAction;
+import retail.shared.eventlistener.action.transaction.returned.DeleteAllAction;
 import retail.shared.eventlistener.document.transaction.SearchDocument;
 import retail.shared.eventlistener.mouse.transaction.BotTableMouse;
 import retail.shared.eventlistener.mouse.transaction.ListMouse;
@@ -38,13 +40,15 @@ public class ReturnTransactionController {
 
         autoUpdateList();
 
-        // ADD ALL - DELETE ALL - RETURN DIALOG - SAVE
+        // RETURN DIALOG - SAVE
         center.getTopTable().addMouseListener(new TopTableMouse(center,facade,returnDialog));
         center.getBotTable().addMouseListener(new BotTableMouse(manipulator,center,facade));
         center.getBotTable().getModel().addTableModelListener(new BotTableModel(center,facade));
         manipulator.getList().addMouseListener(new ListMouse(manipulator,center,facade));
         manipulator.getAdd().addActionListener(new AddAction(center,facade,returnDialog));
+        manipulator.getAddAll().addActionListener(new AddAllAction(center,facade));
         manipulator.getDelete().addActionListener(new DeleteAction(manipulator,center,facade));
+        manipulator.getDeleteAll().addActionListener(new DeleteAllAction(manipulator,center,facade));
         manipulator.getSearch().getDocument().addDocumentListener(new SearchDocument(manipulator,facade));
     }
 

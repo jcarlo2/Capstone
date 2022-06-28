@@ -10,12 +10,16 @@ import javax.swing.*;
 
 public class RetailApplication {
     public static void main(String[] args) {
-        try {
-            new TableCreatorImpl();
-            UIManager.setLookAndFeel(new FlatDarculaLaf());
-            new MainController(new MainFacade(),new BuildGUI());
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        SwingUtilities.invokeLater(() -> {
+            try {
+                new TableCreatorImpl();
+//                com.jtattoo.plaf.acryl.AcrylLookAndFeel.setTheme("Green", "INSERT YOUR LICENSE KEY HERE", "my company");
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+                UIManager.setLookAndFeel(new FlatDarculaLaf());
+                new MainController(new MainFacade(),new BuildGUI());
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
