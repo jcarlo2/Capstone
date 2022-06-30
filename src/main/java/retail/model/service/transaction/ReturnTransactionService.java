@@ -1,7 +1,9 @@
 package retail.model.service.transaction;
 
 import org.jetbrains.annotations.NotNull;
-import retail.model.repository.implementer.TransactionRepository;
+import retail.model.service.Service;
+import retail.shared.entity.NullProductReport;
+import retail.shared.entity.NullReportItem;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
 import retail.shared.pojo.ProductReturnedDetail;
@@ -10,15 +12,14 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class ReturnTransactionService {
-    private final TransactionRepository transactionRepository = new TransactionRepository();
+public class ReturnTransactionService implements Service {
 
     public ArrayList<TransactionDetail> getAllValidReport() {
-        return transactionRepository.getReportListIfValid();
+        return transaction.getAllValidTransactionReport();
     }
 
     public ArrayList<TransactionDetail> getTransactionReportList() {
-        return transactionRepository.getTransactionReportList();
+        return transaction.getAllTransactionReportList();
     }
 
     public ArrayList<TransactionDetail> findAllReportByString(String str, @NotNull ArrayList<TransactionDetail> reportList) {
@@ -35,11 +36,11 @@ public class ReturnTransactionService {
     }
 
     public boolean isReportExist(String value) {
-        return transactionRepository.isReportExist(value);
+        return transaction.isReportExist(value);
     }
 
     public ArrayList<TransactionItemDetail> getAllReportItem(String id) {
-        return transactionRepository.getAllTransactionReportItem(id);
+        return transaction.getAllTransactionReportItem(id);
     }
 
     public String[][] filterDataByReason(String @NotNull[] @NotNull [] dataList) {
@@ -86,7 +87,7 @@ public class ReturnTransactionService {
 
     public String getReportTotalAmount(String id) {
         id = reverseConvertId(id);
-        return transactionRepository.getTransactionReport(id).getTotalAmount();
+        return transaction.getTransactionReportById(id).getTotalAmount();
     }
 
     public String calculateNewTotal(String @NotNull[] @NotNull[] dataList) {
@@ -123,8 +124,58 @@ public class ReturnTransactionService {
        return new BigDecimal(num).multiply(BigDecimal.valueOf(-1)).toString();
     }
 
-    @NotNull
     public String subtraction(Double a, Double b) {
         return String.valueOf(a - b);
+    }
+
+    public String addition(Double a, Double b) {
+        return String.valueOf(a + b);
+    }
+
+    public boolean verifyTableForSaving(String @NotNull[] @NotNull [] dataList) {
+        for(String[] data : dataList) {
+            String strData = data[data.length-1];
+            if(Double.parseDouble(strData) > 0) return true;
+        }
+        return false;
+    }
+
+    public void invalidateReport(String id) {
+        transaction.invalidateId(reverseConvertId(id));
+    }
+
+    public void save(TransactionDetail report, ArrayList<TransactionItemDetail> itemList) {
+        transaction.addReport(report,itemList);
+    }
+
+    public void reflectItemToInventory(String[][] dataList, String id) {
+        id = reverseConvertId(id);
+        ArrayList<TransactionItemDetail> itemList = transaction.getAllTransactionReportItem(id);
+        for(TransactionItemDetail item : itemList) {
+            for (String[] strings : dataList) {
+                if (strings[0].equals(item.getProductId())) {
+                    double count = Double.parseDouble(item.getSold());
+                    Double returned = Double.valueOf(strings[7]);
+                    Double sold = Double.valueOf(strings[2]);
+                    product.updateProductQuantity(item.getProductId(), count - (sold + returned));
+                }
+            }
+        }
+    }
+
+    public boolean lessThanComparison(String a, String b) {
+        return Double.parseDouble(a) < Double.parseDouble(b);
+    }
+
+    public String calculateNullTotal(@NotNull ArrayList<NullReportItem> itemList) {
+        Double total = 0.0;
+        for(NullReportItem item : itemList) {
+            total += Double.parseDouble(item.getTotal());
+        }
+        return String.valueOf(total);
+    }
+
+    public void addTransactionNullReport(NullProductReport nullProductReport, ArrayList<NullReportItem> nullList) {
+        nullProduct.addNullReport(nullProductReport,nullList);
     }
 }

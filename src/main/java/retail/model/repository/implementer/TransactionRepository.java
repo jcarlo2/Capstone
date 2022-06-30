@@ -1,6 +1,7 @@
 package retail.model.repository.implementer;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retail.model.repository.implementation.TransactionReport;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
@@ -90,32 +91,15 @@ public class TransactionRepository implements TransactionReport {
     }
 
     @Override
-    public boolean isReportDeletable(@NotNull String id)  {
-        if(id.equals("")) return false;
-        String query = "SELECT is_deletable FROM transaction_report WHERE id = ?";
-        boolean isDeletable = false;
-        try {
-            Connection connection = DriverManager.getConnection(URL,USER,PASS);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1,id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) isDeletable = resultSet.getInt(1) == 1;
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return isDeletable;
-    }
-
-
-    @Override
     public void saveTransactionReport(TransactionDetail transactionDetail) {
-        String query = "INSERT INTO transaction_report(id,user,total_amount) VALUES(?,?,?)";
+        String query = "INSERT INTO transaction_report(id,user,total_amount,old_id) VALUES(?,?,?,?)";
         try {
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, transactionDetail.getId());
             preparedStatement.setString(2, transactionDetail.getUser());
             preparedStatement.setString(3, transactionDetail.getTotalAmount());
+            preparedStatement.setString(4, transactionDetail.getOldId());
             preparedStatement.executeUpdate();
         }catch (Exception e) {
             e.printStackTrace();
@@ -146,9 +130,14 @@ public class TransactionRepository implements TransactionReport {
     }
 
     @Override
-    public ArrayList<TransactionDetail> getReportListIfValid(){
+    public ArrayList<TransactionDetail> getAllValidTransactionReport(){
         ArrayList<TransactionDetail> reportList = new ArrayList<>();
         String query = "SELECT * FROM transaction_report WHERE is_valid = TRUE ORDER BY date_time DESC";
+        return getTransactionDetails(reportList, query);
+    }
+
+    @Nullable
+    private ArrayList<TransactionDetail> getTransactionDetails(ArrayList<TransactionDetail> reportList, String query) {
         try {
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -171,32 +160,14 @@ public class TransactionRepository implements TransactionReport {
     }
 
     @Override
-    public ArrayList<TransactionDetail> getTransactionReportList(){
+    public ArrayList<TransactionDetail> getAllTransactionReportList(){
         ArrayList<TransactionDetail> reportList = new ArrayList<>();
         String query = "SELECT * FROM transaction_report ORDER BY date_time DESC";
-        try {
-            Connection connection = DriverManager.getConnection(URL,USER,PASS);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String id = resultSet.getString("id");
-                String user = resultSet.getString("user");
-                String date = resultSet.getString("date");
-                String timestamp = resultSet.getString("date_time");
-                String totalAmount = resultSet.getString("total_amount");
-                String oldId = resultSet.getString("old_id");
-                String credit = resultSet.getString("credit");
-                String isValid = resultSet.getString("is_valid");
-                reportList.add(new TransactionDetail(id,date,timestamp,user,totalAmount,oldId,credit,isValid));
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return reportList;
+        return getTransactionDetails(reportList, query);
     }
 
     @Override
-    public TransactionDetail getTransactionReport(String id) {
+    public TransactionDetail getTransactionReportById(String id) {
         String query = "SELECT * FROM transaction_report WHERE id = ?";
         TransactionDetail report = null;
         try {
@@ -219,5 +190,18 @@ public class TransactionRepository implements TransactionReport {
             e.printStackTrace();
         }
         return report;
+    }
+
+    @Override
+    public void invalidateId(String id) {
+        try {
+            String query = "UPDATE transaction_report SET is_valid = false WHERE id = ?";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id);
+            preparedStatement.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -36,6 +36,7 @@ public class AddTransactionController {
         autoUpdateProductList();
         autoCheckPrice();
         autoCalculateTotalAmount();
+        autoUpdateReportId();
 
         soldDocumentListener();
         discountPercentageDocumentListener();
@@ -46,8 +47,6 @@ public class AddTransactionController {
         deleteEvent();
         clear();
 
-        manipulator.getReportId().setText(facade.generateId()); // GENERATE ID AT START UP
-        manipulator.getGenerateId().addActionListener(e -> manipulator.getReportId().setText(facade.generateId()));
         manipulator.getProduct().addItemListener(e -> manipulator.clear());
     }
 
@@ -161,6 +160,17 @@ public class AddTransactionController {
 
             }
         });
+    }
+
+    private void autoUpdateReportId() {
+        Runnable runnable = () -> {
+            String id = manipulator.getReportId().getText();
+            if(id.equals("0") || facade.isReportIdExist(id)) {
+                SwingUtilities.invokeLater(() -> manipulator.getReportId().setText(facade.generateId()));
+            }
+        };
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        service.scheduleAtFixedRate(runnable,1,1,TimeUnit.SECONDS);
     }
 
     private void autoCalculateTotalAmount() {

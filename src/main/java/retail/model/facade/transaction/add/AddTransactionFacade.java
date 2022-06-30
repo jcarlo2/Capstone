@@ -34,6 +34,10 @@ public class AddTransactionFacade {
        return service.generateId();
     }
 
+    public boolean isReportIdExist(String id) {
+        return service.isReportIdExist(id);
+    }
+
     public TransactionDetail createTransactionDetail(String[] data) {
         return reportCreator.createTransactionDetail(data);
     }

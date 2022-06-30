@@ -21,15 +21,15 @@ public interface TransactionReport {
 
     void deleteReport(String id);
 
-    boolean isReportDeletable(@NotNull String id);
-
     void saveTransactionReport(TransactionDetail transactionDetail);
 
     void saveTransactionReportItem(@NotNull TransactionDetail transactionDetail, ArrayList<TransactionItemDetail> transactionItemDetail);
 
-    ArrayList<TransactionDetail> getTransactionReportList();
+    ArrayList<TransactionDetail> getAllTransactionReportList();
 
-    ArrayList<TransactionDetail> getReportListIfValid();
+    ArrayList<TransactionDetail> getAllValidTransactionReport();
 
-    TransactionDetail getTransactionReport(String id);
+    TransactionDetail getTransactionReportById(String id);
+
+    void invalidateId(String id);
 }

@@ -2,6 +2,7 @@ package retail.controller.transaction.add;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.facade.transaction.add.ReturnTransactionFacade;
+import retail.shared.constant.ConstantDialog;
 import retail.shared.custom.CustomJDialog;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
@@ -61,6 +62,7 @@ public class ReturnTransactionController {
         manipulator.getAddAll().addActionListener(e -> addAllEvent());
         manipulator.getDelete().addActionListener(e -> deleteEvent());
         manipulator.getDeleteAll().addActionListener(e -> deleteAllEvent());
+        manipulator.getSave().addActionListener(e -> saveEvent());
     }
 
     private void autoUpdateList() {
@@ -120,10 +122,32 @@ public class ReturnTransactionController {
         center.fixTableColumn();
     }
 
+    private void saveEvent() {
+        if(center.getTopTable().getRowCount() > 0) {
+            ConstantDialog.SAVE_FAILED();
+            return;
+        }
+        if(facade.verifyTableForSaving(center.getBotTable().tableGrabber())) {
+            String[][] dataList = center.getBotTable().tableGrabber();
+            String id = manipulator.getNewReportId().getText();
+            String user = userPanel.getLastName().getText();
+            String newTotal = center.getNewTotal().getText();
+            String credit = center.getCredit().getText();
+            facade.saveReport(dataList,id,user,newTotal,credit);
+            center.getTopModel().setRowCount(0);
+            center.getBotModel().setRowCount(0);
+        }
+    }
+
     private void returnSaveEvent() {
         if(facade.verifyReturnedItemDetails(returnDialog.getProductData())) {
             int row = center.getTopTable().getSelectedRow();
-            if(row == -1) return;
+            String add = facade.addition(returnDialog.getSold().getText(),returnDialog.getProductCount().getText());
+            if(facade.lessThanComparison(add,returnDialog.getCount().getText()) || row == -1) {
+                Toolkit.getDefaultToolkit().beep();
+                return;
+            }
+
             TransactionItemDetail item = facade.createItem(center.getTopTable().rowGrabber());
             item.setSold(returnDialog.getSold().getText());
             item.setTotalAmount(returnDialog.getTotalAmount().getText());

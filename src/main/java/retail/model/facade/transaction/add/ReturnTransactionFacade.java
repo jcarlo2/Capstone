@@ -3,7 +3,10 @@ package retail.model.facade.transaction.add;
 import org.jetbrains.annotations.NotNull;
 import retail.model.service.Calculate;
 import retail.model.service.ReportCreator;
+import retail.model.service.product.NullProduct;
 import retail.model.service.transaction.ReturnTransactionService;
+import retail.shared.entity.NullProductReport;
+import retail.shared.entity.NullReportItem;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
 import retail.shared.pojo.ProductReturnedDetail;
@@ -14,6 +17,7 @@ import java.util.Objects;
 
 public class ReturnTransactionFacade {
     private final ReturnTransactionService service = new ReturnTransactionService();
+    private final NullProduct nullService = new NullProduct();
     private final ReportCreator creator = new ReportCreator();
     private final Calculate calculate = new Calculate();
 
@@ -110,5 +114,31 @@ public class ReturnTransactionFacade {
 
     public String subtraction(Double a, Double b) {
         return service.subtraction(a,b);
+    }
+
+    public boolean verifyTableForSaving(String[][] dataList) {
+        return service.verifyTableForSaving(dataList);
+    }
+
+    public void saveReport(String[][] dataList, String id, String user, String total, String credit) {
+        TransactionDetail report = creator.createTransactionDetail(new String[] {id,"","", user, total, service.reverseConvertId(id), credit,""});
+        ArrayList<TransactionItemDetail> itemList = creator.createAllReportItem(dataList);
+        service.invalidateReport(id);
+        service.save(report,itemList);
+        service.reflectItemToInventory(dataList, id);
+
+        String nullId = nullService.generateId();
+        ArrayList<NullReportItem> nullList = creator.createAllNullItem(dataList,nullId);
+        String[] nullReport = {nullId,user,service.calculateNullTotal(nullList),service.reverseConvertId(id)};
+        NullProductReport nullProductReport = creator.createNullReport(nullReport);
+        service.addTransactionNullReport(nullProductReport,nullList);
+    }
+
+    public String addition(String a, String b) {
+        return service.addition(Double.parseDouble(a),Double.parseDouble(b));
+    }
+
+    public boolean lessThanComparison(String a, String b) {
+        return service.lessThanComparison(a,b);
     }
 }

@@ -14,7 +14,6 @@ import static retail.shared.constant.Constant.COLOR_BLACK;
 @Getter
 public class AddTransactionManipulator extends JPanel {
     private final JPanel addDeleteClear = new JPanel();
-    private final JPanel saveGenerate = new JPanel();
     private final JPanel soldAndSoldTotal = new JPanel();
     private final JPanel discountPercentageAndTotal = new JPanel();
 
@@ -29,16 +28,12 @@ public class AddTransactionManipulator extends JPanel {
     private final JButton clear = new JButton("Clear");
     private final JButton delete = new JButton("Delete");
     private final JButton save = new JButton("Save");
-    private final JButton generateId = new JButton("Generate ID");
 
     public AddTransactionManipulator() {
         setLayout(new GridLayout(12,2));
 
         AutoCompleteDecorator.decorate(product);
 
-        saveGenerate.setLayout(new GridLayout(1,2));
-        saveGenerate.add(save);
-        saveGenerate.add(generateId);
 
         addDeleteClear.setLayout(new GridLayout(1,3));
         addDeleteClear.add(add);
@@ -61,7 +56,7 @@ public class AddTransactionManipulator extends JPanel {
         add(discountPercentageAndTotal);
         add(addDeleteClear);
         add(reportId);
-        add(saveGenerate);
+        add(save);
     }
 
     public void clear() {
