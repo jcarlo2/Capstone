@@ -2,7 +2,7 @@ package retail.shared.constant;
 
 import javax.swing.*;
 
-public interface ConstantDialog extends ImageDirectory{
+public interface    ConstantDialog extends ImageDirectory{
     static void INVALID_INPUT() {
         JOptionPane.showMessageDialog(new JFrame(), "Invalid Input!!");
     }

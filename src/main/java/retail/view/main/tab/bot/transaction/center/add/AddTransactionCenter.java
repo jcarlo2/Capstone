@@ -6,12 +6,14 @@ import retail.shared.custom.jtable.JTableTransaction;
 import retail.shared.custom.jtextfield.CustomJTextField;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 @Getter
 public class AddTransactionCenter extends JPanel {
     private final JPanel wrapper = new JPanel(new GridBagLayout());
-    private final JTableTransaction table = new JTableTransaction(false,false,false);
+    private final DefaultTableModel model = new DefaultTableModel(0,10);
+    private final JTableTransaction table = new JTableTransaction(model,false,false,false);
     private final JScrollPane centerScroll = new JScrollPane(table);
     private final CustomJTextField totalAmount = new CustomJTextField("Total Amount", Color.BLACK,15);
 

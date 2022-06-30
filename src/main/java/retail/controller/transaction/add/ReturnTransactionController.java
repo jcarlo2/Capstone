@@ -3,22 +3,28 @@ package retail.controller.transaction.add;
 import org.jetbrains.annotations.NotNull;
 import retail.model.facade.transaction.add.ReturnTransactionFacade;
 import retail.shared.custom.CustomJDialog;
-import retail.shared.eventlistener.action.transaction.returned.AddAction;
-import retail.shared.eventlistener.action.transaction.returned.AddAllAction;
-import retail.shared.eventlistener.action.transaction.returned.DeleteAction;
-import retail.shared.eventlistener.action.transaction.returned.DeleteAllAction;
-import retail.shared.eventlistener.document.transaction.SearchDocument;
-import retail.shared.eventlistener.mouse.transaction.BotTableMouse;
-import retail.shared.eventlistener.mouse.transaction.ListMouse;
-import retail.shared.eventlistener.mouse.transaction.TopTableMouse;
-import retail.shared.eventlistener.tablemodel.BotTableModel;
+import retail.shared.entity.TransactionDetail;
+import retail.shared.entity.TransactionItemDetail;
 import retail.view.main.tab.bot.transaction.center.add.ReturnedTransactionCenter;
 import retail.view.main.tab.bot.transaction.manipulator.panel.add.ReturnedTransactionManipulator;
 import retail.view.main.tab.top.UserPanel;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import static retail.shared.constant.ConstantDialog.ADD_ALL;
+import static retail.shared.constant.ConstantDialog.DELETE_ALL;
 
 public class ReturnTransactionController {
     private final ReturnTransactionFacade facade;
@@ -30,7 +36,7 @@ public class ReturnTransactionController {
     public ReturnTransactionController(UserPanel userPanel,
                                        @NotNull ReturnedTransactionManipulator manipulator,
                                        @NotNull ReturnedTransactionCenter center,
-                                       CustomJDialog returnDialog,
+                                       @NotNull CustomJDialog returnDialog,
                                        ReturnTransactionFacade facade) {
         this.facade = facade;
         this.center = center;
@@ -39,17 +45,22 @@ public class ReturnTransactionController {
         this.returnDialog = returnDialog;
 
         autoUpdateList();
+        listDocumentListener();
+        listMouseListener();
+        topTableMouseListener();
+        botTableMouseListener();
+        botTableModelListener();
 
-        // RETURN DIALOG - SAVE
-        center.getTopTable().addMouseListener(new TopTableMouse(center,facade,returnDialog));
-        center.getBotTable().addMouseListener(new BotTableMouse(manipulator,center,facade));
-        center.getBotTable().getModel().addTableModelListener(new BotTableModel(center,facade));
-        manipulator.getList().addMouseListener(new ListMouse(manipulator,center,facade));
-        manipulator.getAdd().addActionListener(new AddAction(center,facade,returnDialog));
-        manipulator.getAddAll().addActionListener(new AddAllAction(center,facade));
-        manipulator.getDelete().addActionListener(new DeleteAction(manipulator,center,facade));
-        manipulator.getDeleteAll().addActionListener(new DeleteAllAction(manipulator,center,facade));
-        manipulator.getSearch().getDocument().addDocumentListener(new SearchDocument(manipulator,facade));
+        returnDialogComponentListener();
+        productCountDocumentListener();
+        soldDocumentListener();
+        returnDialog.getSave().addActionListener(e -> returnSaveEvent());
+        returnDialog.getCancel().addActionListener( e -> returnDialog.setVisible(false));
+
+        manipulator.getAdd().addActionListener(e -> addEvent());
+        manipulator.getAddAll().addActionListener(e -> addAllEvent());
+        manipulator.getDelete().addActionListener(e -> deleteEvent());
+        manipulator.getDeleteAll().addActionListener(e -> deleteAllEvent());
     }
 
     private void autoUpdateList() {
@@ -61,5 +72,257 @@ public class ReturnTransactionController {
         };
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
         service.scheduleAtFixedRate(runnable, 1, 1, TimeUnit.SECONDS);
+    }
+
+    private void addAllEvent() {
+        if(ADD_ALL() != 0) return;
+        String[][] dataList = center.getTopTable().tableGrabber();
+        for(TransactionItemDetail item : facade.getRowDataByNoneReason(dataList)) {
+            center.getBotTable().addItemWithCount(item,"0");
+        }
+        center.getTopModel().setRowCount(0);
+        for(TransactionItemDetail item : facade.removeRowWithNoneReason(dataList)) {
+            center.getTopTable().addItemWithReason(item,"Exp/Dam");
+        }
+        center.fixTableColumn();
+    }
+
+    private void addEvent() {
+        int row = center.getTopTable().getSelectedRow();
+        if(row == -1) return;
+        String[] data =  center.getTopTable().rowGrabber();
+        if(Objects.requireNonNull(data)[7].equals("--")) {
+            TransactionItemDetail item = facade.createItem(data);
+            center.getBotTable().addItemWithCount(item, "0");
+            center.getTopTable().removeRow(row);
+            center.fixTableColumn();
+        }else {
+            returnDialog.setVisible(true);
+        }
+    }
+
+    private void deleteAllEvent() {
+        if(DELETE_ALL() != 0) return;
+        String id = facade.reverseConvertId(manipulator.getNewReportId().getText());
+        center.getBotModel().setRowCount(0);
+        center.getTopModel().setRowCount(0);
+        center.getTopTable().addAllItem(facade.getAllReportItem(id));
+        center.getTopTable().fixNumberColumn();
+    }
+
+    private void deleteEvent() {
+        int row = center.getBotTable().getSelectedRow();
+        if(row == -1) return;
+        String[] data = center.getBotTable().rowGrabber();
+        String reportId = facade.reverseConvertId(manipulator.getNewReportId().getText());
+        center.getTopTable().addItemWithCount(facade.recoverItem(Objects.requireNonNull(data),reportId), "0");
+        center.getBotModel().removeRow(row);
+        center.fixTableColumn();
+    }
+
+    private void returnSaveEvent() {
+        if(facade.verifyReturnedItemDetails(returnDialog.getProductData())) {
+            int row = center.getTopTable().getSelectedRow();
+            if(row == -1) return;
+            TransactionItemDetail item = facade.createItem(center.getTopTable().rowGrabber());
+            item.setSold(returnDialog.getSold().getText());
+            item.setTotalAmount(returnDialog.getTotalAmount().getText());
+            item.setSoldTotal(returnDialog.getSoldTotal().getText());
+            center.getBotTable().addItemWithCount(item,returnDialog.getProductCount().getText());
+            center.getTopTable().removeRow(row);
+            center.fixTableColumn();
+            returnDialog.setVisible(false);
+        }
+    }
+
+    private void soldEvent() {
+        if(!returnDialog.getSold().isFocusOwner()) return;
+        String sold = returnDialog.getSold().getText();
+        if(facade.isValidNumber(sold)) {
+            String price = returnDialog.getPrice().getText();
+            String percent = returnDialog.getDiscountPercentage().getText();
+            String total = facade.calculateSoldTotal(new BigDecimal(price), new BigDecimal(sold));
+            String discount = facade.calculateDiscountAmount(new BigDecimal(total),new BigDecimal(percent));
+            String totalAmount = facade.calculateTotalAmount(total,discount);
+
+            returnDialog.getTotalAmount().setText(totalAmount);
+            returnDialog.getSoldTotal().setText(total);
+            returnDialog.getDiscountTotal().setText(discount);
+        }
+    }
+
+    private void productCountEvent(boolean isUpdate) {
+        String productCount = returnDialog.getProductCount().getText();
+        if(facade.isValidNumber(productCount)) {
+            String totalCount = returnDialog.getCount().getText();
+            String soldTotal = returnDialog.getSoldTotal().getText();
+            String discountTotal = returnDialog.getDiscountTotal().getText();
+            double prodCount = Double.parseDouble(productCount);
+            double count = Double.parseDouble(totalCount);
+            if(prodCount <= count) {
+                returnDialog.getSold().setText(facade.subtraction(count,prodCount));
+                String total = facade.calculateTotalAmount(soldTotal,discountTotal);
+                returnDialog.getTotalAmount().setText(total);
+            }else {
+                if(isUpdate) Toolkit.getDefaultToolkit().beep();
+            }
+        }
+    }
+
+    private void topTableMouseListener() {
+        center.getTopTable().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                    addEvent();
+                }else if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON3) {
+                    addAllEvent();
+                }
+            }
+        });
+    }
+
+    private void botTableMouseListener() {
+        center.getBotTable().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                    deleteEvent();
+                }else if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON3) {
+                    deleteAllEvent();
+                }
+            }
+        });
+    }
+
+    private void botTableModelListener() {
+        center.getBotTable().getModel().addTableModelListener(e -> {
+            String[][] dataList = center.getBotTable().tableGrabber();
+            String newTotal = facade.calculateNewTotal(dataList);
+            center.getNewTotal().setText(newTotal);
+            String credit = facade.calculateNewCredit(center.getTopTotal().getText(),center.getNewTotal().getText());
+            center.getCredit().setText(credit);
+        });
+    }
+
+    private void soldDocumentListener() {
+        returnDialog.getSold().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                soldEvent();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                soldEvent();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
+    }
+
+    private void productCountDocumentListener() {
+        returnDialog.getProductCount().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                productCountEvent(true);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                productCountEvent(false);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+    }
+
+    private void listDocumentListener() {
+        manipulator.getSearch().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
+    }
+
+    private void listMouseListener() {
+        manipulator.getList().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                    String id = manipulator.getList().getSelectedValue().substring(19,37);
+                    if(facade.isReportExist(id)) {
+                        setReportItem(id);
+                        setTopTotalAmount();
+                        setCredit();
+                    }
+                }
+            }
+        });
+    }
+
+    private void returnDialogComponentListener() {
+        returnDialog.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                int row = center.getTopTable().getSelectedRow();
+                if(row == -1) return;
+                TransactionItemDetail item = facade.createItem(center.getTopTable().rowGrabber());
+                returnDialog.getProductId().setText(item.getProductId());
+                returnDialog.getPrice().setText(item.getPrice());
+                returnDialog.getCount().setText(item.getSold());
+                returnDialog.getDiscountPercentage().setText(item.getDiscountPercentage());
+                returnDialog.setLocationRelativeTo(null);
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                returnDialog.clear();
+            }
+        });
+    }
+
+    private void setReportItem(String id) {
+        ArrayList<TransactionItemDetail> itemList = facade.getAllReportItem(id);
+        center.getTopTable().addAllItem(itemList);
+        manipulator.getNewReportId().setText(facade.convertId(id));
+        center.getBotModel().setRowCount(0);
+        center.fixTableColumn();
+    }
+
+    private void setTopTotalAmount() {
+        String newId = manipulator.getNewReportId().getText();
+        if(newId.equals("")) return;
+        center.getTopTotal().setText(facade.getReportTotalAmount(newId));
+    }
+
+    private void setCredit() {
+        String total = center.getTopTotal().getText();
+        center.getCredit().setText(facade.negation(total));
+    }
+
+    private void search() {
+        if(manipulator.getSearch().getText().equals("")) {
+            manipulator.getList().populateTransactionList(facade.getTransactionReportList());
+            return;
+        }
+        ArrayList<TransactionDetail> reportList = facade.findAllReportByString(manipulator.getSearch().getText());
+        manipulator.getList().populateTransactionList(reportList);
     }
 }

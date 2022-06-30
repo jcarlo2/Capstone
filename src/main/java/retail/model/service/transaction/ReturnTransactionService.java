@@ -2,11 +2,11 @@ package retail.model.service.transaction;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.repository.implementer.TransactionRepository;
-import retail.shared.custom.jtable.JTableTransaction;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
+import retail.shared.pojo.ProductReturnedDetail;
 
-import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -38,34 +38,34 @@ public class ReturnTransactionService {
         return transactionRepository.isReportExist(value);
     }
 
-    public ArrayList<TransactionItemDetail> getReportItem(String id) {
+    public ArrayList<TransactionItemDetail> getAllReportItem(String id) {
         return transactionRepository.getAllTransactionReportItem(id);
     }
 
-    public String[][] filterDataByReason(String[][] dataList) {
+    public String[][] filterDataByReason(String @NotNull[] @NotNull [] dataList) {
         String[][] newDataList = new String[dataList.length][];
-        int flag = 0;
-        for (String[] strings : dataList) {
-            if (strings[7].equals("--")) {
-                newDataList[flag++] = strings;
+        int i = 0;
+        for (String[] data : dataList) {
+            if (data[7].equals("--")) {
+                newDataList[i++] = data;
             }
         }
         return newDataList;
     }
 
-    public void removeRowWithReason(@NotNull JTableTransaction topTable) {
-        int row = topTable.getRowCount();
-        for(int i=0;i<row;i++) {
-            if(topTable.getValueAt(i, 8).equals("--")) {
-                ((DefaultTableModel)topTable.getModel()).removeRow(i);
-                i = -1;
-                row = topTable.getRowCount();
+    public String[][] removeRowWithReason(String @NotNull[] @NotNull[] dataList) {
+        String[][] newDataList = new String[dataList.length][];
+        int i = 0;
+        for(String[] data : dataList) {
+            if(!data[data.length - 1].equals("--")) {
+                newDataList[i++] = data;
             }
         }
+        return newDataList;
     }
 
     public TransactionItemDetail recoverItem(String @NotNull [] data, String id) {
-        ArrayList<TransactionItemDetail> itemList = getReportItem(id);
+        ArrayList<TransactionItemDetail> itemList = getAllReportItem(id);
         for(TransactionItemDetail item : itemList) {
             if(item.getProductId().equals(data[0])) {
                 return item;
@@ -95,5 +95,36 @@ public class ReturnTransactionService {
             total = total.add(new BigDecimal(data[6]));
         }
         return total.toString();
+    }
+
+    public boolean verifyReturnedItemDetails(@NotNull ProductReturnedDetail product) {
+        if(product.getSold().equals("") || product.getProductCount().equals("")) {
+            Toolkit.getDefaultToolkit().beep();
+            return false;
+        }
+        double prodCount = Double.parseDouble(product.getProductCount());
+        double count = Double.parseDouble(product.getCount());
+        double sold = Double.parseDouble(product.getSold());
+        if(prodCount > count || prodCount < 1 || sold < 0) {
+            Toolkit.getDefaultToolkit().beep();
+            return false;
+        }
+        return true;
+    }
+
+    public String calculateNewCredit(String oldCredit, String newCredit) {
+        BigDecimal credit = new BigDecimal(oldCredit);
+        credit = credit.multiply(BigDecimal.valueOf(-1));
+        BigDecimal newTotal = new BigDecimal(newCredit);
+        return credit.add(newTotal).toString();
+    }
+
+    public String negation(String num) {
+       return new BigDecimal(num).multiply(BigDecimal.valueOf(-1)).toString();
+    }
+
+    @NotNull
+    public String subtraction(Double a, Double b) {
+        return String.valueOf(a - b);
     }
 }

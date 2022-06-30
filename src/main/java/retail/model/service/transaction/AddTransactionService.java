@@ -50,7 +50,7 @@ public class AddTransactionService {
     }
 
     @NonNull
-    public String calculateReportAmount(String[][] dataList) {
+    public String calculateReportAmount(String @NotNull[] @NotNull[] dataList) {
         BigDecimal total = new BigDecimal("0");
         for(String[] data : dataList) {
             total = total.add(new BigDecimal(data[6]));

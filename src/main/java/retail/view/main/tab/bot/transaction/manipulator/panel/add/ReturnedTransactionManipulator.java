@@ -5,8 +5,6 @@ import retail.shared.custom.jlist.CustomJList;
 import retail.shared.custom.jtextfield.CustomJTextField;
 
 import javax.swing.*;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
 import static retail.shared.constant.Constant.COLOR_BLACK;

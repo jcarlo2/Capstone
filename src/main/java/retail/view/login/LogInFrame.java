@@ -10,7 +10,7 @@ public class LogInFrame extends JFrame {
 
     public LogInFrame(String TITLE) {
         setTitle(TITLE);
-        ImageIcon img = new ImageIcon("src/main/resources/images/rmlogo.png");
+        ImageIcon img = new ImageIcon("src/main/resources/images/rm_logo.png");
         setIconImage(img.getImage());
         add(logIn);
         pack();

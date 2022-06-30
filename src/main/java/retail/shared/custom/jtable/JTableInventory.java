@@ -2,23 +2,24 @@ package retail.shared.custom.jtable;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import retail.shared.entity.Merchandise;
+import retail.shared.custom.jtable.other.TableAbstract;
 import retail.shared.entity.DeliveryItemDetail;
-import retail.shared.constant.ConstantDialog;
+import retail.shared.entity.Merchandise;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
 @Getter
-public class JTableInventory extends JTable {
-    private final DefaultTableModel model = new DefaultTableModel(0,8);
-
-    public JTableInventory() {
-        setModel(model);
-        setUpJTable();
+public class JTableInventory extends TableAbstract {
+    public JTableInventory(TableModel model) {
+        super(model, new String[] {"No.",
+                                   "Product ID","" +
+                                   "Price",
+                                   "Quantity By Pieces",
+                                   "Quantity By Box",
+                                   "Pieces Per Box",
+                                   "Old Stock Count",
+                                   "New Stock Count"});
         getColumnModel().getColumn(0).setMinWidth(35);
         getColumnModel().getColumn(0).setMaxWidth(35);
     }
@@ -39,7 +40,7 @@ public class JTableInventory extends JTable {
     }
 
     public void addItem(@NotNull Merchandise merchandise, Double oldCount) {
-        if(!isDuplicate(merchandise.getId())) {
+        if(isDuplicate(merchandise.getId())) {
             String[] data = new String[8];
             data[0] = "";
             data[1] = merchandise.getId();
@@ -50,48 +51,6 @@ public class JTableInventory extends JTable {
             data[6] = String.valueOf(oldCount);
             data[7] = merchandise.getQuantityPerPieces() + oldCount;
             model.addRow(data);
-        }
-    }
-
-    private boolean isDuplicate(String id) {
-        int ROW = getRowCount();
-        if(ROW == 0) return false;
-        for(int i=0;i<ROW;i++) {
-            if(id.equals(getValueAt(i,1))) {
-                ConstantDialog.DUPLICATE_ID();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void setUpJTable() {
-        setFont(new Font("SansSerif", Font.BOLD, 15));
-        setShowHorizontalLines(true);
-        setShowVerticalLines(true);
-        getTableHeader().setReorderingAllowed(false);
-        getTableHeader().setResizingAllowed(false);
-        setDefaultEditor(Object.class,null); // DISABLE EDIT TABLE LIKE setEditable()
-
-        addColumnName();
-        centerJTableText();
-    }
-
-    private void addColumnName() {
-        String[] columnName = {"No.","Product ID","Price","Quantity By Pieces","Quantity By Box"
-                                ,"Pieces Per Box","Old Stock Count","New Stock Count"};
-        int COLUMN_NUMBER = 8;
-        for(int i=0;i<COLUMN_NUMBER;i++) {
-            getColumnModel().getColumn(i).setHeaderValue(columnName[i]);
-        }
-    }
-
-    private void centerJTableText() {
-        int COLUMN_NUMBER = getColumnModel().getColumnCount();
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i=0;i<COLUMN_NUMBER;i++) {
-            getColumnModel().getColumn(i).setCellRenderer(renderer);
         }
     }
 }

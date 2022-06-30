@@ -2,6 +2,7 @@ package retail.shared.custom;
 
 import lombok.Getter;
 import retail.shared.custom.jtextfield.CustomJTextField;
+import retail.shared.pojo.ProductReturnedDetail;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +63,7 @@ public class CustomJDialog extends JDialog{
     }
 
     private void setJDialog() {
-        ImageIcon img = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/rmlogo.png")));
+        ImageIcon img = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/rm_logo.png")));
         setIconImage(img.getImage());
         setTitle("Returned Transaction");
         setLocationRelativeTo(null);
@@ -70,5 +71,20 @@ public class CustomJDialog extends JDialog{
         setAlwaysOnTop(true);
         setModalityType(ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+    }
+
+    public void clear() {
+        productId.setText("0");
+        count.setText("0");
+        productCount.setText("0");
+        price.setText("0");
+        sold.setText("0");
+        soldTotal.setText("0");
+        discountPercentage.setText("0");
+        discountTotal.setText("0");
+    }
+
+    public ProductReturnedDetail getProductData() {
+        return new ProductReturnedDetail(sold.getText(),productCount.getText(),count.getText());
     }
 }

@@ -5,13 +5,9 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import retail.shared.custom.jcombobox.JComboBoxProduct;
 import retail.shared.custom.jtextfield.CustomJTextField;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentListener;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Objects;
 
 import static retail.shared.constant.Constant.COLOR_BLACK;
 
@@ -67,4 +63,23 @@ public class AddTransactionManipulator extends JPanel {
         add(reportId);
         add(saveGenerate);
     }
+
+    public void clear() {
+        sold.setText("0");
+        soldTotal.setText("0");
+        discountPercent.setText("0");
+        discountAmount.setText("0");
+    }
+
+    public String[] getAllData() {
+        final String[] data = new String[7];
+        data[0] = Objects.requireNonNull(product.getSelectedItem()).toString();
+        data[1] = price.getText();
+        data[2] = sold.getText();
+        data[3] = soldTotal.getText();
+        data[4] = discountPercent.getText();
+        data[5] = discountAmount.getText();
+        return data;
+    }
+
 }

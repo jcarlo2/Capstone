@@ -33,7 +33,8 @@ public final class Calculate {
         return percent.multiply(soldTotal).setScale(2,RoundingMode.HALF_EVEN).toString();
     }
 
-    public String calculateDiscountPercentage(BigDecimal soldTotal, BigDecimal amount) {
+    public String calculateDiscountPercentage(@NotNull BigDecimal soldTotal, BigDecimal amount) {
+        if(Double.parseDouble(soldTotal.toString()) == 0) return "0";
         amount = amount.divide(soldTotal,4,RoundingMode.HALF_EVEN);
         return amount.multiply(BigDecimal.valueOf(100)).setScale(2, RoundingMode.HALF_EVEN).toString();
     }

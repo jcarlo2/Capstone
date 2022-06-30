@@ -4,11 +4,13 @@ import lombok.Getter;
 import retail.shared.custom.jtable.JTableInventory;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 @Getter
 public class View extends JPanel {
-    private final JTableInventory tableInventory = new JTableInventory();
+    private final DefaultTableModel model = new DefaultTableModel(0,8);
+    private final JTableInventory tableInventory = new JTableInventory(model);
     private final JScrollPane scroll = new JScrollPane(tableInventory);
 
     public View() {

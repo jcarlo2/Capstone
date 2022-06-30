@@ -6,6 +6,6 @@ import java.util.Objects;
 
 public interface ImageDirectory {
     default Image SYSTEM_LOGO() {
-        return new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/rmlogo.png"))).getImage();
+        return new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/rm_logo.png"))).getImage();
     }
 }

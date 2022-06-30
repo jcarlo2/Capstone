@@ -1,6 +1,7 @@
 package retail.view.main.tab.top;
 
 import lombok.Getter;
+import lombok.Setter;
 import retail.shared.custom.jtextfield.CustomJTextField;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.*;
 import static retail.shared.constant.Constant.COLOR_GREEN;
 
 @Getter
+@Setter
 public class UserPanel extends JPanel {
     private final JPanel wrapper = new JPanel(new GridLayout(1,2));
     private final CustomJTextField lastName = new CustomJTextField("Last Name",COLOR_GREEN,false);
@@ -23,17 +25,5 @@ public class UserPanel extends JPanel {
 
         add(option);
         add(wrapper);
-    }
-
-    public void setLastName(String input) {
-        lastName.setText(input);
-    }
-
-    public void setId(String input) {
-        id.setText(input);
-    }
-
-    public String getLastNameText() {
-        return lastName.getText();
     }
 }

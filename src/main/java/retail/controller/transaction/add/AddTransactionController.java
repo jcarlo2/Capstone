@@ -2,69 +2,178 @@ package retail.controller.transaction.add;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.facade.transaction.add.AddTransactionFacade;
-import retail.shared.eventlistener.action.transaction.add.*;
-import retail.shared.eventlistener.document.transaction.DiscountAmountDocument;
-import retail.shared.eventlistener.document.transaction.DiscountPercentageDocument;
-import retail.shared.eventlistener.document.transaction.SoldDocument;
+import retail.shared.entity.TransactionItemDetail;
 import retail.view.main.tab.bot.transaction.center.add.AddTransactionCenter;
 import retail.view.main.tab.bot.transaction.manipulator.panel.add.AddTransactionManipulator;
 import retail.view.main.tab.top.UserPanel;
 
-import javax.swing.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class AddTransactionController implements ItemListener {
-    private final AddTransactionManipulator addManipulator;
-    private final AddTransactionCenter addCenter;
-    private final AddTransactionFacade addFacade;
+import static retail.shared.constant.ConstantDialog.EMPTY_FIELD;
+import static retail.shared.constant.ConstantDialog.SAVED_REPORT;
 
-    public AddTransactionController(UserPanel userPanel,
-                                    @NotNull AddTransactionManipulator addManipulator,
-                                    AddTransactionCenter addCenter,
-                                    AddTransactionFacade addFacade) {
-        this.addManipulator = addManipulator;
-        this.addCenter = addCenter;
-        this.addFacade = addFacade;
+public class AddTransactionController {
+    private final AddTransactionManipulator manipulator;
+    private final AddTransactionCenter center;
+    private final AddTransactionFacade facade;
+    private final UserPanel userPanel;
+
+    public AddTransactionController(@NotNull UserPanel userPanel,
+                                    @NotNull AddTransactionManipulator manipulator,
+                                    AddTransactionCenter center,
+                                    @NotNull AddTransactionFacade facade) {
+        this.manipulator = manipulator;
+        this.center = center;
+        this.facade = facade;
+        this.userPanel = userPanel;
+
         autoUpdateProductList();
         autoCheckPrice();
         autoCalculateTotalAmount();
-        addManipulator.getProduct().addItemListener(this);
 
-        addManipulator.getGenerateId().addActionListener(new GenerateAction(addManipulator,addFacade));
-        addManipulator.getClear().addActionListener(new ClearAction(addManipulator,addFacade));
-        addManipulator.getDelete().addActionListener(new DeleteAction(addManipulator,addCenter,addFacade));
-        addManipulator.getAdd().addActionListener(new AddAction(addManipulator,addCenter,addFacade));
-        addManipulator.getSave().addActionListener(new SaveAction(addManipulator,addCenter,addFacade,userPanel.getLastNameText()));
+        soldDocumentListener();
+        discountPercentageDocumentListener();
+        discountAmountDocumentListener();
 
-        addManipulator.getSold().getDocument().addDocumentListener(new SoldDocument(addFacade,addManipulator));
+        saveEvent();
+        addEvent();
+        deleteEvent();
+        clear();
 
-        addManipulator.getDiscountPercent().getDocument().addDocumentListener(new DiscountPercentageDocument(addFacade,
-                                                                                      addManipulator.getSoldTotal(),
-                                                                                      addManipulator.getDiscountAmount(),
-                                                                                      addManipulator.getDiscountPercent()));
+        manipulator.getReportId().setText(facade.generateId()); // GENERATE ID AT START UP
+        manipulator.getGenerateId().addActionListener(e -> manipulator.getReportId().setText(facade.generateId()));
+        manipulator.getProduct().addItemListener(e -> manipulator.clear());
+    }
 
-        addManipulator.getDiscountAmount().getDocument().addDocumentListener(new DiscountAmountDocument(addFacade,
-                                                                                 addManipulator.getSoldTotal(),
-                                                                                 addManipulator.getDiscountAmount(),
-                                                                                 addManipulator.getDiscountPercent()));
-        addManipulator.getReportId().setText(addFacade.generateId()); // GENERATE ID AT START UP
+    private void saveEvent() {
+        manipulator.getSave().addActionListener(e -> {
+            if(center.getTable().getRowCount() == 0) {
+                EMPTY_FIELD();
+                return;
+            }
+            String[][] dataList = center.getTable().tableGrabber();
+            facade.saveEvent(dataList, gatherReportData());
+            ((DefaultTableModel)center.getTable().getModel()).setRowCount(0);
+            SAVED_REPORT();
+        });
+    }
+
+    private void deleteEvent() {
+        manipulator.getDelete().addActionListener(e -> {
+            center.getTable().removeSelectedRow();
+            manipulator.clear();
+        });
+    }
+
+    private void addEvent() {
+        manipulator.getAdd().addActionListener(e -> {
+            TransactionItemDetail item = facade.addEvent(manipulator.getAllData());
+            if(item == null) return;
+            center.getTable().addItemWithCount(item, "0");
+            center.getTable().fixNumberColumn();
+            manipulator.clear();
+        });
+    }
+
+    private void clear() {
+        manipulator.getClear().addActionListener(e -> manipulator.clear());
+    }
+
+    private void soldEvent() {
+        if(!manipulator.getSold().isFocusOwner()) return;
+        String soldTotal = facade.soldEvent(manipulator.getAllData());
+        String discountAmount = facade.discountPercentageEvent(manipulator.getAllData());
+        if(soldTotal == null) return;
+        manipulator.getSoldTotal().setText(soldTotal);
+        manipulator.getDiscountAmount().setText(discountAmount);
+    }
+
+    private void discountPercentageEvent() {
+        if(!manipulator.getDiscountPercent().isFocusOwner()) return;
+        String discount = facade.discountPercentageEvent(manipulator.getAllData());
+        manipulator.getDiscountAmount().setText(discount);
+    }
+
+    private void discountAmountEvent() {
+        if(!manipulator.getDiscountAmount().isFocusOwner()) return;
+        String percent = facade.discountAmountEvent(manipulator.getAllData());
+        manipulator.getDiscountPercent().setText(percent);
+    }
+
+    private void discountPercentageDocumentListener() {
+        manipulator.getDiscountPercent().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                discountPercentageEvent();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                discountPercentageEvent();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
+    }
+
+    private void discountAmountDocumentListener() {
+        manipulator.getDiscountAmount().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                discountAmountEvent();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                discountAmountEvent();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
+    }
+
+    private void soldDocumentListener() {
+        manipulator.getSold().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                soldEvent();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                soldEvent();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
     }
 
     private void autoCalculateTotalAmount() {
-        addCenter.getTable().getModel().addTableModelListener(e -> {
-            String[][] dataList = addFacade.tableGrabber(addCenter.getTable());
-            addCenter.setTotal(addFacade.calculateReportAmount(dataList));
+        center.getTable().getModel().addTableModelListener(e -> {
+            String[][] dataList = center.getTable().tableGrabber();
+            center.setTotal(facade.calculateReportAmount(dataList));
         });
     }
 
     private void autoUpdateProductList() {
         Runnable runnable = () -> {
-            if(addManipulator.getProduct().isNotSameData(addFacade.getAllProduct())) {
-                SwingUtilities.invokeLater(() -> addManipulator.getProduct().setProductIdList(addFacade.getAllProduct()));
+            if(manipulator.getProduct().isNotSameData(facade.getAllProduct())) {
+                SwingUtilities.invokeLater(() -> manipulator.getProduct().setProductIdList(facade.getAllProduct()));
             }
         };
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
@@ -73,19 +182,27 @@ public class AddTransactionController implements ItemListener {
 
     private void autoCheckPrice() {
         Runnable runnable = () -> {
-            if(addManipulator.getProduct().getSelectedItem() == null) return;
-            String id = addManipulator.getProduct().getSelectedItem().toString();
-            String price = addFacade.findPriceById(id);
-            if(!addManipulator.getPrice().getText().equals(price)) {
-                SwingUtilities.invokeLater(() -> addManipulator.getPrice().setText(price));
+            if(manipulator.getProduct().getSelectedItem() == null) return;
+            String id = manipulator.getProduct().getSelectedItem().toString();
+            String price = facade.findPriceById(id);
+            if(!manipulator.getPrice().getText().equals(price)) {
+                SwingUtilities.invokeLater(() -> manipulator.getPrice().setText(price));
             }
         };
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
         service.scheduleAtFixedRate(runnable, 1, 500, TimeUnit.MILLISECONDS);
     }
 
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        addFacade.clear(addManipulator);
+    private String @NotNull [] gatherReportData() {
+        String[] data = new String[8];
+        data[0] = manipulator.getReportId().getText();
+        data[1] = "";
+        data[2] = "";
+        data[3] = userPanel.getLastName().getText();
+        data[4] = center.getTotalAmountText();
+        data[5] = "";
+        data[6] = "";
+        data[7] = "";
+        return data;
     }
 }

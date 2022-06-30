@@ -1,98 +1,84 @@
 package retail.model.facade.transaction.add;
 
 import org.jetbrains.annotations.NotNull;
-import retail.model.service.ReportCreator;
 import retail.model.service.Calculate;
-import retail.model.service.TableUtil;
+import retail.model.service.ReportCreator;
 import retail.model.service.transaction.AddTransactionService;
 import retail.shared.entity.Merchandise;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
-import retail.view.main.tab.bot.transaction.manipulator.panel.add.AddTransactionManipulator;
 
-import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static retail.shared.constant.ConstantDialog.INVALID_INPUT;
+
 public class AddTransactionFacade {
-    private final AddTransactionService addService = new AddTransactionService();
+    private final AddTransactionService service = new AddTransactionService();
     private final Calculate calculate = new Calculate();
     private final ReportCreator reportCreator = new ReportCreator();
-    private final TableUtil grabber = new TableUtil();
 
     public ArrayList<Merchandise> getAllProduct() {
-        return addService.getAllProduct();
+        return service.getAllProduct();
     }
 
     public String findPriceById(String productId) {
-        return addService.findPriceById(productId);
-    }
-
-    public String calculateSoldTotal(BigDecimal price, BigDecimal sold) {
-        return calculate.calculateSoldTotal(price, sold);
-    }
-
-    public String calculateDiscountAmount(BigDecimal soldTotal, BigDecimal discountPercent) {
-        return calculate.calculateDiscountAmount(soldTotal,discountPercent);
+        return service.findPriceById(productId);
     }
 
     public boolean isValidNumber(String ... input) {
         return calculate.isValidNumber(input);
     }
 
-    public String calculateDiscountPercentage(BigDecimal soldTotal, BigDecimal amount) {
-        return calculate.calculateDiscountPercentage(soldTotal,amount);
-    }
-
-    public TransactionItemDetail createReportItem(String[] data) {
-        return reportCreator.createReportItem(data);
-    }
-
-    public void fixNumberColumn(@NotNull JTable table) {
-        for(int i = 0; i< table.getRowCount(); i++) {
-            table.setValueAt(i+1, i,0);
-        }
-    }
-
-    public void clear(@NotNull AddTransactionManipulator addManipulator) {
-        addManipulator.getSold().setText("0");
-        addManipulator.getSoldTotal().setText("0");
-        addManipulator.getDiscountPercent().setText("0");
-        addManipulator.getDiscountAmount().setText("0");
-    }
-
     public String generateId() {
-        return addService.generateId();
-    }
-
-    public String[][] tableGrabber(JTable table) {
-        return grabber.tableGrabber(table);
+       return service.generateId();
     }
 
     public TransactionDetail createTransactionDetail(String[] data) {
         return reportCreator.createTransactionDetail(data);
     }
 
-    public void saveReport(TransactionDetail report, ArrayList<TransactionItemDetail> itemList) {
-        addService.addReport(report,itemList);
-        addService.reflectToInventory(itemList);
-    }
-
-    public ArrayList<TransactionItemDetail> convertDataToItems(JTable table) {
-        ArrayList<TransactionItemDetail> itemList = new ArrayList<>();
-        String[][] dataList = tableGrabber(table);
-        for(String[] data : dataList) {
-            itemList.add(createReportItem(data));
-        }
-        return itemList;
-    }
-
     public String calculateReportAmount(String[][] dataList) {
-        return addService.calculateReportAmount(dataList);
+        return service.calculateReportAmount(dataList);
     }
 
-    public String calculateItemAmount(String soldTotal, String discountAmount) {
-        return calculate.calculateItemAmount(soldTotal,discountAmount);
+    public TransactionItemDetail addEvent(String @NotNull [] data) {
+        if(data[2].equals("0") || data[2].equals("")) return null;
+        if(!calculate.isValidNumber(data[2],data[3],data[4],data[5])) {
+            INVALID_INPUT();
+            return null;
+        }
+        data[6] = calculate.calculateItemAmount(data[3],data[5]);
+        return reportCreator.createReportItem(data);
+    }
+
+    public void saveEvent(String[][] dataList,String[] reportData) {
+        ArrayList<TransactionItemDetail> itemList = reportCreator.createAllReportItem(dataList);
+        TransactionDetail report = createTransactionDetail(reportData);
+        service.addReport(report,itemList);
+        service.reflectToInventory(itemList);
+    }
+
+    public String soldEvent(String @NotNull ... input) {
+        if(!calculate.isValidNumber(input[2],input[3],input[4],input[5])) {
+            return "0";
+        }
+        return calculate.calculateSoldTotal(new BigDecimal(input[1]), new BigDecimal(input[2]));
+    }
+
+    public String discountPercentageEvent(String @NotNull ... input) {
+        if(!calculate.isValidNumber(input[2],input[3],input[4],input[5])) {
+            return "0";
+        }
+        return calculate.calculateDiscountAmount(new BigDecimal(input[3]),new BigDecimal(input[4]));
+    }
+
+    public String discountAmountEvent(String @NotNull [] allData) {
+        String discount = "";
+        if(calculate.isValidNumber(allData[3],allData[5])) {
+            discount = calculate.calculateDiscountPercentage(new BigDecimal(allData[3]), new BigDecimal(allData[5]));
+        }
+        return discount;
     }
 }
 

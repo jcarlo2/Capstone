@@ -39,8 +39,8 @@ public class LogInController implements ActionListener {
             ConstantDialog.INCORRECT_ID_PASSWORD();
             return;
         }
-        userPanel.setId(id);
-        userPanel.setLastName(logInFacade.getLastName(id));
+        userPanel.getId().setText(id);
+        userPanel.getLastName().setText(logInFacade.getLastName(id));
         disposeLogInAndCreateMainFrame();
     }
 
