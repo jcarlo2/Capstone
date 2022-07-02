@@ -1,15 +1,14 @@
 package retail.model.service.login;
 
-import retail.model.repository.implementer.UserRepository;
+import retail.model.service.Service;
 
-public class UserService {
-    private final UserRepository userRepository = new UserRepository();
+public class UserService implements Service {
 
     public boolean checkIfExist(String id, String password) {
-        return userRepository.checkIfExist(id, password);
+        return user.checkIfExist(id, password);
     }
 
     public String getLastName(String id) {
-        return userRepository.getLastName(id);
+        return user.getLastName(id);
     }
 }

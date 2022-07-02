@@ -2,8 +2,8 @@ package retail.model.facade.transaction.add;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.service.Calculate;
-import retail.model.service.ReportCreator;
-import retail.model.service.transaction.AddTransactionService;
+import retail.model.service.Creator;
+import retail.model.service.transaction.add.AddTransactionService;
 import retail.shared.entity.Merchandise;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
@@ -16,7 +16,7 @@ import static retail.shared.constant.ConstantDialog.INVALID_INPUT;
 public class AddTransactionFacade {
     private final AddTransactionService service = new AddTransactionService();
     private final Calculate calculate = new Calculate();
-    private final ReportCreator reportCreator = new ReportCreator();
+    private final Creator creator = new Creator();
 
     public ArrayList<Merchandise> getAllProduct() {
         return service.getAllProduct();
@@ -24,10 +24,6 @@ public class AddTransactionFacade {
 
     public String findPriceById(String productId) {
         return service.findPriceById(productId);
-    }
-
-    public boolean isValidNumber(String ... input) {
-        return calculate.isValidNumber(input);
     }
 
     public String generateId() {
@@ -39,7 +35,7 @@ public class AddTransactionFacade {
     }
 
     public TransactionDetail createTransactionDetail(String[] data) {
-        return reportCreator.createTransactionDetail(data);
+        return creator.createTransactionDetail(data);
     }
 
     public String calculateReportAmount(String[][] dataList) {
@@ -53,11 +49,11 @@ public class AddTransactionFacade {
             return null;
         }
         data[6] = calculate.calculateItemAmount(data[3],data[5]);
-        return reportCreator.createReportItem(data);
+        return creator.createReportItem(data);
     }
 
     public void saveEvent(String[][] dataList,String[] reportData) {
-        ArrayList<TransactionItemDetail> itemList = reportCreator.createAllReportItem(dataList);
+        ArrayList<TransactionItemDetail> itemList = creator.createAllReportItem(dataList);
         TransactionDetail report = createTransactionDetail(reportData);
         service.addReport(report,itemList);
         service.reflectToInventory(itemList);

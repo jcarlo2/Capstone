@@ -3,8 +3,6 @@ package retail.view.main.tab.bot.transaction.manipulator;
 import lombok.Getter;
 import retail.view.main.tab.bot.transaction.manipulator.panel.AddViewPanel;
 import retail.view.main.tab.bot.transaction.manipulator.panel.TransactionManipulatorCard;
-import retail.view.main.tab.bot.transaction.manipulator.panel.view.View;
-import retail.view.main.tab.bot.transaction.manipulator.panel.add.AddCard;
 
 import javax.swing.*;
 import java.awt.*;

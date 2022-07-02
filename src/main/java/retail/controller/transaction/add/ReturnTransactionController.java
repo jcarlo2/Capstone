@@ -3,7 +3,7 @@ package retail.controller.transaction.add;
 import org.jetbrains.annotations.NotNull;
 import retail.model.facade.transaction.add.ReturnTransactionFacade;
 import retail.shared.constant.ConstantDialog;
-import retail.shared.custom.CustomJDialog;
+import retail.shared.custom.jdialog.ReturnJDialog;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
 import retail.view.main.tab.bot.transaction.center.add.ReturnedTransactionCenter;
@@ -32,12 +32,12 @@ public class ReturnTransactionController {
     private final ReturnedTransactionManipulator manipulator;
     private final ReturnedTransactionCenter center;
     private final UserPanel userPanel;
-    private final CustomJDialog returnDialog;
+    private final ReturnJDialog returnDialog;
 
     public ReturnTransactionController(UserPanel userPanel,
                                        @NotNull ReturnedTransactionManipulator manipulator,
                                        @NotNull ReturnedTransactionCenter center,
-                                       @NotNull CustomJDialog returnDialog,
+                                       @NotNull ReturnJDialog returnDialog,
                                        ReturnTransactionFacade facade) {
         this.facade = facade;
         this.center = center;
@@ -136,6 +136,7 @@ public class ReturnTransactionController {
             facade.saveReport(dataList,id,user,newTotal,credit);
             center.getTopModel().setRowCount(0);
             center.getBotModel().setRowCount(0);
+            ConstantDialog.SAVED_REPORT();
         }
     }
 
@@ -179,18 +180,27 @@ public class ReturnTransactionController {
         String productCount = returnDialog.getProductCount().getText();
         if(facade.isValidNumber(productCount)) {
             String totalCount = returnDialog.getCount().getText();
-            String soldTotal = returnDialog.getSoldTotal().getText();
-            String discountTotal = returnDialog.getDiscountTotal().getText();
             double prodCount = Double.parseDouble(productCount);
             double count = Double.parseDouble(totalCount);
             if(prodCount <= count) {
-                returnDialog.getSold().setText(facade.subtraction(count,prodCount));
-                String total = facade.calculateTotalAmount(soldTotal,discountTotal);
-                returnDialog.getTotalAmount().setText(total);
+                autoCalculate(count,prodCount);
             }else {
                 if(isUpdate) Toolkit.getDefaultToolkit().beep();
             }
         }
+    }
+
+    private void autoCalculate(double count, double prodCount) {
+        String sold = facade.subtraction(count,prodCount);
+        String price = returnDialog.getPrice().getText();
+        String soldTotal = facade.calculateSoldTotal(new BigDecimal(price),new BigDecimal(sold));
+        String percent = returnDialog.getDiscountPercentage().getText();
+        String discountTotal = facade.calculateDiscountAmount(new BigDecimal(soldTotal),new BigDecimal(percent));
+        returnDialog.getSold().setText(sold);
+        returnDialog.getSoldTotal().setText(soldTotal);
+        returnDialog.getDiscountTotal().setText(discountTotal);
+        String total = facade.calculateTotalAmount(soldTotal,discountTotal);
+        returnDialog.getTotalAmount().setText(total);
     }
 
     private void topTableMouseListener() {
@@ -342,10 +352,6 @@ public class ReturnTransactionController {
     }
 
     private void search() {
-        if(manipulator.getSearch().getText().equals("")) {
-            manipulator.getList().populateTransactionList(facade.getTransactionReportList());
-            return;
-        }
         ArrayList<TransactionDetail> reportList = facade.findAllReportByString(manipulator.getSearch().getText());
         manipulator.getList().populateTransactionList(reportList);
     }

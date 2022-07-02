@@ -1,5 +1,7 @@
 package retail.shared.constant;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 
 public interface    ConstantDialog extends ImageDirectory{
@@ -19,28 +21,31 @@ public interface    ConstantDialog extends ImageDirectory{
         JOptionPane.showMessageDialog(new JFrame(), "Duplicate product id");
     }
 
-    static void EMPTY_REPORT_TABLE() {
-        JOptionPane.showMessageDialog(new JFrame(), "Empty Report Table!!");
-    }
-
     static void SAVE_FAILED() {
         JOptionPane.showMessageDialog(new JFrame(), "Saving failed ... check item count");
-    }
-
-    static void GENERATE_NEW_REPORT_ID() {
-        JOptionPane.showMessageDialog(new JFrame(), "Generate New Report ID!!");
-    }
-
-    static void REPORT_NOT_DELETABLE() {
-        JOptionPane.showMessageDialog(new JFrame(), "Cannot delete report!!");
     }
 
     static void SAVED_REPORT() {
         JOptionPane.showMessageDialog(new JFrame(), "Report saved");
     }
 
+    static void PRODUCT_UPDATE_SUCCESS() {
+        JOptionPane.showMessageDialog(new JFrame(), "Product update success!");
+    }
+
     static void INCORRECT_ID_PASSWORD() {
         JOptionPane.showMessageDialog(new JFrame(), "Error! Incorrect ID or Password");
+    }
+
+    static void ADD_PRODUCT() {
+        JOptionPane.showMessageDialog(new JFrame(), "Product successfully added!");
+    }
+
+    static int DELETE_ALL_REPORT(String @NotNull ...id) {
+        String[] options = new String[] {"Delete", "Delete All", "Cancel"};
+        return JOptionPane.showOptionDialog(null, "Delete " + id[0]  + " Or All?", "Alert!",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[0]);
     }
 
     static int ADD_ALL() {
@@ -50,4 +55,9 @@ public interface    ConstantDialog extends ImageDirectory{
     static int DELETE_ALL() {
         return JOptionPane.showConfirmDialog(null, "Confirm Delete All","Alert!!", JOptionPane.OK_CANCEL_OPTION);
     }
+
+    static int DELETE(String id) {
+        return JOptionPane.showConfirmDialog(null, "Delete " + id,"Alert!!", JOptionPane.OK_CANCEL_OPTION);
+    }
+
 }

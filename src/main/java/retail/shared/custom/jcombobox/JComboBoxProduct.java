@@ -5,31 +5,17 @@ import org.jetbrains.annotations.NotNull;
 import retail.shared.entity.Merchandise;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import java.awt.*;
 import java.util.ArrayList;
 
 @Getter
-public class JComboBoxProduct extends JComboBox<String> {
+public class JComboBoxProduct extends JComboBox<String> implements ComboBox{
     private final DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 
     public JComboBoxProduct(String title) {
-        setCustomBorder(title);
-        centerText();
+        setCustomBorder(title,this);
+        centerText(this);
         setModel(comboBoxModel);
         setPrototypeDisplayValue("");
-    }
-
-    private void centerText() {
-        ((JTextField) getEditor().getEditorComponent()).setHorizontalAlignment(SwingConstants.CENTER);
-        ((JLabel)getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-    }
-
-    private void setCustomBorder(String title) {
-        setBorder(BorderFactory.createTitledBorder
-            (null,title,
-                    TitledBorder.CENTER,TitledBorder.CENTER,
-                    new Font("SansSerif",Font.BOLD,15)));
     }
 
     public void setProductIdList(@NotNull ArrayList<Merchandise> merchandiseList) {

@@ -13,13 +13,18 @@ public interface TransactionReport {
         saveTransactionReportItem(transactionDetail, transactionItemDetail);
     }
 
+    default void deleteReport(String id) {
+        deleteTransactionReport(id);
+        deleteReportItem(id);
+    }
+
     boolean isReportExist(String id);
 
     ArrayList<TransactionItemDetail> getAllTransactionReportItem(String id);
 
     void deleteReportItem(String id);
 
-    void deleteReport(String id);
+    void deleteTransactionReport(String id);
 
     void saveTransactionReport(TransactionDetail transactionDetail);
 
@@ -32,4 +37,12 @@ public interface TransactionReport {
     TransactionDetail getTransactionReportById(String id);
 
     void invalidateId(String id);
+
+    ArrayList<TransactionDetail> getAllTransactionReportByDate(String start, String end);
+
+    ArrayList<TransactionDetail> getAllReportByDateAndValidity(String start, String end);
+
+    boolean isValid(String id);
+
+    void revalidate(String id);
 }

@@ -2,14 +2,13 @@ package retail.model.facade.transaction.add;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.service.Calculate;
-import retail.model.service.ReportCreator;
-import retail.model.service.product.NullProduct;
-import retail.model.service.transaction.ReturnTransactionService;
+import retail.model.service.Creator;
+import retail.model.service.inventory.NullProduct;
+import retail.model.service.transaction.add.ReturnTransactionService;
 import retail.shared.entity.NullProductReport;
 import retail.shared.entity.NullReportItem;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
-import retail.shared.pojo.ProductReturnedDetail;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,19 +17,15 @@ import java.util.Objects;
 public class ReturnTransactionFacade {
     private final ReturnTransactionService service = new ReturnTransactionService();
     private final NullProduct nullService = new NullProduct();
-    private final ReportCreator creator = new ReportCreator();
+    private final Creator creator = new Creator();
     private final Calculate calculate = new Calculate();
 
     public @NotNull ArrayList<TransactionDetail> getAllValidReport() {
         return service.getAllValidReport();
     }
 
-    public ArrayList<TransactionDetail> getTransactionReportList() {
-        return service.getTransactionReportList();
-    }
-
     public ArrayList<TransactionDetail> findAllReportByString(String str) {
-        ArrayList<TransactionDetail> reportList = getTransactionReportList();
+        ArrayList<TransactionDetail> reportList = getAllValidReport();
         return service.findAllReportByString(str,reportList);
     }
 
@@ -108,8 +103,8 @@ public class ReturnTransactionFacade {
         return service.recoverItem(data,reportId);
     }
 
-    public boolean verifyReturnedItemDetails(ProductReturnedDetail product) {
-        return service.verifyReturnedItemDetails(product);
+    public boolean verifyReturnedItemDetails(String[] data) {
+        return service.verifyReturnedItemDetails(creator.createProductReturnDetail(data));
     }
 
     public String subtraction(Double a, Double b) {

@@ -18,7 +18,19 @@ public class CustomJTextField extends JTextField {
         setTitledBorder(title,color);
         setHorizontalAlignment(SwingConstants.CENTER);
         setText("0");
+    }
 
+    public CustomJTextField(boolean isEditable, String text) {
+        setEditable(isEditable);
+        setText(text);
+        setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    public CustomJTextField(String title,Color color, int length,boolean isEditable) {
+        setTitledBorder(title,color);
+        setHorizontalAlignment(SwingConstants.CENTER);
+        setColumns(length);
+        setEditable(isEditable);
     }
 
     public CustomJTextField(String title,Color color, int length) {

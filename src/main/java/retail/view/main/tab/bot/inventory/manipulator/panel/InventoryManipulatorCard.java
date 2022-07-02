@@ -10,7 +10,7 @@ import java.awt.*;
 public class InventoryManipulatorCard extends JPanel {
     private final Add add = new Add();
     private final View view = new View();
-    private final Product product = new Product();
+    private final ProductManipulator productManipulator = new ProductManipulator();
     private final CardLayout cardLayout = new CardLayout();
 
     public InventoryManipulatorCard() {
@@ -18,7 +18,7 @@ public class InventoryManipulatorCard extends JPanel {
 
         add(add,"add");
         add(view,"view");
-        add(product,"product");
+        add(productManipulator,"product");
         cardLayout.show(this,"product");
     }
 }

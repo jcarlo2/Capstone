@@ -2,6 +2,7 @@ package retail.model.repository.implementer;
 
 import retail.model.repository.implementation.Product;
 import retail.shared.entity.Merchandise;
+import retail.shared.pojo.ProductDisplay;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +21,7 @@ public class ProductRepository implements Product {
     }
 
     @Override
-    public boolean ifProductExist(String id) {
+    public boolean isProductExist(String id) {
         String query = "SELECT EXISTS (SELECT id FROM product WHERE id = ?)";
         boolean flag = false;
         try {
@@ -62,7 +63,7 @@ public class ProductRepository implements Product {
 
     @Override
     public Merchandise findProductById(String id) {
-        if(!ifProductExist(id)) return null;
+        if(!isProductExist(id)) return null;
         String query = "SELECT * FROM product WHERE id = ?";
         String description = "";
         String price = "";
@@ -97,6 +98,53 @@ public class ProductRepository implements Product {
             preparedStatement.setString(2,id);
             preparedStatement.executeUpdate();
         }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateProduct(ProductDisplay display) {
+        try {
+            String query = "UPDATE product SET id = ?, description = ?, price = ?,pieces_per_box = ? WHERE id = ?";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,display.getNewId());
+            preparedStatement.setString(2,display.getDescription());
+            preparedStatement.setString(3,display.getPrice());
+            preparedStatement.setString(4,display.getPiecesPerBox());
+            preparedStatement.setString(5,display.getId());
+            preparedStatement.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addProduct(Merchandise merchandise) {
+        try {
+            String query = "INSERT INTO product(id,description,price,quantity_per_pieces,pieces_per_box) VALUES(?,?,?,?,?)";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,merchandise.getId());
+            preparedStatement.setString(2,merchandise.getDescription());
+            preparedStatement.setString(3,merchandise.getPrice());
+            preparedStatement.setString(4, merchandise.getQuantityPerPieces());
+            preparedStatement.setString(5, merchandise.getPiecesPerBox());
+            preparedStatement.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(String id) {
+        String query = "DELETE FROM product WHERE id = ?";
+        try {
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id);
+            preparedStatement.executeUpdate();
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }

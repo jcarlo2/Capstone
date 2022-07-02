@@ -3,9 +3,6 @@ package retail.view.main.tab.bot.inventory.manipulator;
 import lombok.Getter;
 import retail.view.main.tab.bot.inventory.manipulator.panel.AddViewDelete;
 import retail.view.main.tab.bot.inventory.manipulator.panel.InventoryManipulatorCard;
-import retail.view.main.tab.bot.inventory.manipulator.panel.Product;
-import retail.view.main.tab.bot.inventory.manipulator.panel.View;
-import retail.view.main.tab.bot.inventory.manipulator.panel.add.Add;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,17 +22,5 @@ public class InventoryManipulator extends JPanel {
 
         add(addViewDelete,BorderLayout.NORTH);
         add(inventoryManipulatorCard,BorderLayout.CENTER);
-    }
-
-    public View getView() {
-        return getInventoryManipulatorCard().getView();
-    }
-
-    public Product getProduct() {
-        return getInventoryManipulatorCard().getProduct();
-    }
-
-    public Add getAddPanel() {
-        return getInventoryManipulatorCard().getAdd();
     }
 }

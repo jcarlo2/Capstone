@@ -10,13 +10,13 @@ public class InventoryMainCard extends JPanel {
     private final CardLayout cardLayout = new CardLayout();
     private final AddInventory add = new AddInventory();
     private final View view = new View();
-    private final Product product = new Product();
+    private final ProductCenter productCenter = new ProductCenter();
 
     public InventoryMainCard() {
         setLayout(cardLayout);
         add("add", add);
         add("view",view);
-        add("product",product);
+        add("product", productCenter);
         cardLayout.show(this,"product");
     }
 }

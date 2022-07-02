@@ -3,6 +3,7 @@ package retail.controller.transaction;
 import org.jetbrains.annotations.NotNull;
 import retail.controller.transaction.add.AddTransactionController;
 import retail.controller.transaction.add.ReturnTransactionController;
+import retail.controller.transaction.view.ViewTransactionController;
 import retail.model.facade.MainFacade;
 import retail.view.BuildGUI;
 import retail.view.main.tab.bot.transaction.center.TransactionMainCard;
@@ -20,18 +21,26 @@ public class TransactionController implements ActionListener {
     public TransactionController(@NotNull BuildGUI buildGUI, @NotNull MainFacade mainFacade) {
         this.addViewPanel = buildGUI.getBottomPanel().getManipulatorCard().getTransactionManipulator().getAddViewPanel();
         this.manipulatorCard = buildGUI.getBottomPanel().getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard();
-        this.mainCard = buildGUI.getBottomPanel().getBottomMainCard().getTransactionCard();
+        this.mainCard = buildGUI.getBottomPanel().getBottomMainCard().getTransaction();
 
-        new AddTransactionController(buildGUI.getTopBorderPanel().getUserPanel(),
-                                     buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard().getAddTransactionManipulator(),
-                                     buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransactionCard().getAddCard().getAddTransactionCenter(),
-                                     mainFacade.getTransactionFacade().getAddTransactionFacade());
+        new AddTransactionController(
+                buildGUI.getTopBorderPanel().getUserPanel(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard().getAddTransactionManipulator(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getAddCard().getAddTransactionCenter(),
+                mainFacade.getTransactionFacade().getAddTransactionFacade());
 
-        new ReturnTransactionController(buildGUI.getTopBorderPanel().getUserPanel(),
+        new ReturnTransactionController(
+                buildGUI.getTopBorderPanel().getUserPanel(),
                 buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard().getReturnedTransactionManipulator(),
-                buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransactionCard().getAddCard().getReturnedTransactionCenter(),
-                buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransactionCard().getAddCard().getReturnDialog(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getAddCard().getReturnedTransactionCenter(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getAddCard().getReturnDialog(),
                 mainFacade.getTransactionFacade().getReturnTransactionFacade());
+
+        new ViewTransactionController(
+                buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getViewTransactionCenter(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getViewTransactionManipulator(),
+                mainFacade.getTransactionFacade().getViewTransactionFacade());
+
         addViewPanel.addEventListener(this);
         addViewPanel.viewEventListener(this);
         manipulatorCard.getAdd().addActionListener(this);

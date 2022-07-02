@@ -77,7 +77,7 @@ public class TransactionRepository implements TransactionReport {
     }
 
     @Override
-    public void deleteReport(String id) {
+    public void deleteTransactionReport(String id) {
         String query = "DELETE FROM transaction_report WHERE id = ?";
         try {
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
@@ -87,7 +87,6 @@ public class TransactionRepository implements TransactionReport {
         }catch (Exception e) {
             e.printStackTrace();
         }
-        deleteReportItem(id);
     }
 
     @Override
@@ -143,15 +142,7 @@ public class TransactionRepository implements TransactionReport {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                String id = resultSet.getString("id");
-                String user = resultSet.getString("user");
-                String date = resultSet.getString("date");
-                String timestamp = resultSet.getString("date_time");
-                String totalAmount = resultSet.getString("total_amount");
-                String oldId = resultSet.getString("old_id");
-                String credit = resultSet.getString("credit");
-                String isValid = resultSet.getString("is_valid");
-                reportList.add(new TransactionDetail(id,date,timestamp,user,totalAmount,oldId,credit,isValid));
+                transactionReportCreation(reportList, resultSet);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -203,5 +194,76 @@ public class TransactionRepository implements TransactionReport {
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ArrayList<TransactionDetail> getAllTransactionReportByDate(String start, String end) {
+        String query = "SELECT * FROM transaction_report WHERE date_time >= ? AND date_time <= ? ORDER BY date_time DESC";
+        return getReportByDateAndValid(start, end, query);
+    }
+
+    @Override
+    public ArrayList<TransactionDetail> getAllReportByDateAndValidity(String start, String end) {
+        String query = "SELECT * FROM transaction_report WHERE date_time >= ? AND date_time <= ? AND is_valid = TRUE ORDER BY date_time DESC";
+        return getReportByDateAndValid(start, end, query);
+    }
+
+    @Override
+    public boolean isValid(String id) {
+        String query = "SELECT * FROM transaction_report WHERE id = ? AND is_valid = TRUE";
+        boolean flag = false;
+        try {
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) flag = true;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    @Override
+    public void revalidate(String id) {
+        try {
+            String query = "UPDATE transaction_report SET is_valid = TRUE WHERE id = ?";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id);
+            preparedStatement.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @NotNull
+    private ArrayList<TransactionDetail> getReportByDateAndValid(String start, String end, String query) {
+        ArrayList<TransactionDetail> report = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,start);
+            preparedStatement.setString(2,end);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                transactionReportCreation(report, resultSet);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return report;
+    }
+
+    private void transactionReportCreation(@NotNull ArrayList<TransactionDetail> report, @NotNull ResultSet resultSet) throws SQLException {
+        String id = resultSet.getString("id");
+        String user = resultSet.getString("user");
+        String date = resultSet.getString("date");
+        String timestamp = resultSet.getString("date_time");
+        String totalAmount = resultSet.getString("total_amount");
+        String oldId = resultSet.getString("old_id");
+        String credit = resultSet.getString("credit");
+        String isValid = resultSet.getString("is_valid");
+        report.add(new TransactionDetail(id,date,timestamp,user,totalAmount,oldId,credit,isValid));
     }
 }

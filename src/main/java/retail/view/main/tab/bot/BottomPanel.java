@@ -7,8 +7,8 @@ import java.awt.*;
 
 @Getter
 public class BottomPanel extends JPanel {
-    BottomMainCard bottomMainCard = new BottomMainCard();
-    BottomManipulatorCard manipulatorCard = new BottomManipulatorCard();
+    private final BottomMainCard bottomMainCard = new BottomMainCard();
+    private final BottomManipulatorCard manipulatorCard = new BottomManipulatorCard();
     public BottomPanel() {
         setLayout(new BorderLayout());
         add(bottomMainCard,BorderLayout.CENTER);

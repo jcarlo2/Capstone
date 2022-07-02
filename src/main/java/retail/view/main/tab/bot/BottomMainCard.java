@@ -3,7 +3,7 @@ package retail.view.main.tab.bot;
 import lombok.Getter;
 import retail.view.main.tab.bot.inventory.center.InventoryMainCard;
 import retail.view.main.tab.bot.logfile.LogFile;
-import retail.view.main.tab.bot.salesreport.ProductAnalysis;
+import retail.view.main.tab.bot.salesreport.SalesReport;
 import retail.view.main.tab.bot.transaction.center.TransactionMainCard;
 
 import javax.swing.*;
@@ -12,17 +12,16 @@ import java.awt.*;
 public class BottomMainCard extends JPanel {
     private final CardLayout card = new CardLayout();
     private final LogFile log = new LogFile();
-    private final ProductAnalysis prodAnalysis = new ProductAnalysis();
-    private final TransactionMainCard transactionCard = new TransactionMainCard();
-    private final InventoryMainCard inventoryCard = new InventoryMainCard();
+    private final SalesReport sales = new SalesReport();
+    private final TransactionMainCard transaction = new TransactionMainCard();
+    private final InventoryMainCard inventory = new InventoryMainCard();
 
     public BottomMainCard() {
         setLayout(card);
         add("log",log);
-        add("prodAnalysis",prodAnalysis);
-
-        add("transaction", transactionCard);
-        add("inventory", inventoryCard);
+        add("sales", sales);
+        add("transaction", transaction);
+        add("inventory", inventory);
         card.show(this,"transaction");
     }
 }

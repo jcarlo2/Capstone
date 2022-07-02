@@ -11,6 +11,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -194,7 +196,7 @@ public class AddTransactionController {
         Runnable runnable = () -> {
             if(manipulator.getProduct().getSelectedItem() == null) return;
             String id = manipulator.getProduct().getSelectedItem().toString();
-            String price = facade.findPriceById(id);
+            String price = new BigDecimal(facade.findPriceById(id)).setScale(2, RoundingMode.HALF_EVEN).toString();
             if(!manipulator.getPrice().getText().equals(price)) {
                 SwingUtilities.invokeLater(() -> manipulator.getPrice().setText(price));
             }

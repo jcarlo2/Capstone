@@ -1,20 +1,27 @@
 package retail.model.repository.implementation;
 
 import retail.shared.entity.Merchandise;
+import retail.shared.pojo.ProductDisplay;
 
 import java.util.ArrayList;
 
 public interface Product {
 
-    boolean ifProductExist(String id);
+    boolean isProductExist(String id);
 
     String findPriceById(String productId);
 
-    ArrayList<Merchandise> getAllProduct();
-
     Merchandise findProductById(String id);
 
+    ArrayList<Merchandise> getAllProduct();
+
     void updateProductQuantity(String id, Double quantity);
+
+    void updateProduct(ProductDisplay display);
+
+    void addProduct(Merchandise merchandise);
+
+    void delete(String id);
 
 //    default ArrayList<Merchandise> getAllProduct() {
 //        String query = "SELECT * FROM product";

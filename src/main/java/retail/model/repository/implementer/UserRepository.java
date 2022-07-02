@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import static retail.shared.constant.Constant.*;
-import static retail.shared.constant.Constant.PASS;
 
 public class UserRepository implements User {
 
