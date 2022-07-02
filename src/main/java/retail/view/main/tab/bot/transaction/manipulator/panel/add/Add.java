@@ -25,12 +25,4 @@ public class Add extends JPanel {
         add(addCard,BorderLayout.CENTER);
         add(wrapper1,BorderLayout.SOUTH);
     }
-
-    public void addActionListener(ActionListener actionListener) {
-        addReport.addActionListener(actionListener);
-    }
-
-    public void returnActionListener(ActionListener actionListener) {
-        returnReport.addActionListener(actionListener);
-    }
 }

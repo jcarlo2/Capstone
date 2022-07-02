@@ -1,4 +1,4 @@
-package retail.model.service.inventory;
+package retail.model.service.inventory.add;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.service.Service;

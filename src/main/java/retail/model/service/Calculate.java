@@ -42,4 +42,14 @@ public final class Calculate {
     public String calculateSoldTotal(@NotNull BigDecimal price, BigDecimal sold) {
         return price.multiply(sold).setScale(2, RoundingMode.HALF_EVEN).toString();
     }
+
+    public String division(String a, String b) {
+        BigDecimal total = new BigDecimal(a).divide(new BigDecimal(b),2,RoundingMode.HALF_EVEN);
+        return total.toString();
+    }
+
+    public String multiplication(String a, String b) {
+        BigDecimal total = new BigDecimal(a).multiply(new BigDecimal(b)).setScale(2,RoundingMode.HALF_EVEN);
+        return total.toString();
+    }
 }

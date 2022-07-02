@@ -9,14 +9,14 @@ import java.awt.*;
 
 @Getter
 public class BottomManipulatorCard extends JPanel {
-    private final InventoryManipulator inventoryManipulator = new InventoryManipulator();
-    private final TransactionManipulator transactionManipulator = new TransactionManipulator();
+    private final InventoryManipulator inventory = new InventoryManipulator();
+    private final TransactionManipulator transaction = new TransactionManipulator();
     private final CardLayout card = new CardLayout();
 
     public BottomManipulatorCard() {
         setLayout(card);
-        add("inventory",inventoryManipulator);
-        add("transaction", transactionManipulator);
+        add("inventory", inventory);
+        add("transaction", transaction);
         card.show(this, "transaction");
     }
 }

@@ -17,12 +17,4 @@ public class AddViewPanel extends JPanel {
         add(add);
         add(view);
     }
-
-    public void addEventListener(ActionListener actionListener) {
-        add.addActionListener(actionListener);
-    }
-
-    public void viewEventListener(ActionListener actionListener) {
-        view.addActionListener(actionListener);
-    }
 }

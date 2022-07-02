@@ -16,8 +16,8 @@ import static retail.shared.constant.Constant.*;
 public class ProductRepository implements Product {
 
     @Override
-    public String findPriceById(String productId) {
-        return findProductById(productId).getPrice();
+    public String findPriceById(String id) {
+        return findProductById(id).getPrice();
     }
 
     @Override
@@ -147,6 +147,16 @@ public class ProductRepository implements Product {
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String findBoxPiecesById(String id) {
+        return findProductById(id).getPiecesPerBox();
+    }
+
+    @Override
+    public String findQuantityById(String id) {
+        return findProductById(id).getQuantityPerPieces();
     }
 
 }

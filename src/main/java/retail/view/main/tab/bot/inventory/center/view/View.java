@@ -1,4 +1,4 @@
-package retail.view.main.tab.bot.inventory.center;
+package retail.view.main.tab.bot.inventory.center.view;
 
 import lombok.Getter;
 import retail.shared.custom.jtable.JTableInventory;

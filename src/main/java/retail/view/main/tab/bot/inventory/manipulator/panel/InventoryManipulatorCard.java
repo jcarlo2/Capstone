@@ -2,6 +2,8 @@ package retail.view.main.tab.bot.inventory.manipulator.panel;
 
 import lombok.Getter;
 import retail.view.main.tab.bot.inventory.manipulator.panel.add.Add;
+import retail.view.main.tab.bot.inventory.manipulator.panel.product.ProductManipulator;
+import retail.view.main.tab.bot.inventory.manipulator.panel.view.View;
 
 import javax.swing.*;
 import java.awt.*;

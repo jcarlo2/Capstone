@@ -3,7 +3,7 @@ package retail.model.facade.transaction.add;
 import org.jetbrains.annotations.NotNull;
 import retail.model.service.Calculate;
 import retail.model.service.Creator;
-import retail.model.service.inventory.NullProduct;
+import retail.model.service.inventory.add.NullProduct;
 import retail.model.service.transaction.add.ReturnTransactionService;
 import retail.shared.entity.NullProductReport;
 import retail.shared.entity.NullReportItem;

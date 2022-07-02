@@ -23,6 +23,10 @@ public interface Product {
 
     void delete(String id);
 
+    String findBoxPiecesById(String id);
+
+    String findQuantityById(String id);
+
 //    default ArrayList<Merchandise> getAllProduct() {
 //        String query = "SELECT * FROM product";
 //        ArrayList<Merchandise> merchandiseList = new ArrayList<>();

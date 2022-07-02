@@ -1,4 +1,4 @@
-package retail.view.main.tab.bot.inventory.manipulator.panel;
+package retail.view.main.tab.bot.inventory.manipulator.panel.view;
 
 import lombok.Getter;
 import lombok.Setter;

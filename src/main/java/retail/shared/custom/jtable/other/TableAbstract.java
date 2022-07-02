@@ -38,6 +38,7 @@ public abstract class TableAbstract extends JTable implements TableHLC{
     @Override
     public void removeRow(int row) {
         ((DefaultTableModel)getModel()).removeRow(row);
+        fixNumberColumn();
     }
 
     @Override
@@ -77,7 +78,6 @@ public abstract class TableAbstract extends JTable implements TableHLC{
         int row = getSelectedRow();
         if(row == -1) return;
         removeRow(row);
-        fixNumberColumn();
     }
 
     private void addColumnName(String @NotNull [] columnName) {

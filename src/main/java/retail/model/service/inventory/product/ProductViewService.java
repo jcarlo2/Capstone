@@ -1,4 +1,4 @@
-package retail.model.service.inventory;
+package retail.model.service.inventory.product;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.service.Service;
@@ -39,5 +39,17 @@ public class ProductViewService implements Service {
 
     public void delete(String id) {
         product.delete(id);
+    }
+
+    public String findPriceById(String productId) {
+        return product.findPriceById(productId);
+    }
+
+    public String findBoxPiecesById(String id) {
+        return product.findBoxPiecesById(id);
+    }
+
+    public String findQuantityById(String id) {
+        return product.findQuantityById(id);
     }
 }

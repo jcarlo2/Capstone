@@ -30,8 +30,7 @@ public interface CreateProductTable {
                 "id VARCHAR(255) NOT NULL PRIMARY KEY," +
                 "user VARCHAR(255) NOT NULL," +
                 "date DATE  AS (DATE(date_time)) NOT NULL," +
-                "date_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
-                "total_amount VARCHAR(255) NOT NULL)";
+                "date_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL)";
         try{
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(query);

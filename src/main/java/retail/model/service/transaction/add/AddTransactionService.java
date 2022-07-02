@@ -17,9 +17,7 @@ public class AddTransactionService implements Service {
         return product.getAllProduct();
     }
 
-    public String findPriceById(String productId) {
-        return product.findPriceById(productId);
-    }
+
 
     public boolean isReportIdExist(String id) {
         return transaction.isReportExist(id);

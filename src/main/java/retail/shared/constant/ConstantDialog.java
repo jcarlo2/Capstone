@@ -9,6 +9,10 @@ public interface    ConstantDialog extends ImageDirectory{
         JOptionPane.showMessageDialog(new JFrame(), "Invalid Input!!");
     }
 
+    static void EMPTY_TABLE() {
+        JOptionPane.showMessageDialog(new JFrame(), "Empty table ...");
+    }
+
     static void ID_DOES_NOT_EXIST() {
         JOptionPane.showMessageDialog(new JFrame(), "Id does not exist! Check id ...");
     }

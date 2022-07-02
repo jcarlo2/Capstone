@@ -3,6 +3,7 @@ package retail.model.facade.transaction.add;
 import org.jetbrains.annotations.NotNull;
 import retail.model.service.Calculate;
 import retail.model.service.Creator;
+import retail.model.service.inventory.product.ProductViewService;
 import retail.model.service.transaction.add.AddTransactionService;
 import retail.shared.entity.Merchandise;
 import retail.shared.entity.TransactionDetail;
@@ -15,6 +16,7 @@ import static retail.shared.constant.ConstantDialog.INVALID_INPUT;
 
 public class AddTransactionFacade {
     private final AddTransactionService service = new AddTransactionService();
+    private final ProductViewService productService = new ProductViewService();
     private final Calculate calculate = new Calculate();
     private final Creator creator = new Creator();
 
@@ -23,7 +25,7 @@ public class AddTransactionFacade {
     }
 
     public String findPriceById(String productId) {
-        return service.findPriceById(productId);
+        return productService.findPriceById(productId);
     }
 
     public String generateId() {

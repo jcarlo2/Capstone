@@ -1,4 +1,4 @@
-package retail.view.main.tab.bot.inventory.manipulator.panel;
+package retail.view.main.tab.bot.inventory.manipulator.panel.product;
 
 import lombok.Getter;
 import retail.shared.custom.jtextfield.CustomJTextField;

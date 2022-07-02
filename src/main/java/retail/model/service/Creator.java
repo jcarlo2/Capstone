@@ -3,6 +3,7 @@ package retail.model.service;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import retail.shared.entity.*;
+import retail.shared.pojo.InventoryItemDetail;
 import retail.shared.pojo.ProductDisplay;
 import retail.shared.pojo.ProductReturnedDetail;
 
@@ -56,4 +57,38 @@ public final class Creator {
     public @NotNull Merchandise createMerchandise(String @NotNull [] data) {
         return new Merchandise(data[0],data[1],data[2],data[3],data[4],data[5]);
     }
+
+    @Contract("_, _ -> new")
+    public @NotNull InventoryItemDetail createItemDetail(String @NotNull [] data, String oldStock) {
+        return new InventoryItemDetail(data[0],data[1],data[2],data[3],data[4],oldStock);
+    }
+
+    public @NotNull ArrayList<DeliveryItemDetail> convertAllToDeliveryItem(String @NotNull[] @NotNull[] dataList) {
+        ArrayList<DeliveryItemDetail> itemList = new ArrayList<>();
+        for(String[] data : dataList) {
+            itemList.add(new DeliveryItemDetail(data[0],data[1],data[2],data[3],data[4]));
+        }
+        return itemList;
+    }
+
+    @Contract("_ -> new")
+    public @NotNull DeliveryDetail createDeliveryDetail(String @NotNull [] data) {
+        return new DeliveryDetail(data[0],data[1], "");
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

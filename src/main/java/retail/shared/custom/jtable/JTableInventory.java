@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import retail.shared.custom.jtable.other.TableAbstract;
 import retail.shared.entity.DeliveryItemDetail;
-import retail.shared.entity.Merchandise;
+import retail.shared.pojo.InventoryItemDetail;
 
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
@@ -32,25 +32,26 @@ public class JTableInventory extends TableAbstract {
             data[0] = String.valueOf(++count);
             data[1] = item.getProductId();
             data[2] = String.valueOf(item.getPrice());
-            data[3] = String.valueOf(item.getQuantityByPieces());
-            data[4] = String.valueOf(item.getQuantityByBox());
+            data[3] = String.valueOf(item.getQuantityPerPieces());
+            data[4] = String.valueOf(item.getQuantityPerBox());
             data[5] = String.valueOf(item.getPiecesPerBox());
             model.addRow(data);
         }
     }
 
-    public void addItem(@NotNull Merchandise merchandise, Double oldCount) {
-        if(isDuplicate(merchandise.getId())) {
+    public void addItem(@NotNull InventoryItemDetail item) {
+        if(isDuplicate(item.getProductId())) {
             String[] data = new String[8];
             data[0] = "";
-            data[1] = merchandise.getId();
-            data[2] = String.valueOf(merchandise.getPrice());
-            data[3] = String.valueOf(merchandise.getQuantityPerPieces());
-            data[4] = String.valueOf(merchandise.getQuantityPerBox());
-            data[5] = String.valueOf(merchandise.getPiecesPerBox());
-            data[6] = String.valueOf(oldCount);
-            data[7] = merchandise.getQuantityPerPieces() + oldCount;
+            data[1] = item.getProductId();
+            data[2] = item.getPrice();
+            data[3] = item.getQuantityPerPieces();
+            data[4] = item.getQuantityPerBox();
+            data[5] = item.getPiecesPerBox();
+            data[6] = item.getOldStock();
+            data[7] = String.valueOf((Double.parseDouble(item.getQuantityPerPieces()) + Double.parseDouble(item.getOldStock())));
             model.addRow(data);
+            fixNumberColumn();
         }
     }
 }

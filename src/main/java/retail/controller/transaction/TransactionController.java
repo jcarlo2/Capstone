@@ -10,65 +10,73 @@ import retail.view.main.tab.bot.transaction.center.TransactionMainCard;
 import retail.view.main.tab.bot.transaction.manipulator.panel.AddViewPanel;
 import retail.view.main.tab.bot.transaction.manipulator.panel.TransactionManipulatorCard;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class TransactionController implements ActionListener {
+public class TransactionController{
     private final AddViewPanel addViewPanel;
     private final TransactionManipulatorCard manipulatorCard;
     private final TransactionMainCard mainCard;
 
     public TransactionController(@NotNull BuildGUI buildGUI, @NotNull MainFacade mainFacade) {
-        this.addViewPanel = buildGUI.getBottomPanel().getManipulatorCard().getTransactionManipulator().getAddViewPanel();
-        this.manipulatorCard = buildGUI.getBottomPanel().getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard();
+        this.addViewPanel = buildGUI.getBottomPanel().getManipulatorCard().getTransaction().getAddViewPanel();
+        this.manipulatorCard = buildGUI.getBottomPanel().getManipulatorCard().getTransaction().getTransactionManipulatorCard();
         this.mainCard = buildGUI.getBottomPanel().getBottomMainCard().getTransaction();
 
         new AddTransactionController(
                 buildGUI.getTopBorderPanel().getUserPanel(),
-                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard().getAddTransactionManipulator(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransaction().getTransactionManipulatorCard().getAdd().getAddCard().getAddTransactionManipulator(),
                 buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getAddCard().getAddTransactionCenter(),
                 mainFacade.getTransactionFacade().getAddTransactionFacade());
 
         new ReturnTransactionController(
                 buildGUI.getTopBorderPanel().getUserPanel(),
-                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getAdd().getAddCard().getReturnedTransactionManipulator(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransaction().getTransactionManipulatorCard().getAdd().getAddCard().getReturnedTransactionManipulator(),
                 buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getAddCard().getReturnedTransactionCenter(),
                 buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getAddCard().getReturnDialog(),
                 mainFacade.getTransactionFacade().getReturnTransactionFacade());
 
         new ViewTransactionController(
                 buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getViewTransactionCenter(),
-                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransactionManipulator().getTransactionManipulatorCard().getViewTransactionManipulator(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransaction().getTransactionManipulatorCard().getViewTransactionManipulator(),
                 mainFacade.getTransactionFacade().getViewTransactionFacade());
 
-        addViewPanel.addEventListener(this);
-        addViewPanel.viewEventListener(this);
-        manipulatorCard.getAdd().addActionListener(this);
-        manipulatorCard.getAdd().returnActionListener(this);
+        add();
+        view();
+        addReport();
+        returnReport();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == addViewPanel.getAdd()) {
+    private void add() {
+        addViewPanel.getAdd().addActionListener(e ->{
             manipulatorCard.getCardLayout().show(manipulatorCard, "add");
             mainCard.getCardLayout().show(mainCard, "add");
             addViewPanel.getView().setEnabled(true);
             addViewPanel.getAdd().setEnabled(false);
-        } else if(e.getSource() == addViewPanel.getView()){
+        }) ;
+    }
+
+    private void view() {
+        addViewPanel.getView().addActionListener(e ->{
             manipulatorCard.getCardLayout().show(manipulatorCard, "view");
             mainCard.getCardLayout().show(mainCard, "view");
             addViewPanel.getView().setEnabled(false);
             addViewPanel.getAdd().setEnabled(true);
-        } else if(e.getSource() == manipulatorCard.getAdd().getAddReport()) {
+        }) ;
+    }
+
+    private void addReport() {
+        manipulatorCard.getAdd().getAddReport().addActionListener(e ->{
             manipulatorCard.getAdd().getAddCard().getCard().show(manipulatorCard.getAdd().getAddCard(), "add");
             mainCard.getAddCard().getCard().show(mainCard.getAddCard(), "add");
             manipulatorCard.getAdd().getAddReport().setEnabled(false);
             manipulatorCard.getAdd().getReturnReport().setEnabled(true);
-        } else if(e.getSource() == manipulatorCard.getAdd().getReturnReport()) {
+        }) ;
+    }
+
+    private void returnReport() {
+        manipulatorCard.getAdd().getReturnReport().addActionListener(e ->{
             manipulatorCard.getAdd().getAddCard().getCard().show(manipulatorCard.getAdd().getAddCard(), "return");
             mainCard.getAddCard().getCard().show(mainCard.getAddCard(), "return");
             manipulatorCard.getAdd().getAddReport().setEnabled(true);
             manipulatorCard.getAdd().getReturnReport().setEnabled(false);
-        }
+        }) ;
     }
 }

@@ -1,17 +1,15 @@
-package retail.shared.entity;
+package retail.shared.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
-public class Merchandise {
-    private String id;
-    private String description;
+public class InventoryItemDetail {
+    private String productId;
     private String price;
     private String quantityPerPieces;
-    private String piecesPerBox;
     private String quantityPerBox;
+    private String piecesPerBox;
+    private String oldStock;
 }

@@ -3,7 +3,7 @@ package retail.model.facade.inventory.product;
 import org.jetbrains.annotations.NotNull;
 import retail.model.service.Calculate;
 import retail.model.service.Creator;
-import retail.model.service.inventory.ProductViewService;
+import retail.model.service.inventory.product.ProductViewService;
 import retail.shared.entity.Merchandise;
 import retail.shared.pojo.ProductDisplay;
 

@@ -8,12 +8,12 @@ import java.awt.*;
 
 @Getter
 @Setter
-public class AddViewDelete extends JPanel {
+public class AddViewProduct extends JPanel {
     private final JButton add = new JButton("Add");
     private final JButton view = new JButton("View");
     private final JButton product = new JButton("Product");
 
-    public AddViewDelete() {
+    public AddViewProduct() {
         setLayout(new GridLayout(1,3));
         add(add);
         add(view);
