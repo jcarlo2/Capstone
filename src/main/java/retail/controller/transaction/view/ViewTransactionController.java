@@ -2,7 +2,6 @@ package retail.controller.transaction.view;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.facade.transaction.view.ViewTransactionFacade;
-import retail.shared.constant.ConstantDialog;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
 import retail.view.main.tab.bot.transaction.center.view.ViewTransactionCenter;
@@ -20,7 +19,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static retail.shared.constant.ConstantDialog.DELETE_ALL_REPORT;
+import static retail.shared.constant.ConstantDialog.DELETE_ALL;
+import static retail.shared.constant.ConstantDialog.DELETE_ALL_OPTION;
 
 public class ViewTransactionController {
     private final ViewTransactionManipulator manipulator;
@@ -131,22 +131,22 @@ public class ViewTransactionController {
         });
     }
 
+
+    // add solo delete
     private void deleteEvent() {
         manipulator.getDelete().addActionListener(e -> {
             String id = center.getId().getText();
             if(id.equals("")) return;
             String[] idList = facade.getIdList(id);
-            if(facade.isValid(id)) {
-                int check = DELETE_ALL_REPORT(idList);
+
+            if(idList.length == 1 || !facade.isValid(id)) {
+                if(DELETE_ALL() == 0) facade.delete(idList);
+            }else {
+                int check = DELETE_ALL_OPTION(idList);
                 if(check == 0) {
                     facade.delete(id);
                     facade.revalidate(idList[1]);
-                }
-                else if(check == 1) facade.delete(idList);
-            }else {
-                if(ConstantDialog.DELETE_ALL() == 0) {
-                    facade.delete(idList);
-                }
+                } else if(check == 1) facade.delete(idList);
             }
         });
     }

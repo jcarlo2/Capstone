@@ -45,7 +45,7 @@ public interface    ConstantDialog extends ImageDirectory{
         JOptionPane.showMessageDialog(new JFrame(), "Product successfully added!");
     }
 
-    static int DELETE_ALL_REPORT(String @NotNull ...id) {
+    static int DELETE_ALL_OPTION(String @NotNull ...id) {
         String[] options = new String[] {"Delete", "Delete All", "Cancel"};
         return JOptionPane.showOptionDialog(null, "Delete " + id[0]  + " Or All?", "Alert!",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
