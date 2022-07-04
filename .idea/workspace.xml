@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java">
-      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jpanel/ViewManipulator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/view/ViewTransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/view/ViewTransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/constant/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/constant/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jpanel/ViewPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jpanel/ViewCenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/CreateUserTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/CreateUserTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/TransactionMainCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/TransactionMainCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/view/ViewTransactionCenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/TransactionManipulatorCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/TransactionManipulatorCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/controller/transaction/view/ViewTransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/controller/transaction/view/ViewTransactionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/DeliveryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/DeliveryRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/NullProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/NullProductRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/ProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/ProductRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/TransactionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/TransactionRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/constant/Constant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/constant/Constant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/tablecreator/CreateProductTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/tablecreator/CreateProductTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/tablecreator/CreateTransactionTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/tablecreator/CreateTransactionTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/tablecreator/CreateUserTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/tablecreator/CreateUserTable.class" afterDir="false" />
-    </list>
+    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="created view panel" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -241,7 +219,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654043542650</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="created view panel">
+      <created>1656914514338</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1656914514339</updated>
+    </task>
+    <task id="LOCAL-00019" summary="created view panel">
+      <created>1656914549122</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1656914549122</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -270,7 +262,8 @@
     <MESSAGE value="updating ReturnedTransaction; need report to reflect in null inventory" />
     <MESSAGE value="refactoring add and returned controller" />
     <MESSAGE value="refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java" />
+    <MESSAGE value="created view panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="created view panel" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
