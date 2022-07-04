@@ -2,10 +2,10 @@ package retail.controller.transaction.view;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.facade.transaction.view.ViewTransactionFacade;
+import retail.shared.custom.jpanel.ViewCenter;
+import retail.shared.custom.jpanel.ViewManipulator;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
-import retail.view.main.tab.bot.transaction.center.view.ViewTransactionCenter;
-import retail.view.main.tab.bot.transaction.manipulator.panel.view.ViewTransactionManipulator;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -23,11 +23,11 @@ import static retail.shared.constant.ConstantDialog.DELETE_ALL;
 import static retail.shared.constant.ConstantDialog.DELETE_ALL_OPTION;
 
 public class ViewTransactionController {
-    private final ViewTransactionManipulator manipulator;
-    private final ViewTransactionCenter center;
+    private final ViewManipulator manipulator;
+    private final ViewCenter center;
     private final ViewTransactionFacade facade;
 
-    public ViewTransactionController(ViewTransactionCenter center, ViewTransactionManipulator manipulator, ViewTransactionFacade facade) {
+    public ViewTransactionController(ViewCenter center, ViewManipulator manipulator, ViewTransactionFacade facade) {
         this.manipulator = manipulator;
         this.center = center;
         this.facade = facade;

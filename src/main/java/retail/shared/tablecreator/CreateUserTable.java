@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import static retail.shared.constant.Constant.PASS;
+import static retail.shared.constant.Constant.URL;
+import static retail.shared.constant.Constant.USER;
+
 public interface CreateUserTable {
      default void createEmployeeTableAndAdminAccount() {
         String insertAdmin = "INSERT IGNORE INTO employee VALUES(?,?,?,?)";
@@ -14,7 +18,7 @@ public interface CreateUserTable {
                                         "password VARCHAR(255) NOT NULL)";
         try {
                 Connection connection = DriverManager.getConnection
-                    ("jdbc:mysql://localhost:3306/retail_management","root","09212440633a");
+                    (URL,USER,PASS);
                 // CREATE EMPLOYEE TABLE
                 PreparedStatement preparedStatement = connection.prepareStatement(createSchema);
                 preparedStatement.executeUpdate();

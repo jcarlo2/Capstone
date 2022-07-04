@@ -34,8 +34,8 @@ public class TransactionController{
                 mainFacade.getTransactionFacade().getReturnTransactionFacade());
 
         new ViewTransactionController(
-                buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getViewTransactionCenter(),
-                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransaction().getTransactionManipulatorCard().getViewTransactionManipulator(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getBottomMainCard().getTransaction().getViewCenter(),
+                buildGUI.getMainFrame().getMain().getBottomPanel().getManipulatorCard().getTransaction().getTransactionManipulatorCard().getViewManipulator(),
                 mainFacade.getTransactionFacade().getViewTransactionFacade());
 
         add();

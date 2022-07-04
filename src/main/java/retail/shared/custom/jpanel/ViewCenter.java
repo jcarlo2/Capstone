@@ -1,4 +1,4 @@
-package retail.view.main.tab.bot.transaction.center.view;
+package retail.shared.custom.jpanel;
 
 import lombok.Getter;
 import retail.shared.custom.jspinner.JSpinnerDate;
@@ -10,13 +10,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 @Getter
-public class ViewTransactionCenter extends JPanel {
+public class ViewCenter extends JPanel {
     private final DefaultTableModel model = new DefaultTableModel(0,10);
     private final JTableTransaction table = new JTableTransaction(model,false,false,false);
     private final JTextField total = new CustomJTextField("Total", Color.BLACK,15);
     private final JTextField id = new CustomJTextField("Report Id", Color.BLACK,15);
     private final JSpinnerDate date = new JSpinnerDate();
-    public ViewTransactionCenter() {
+    public ViewCenter() {
         setLayout(new GridLayout(1,1));
         id.setText("");
 
