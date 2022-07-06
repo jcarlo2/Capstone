@@ -19,7 +19,7 @@ public class AddManipulator extends JPanel {
     private final JPanel wrapper2 = new JPanel(new GridLayout(1,3));
     private final JPanel wrapper3 = new JPanel(new GridLayout(12,1));
     private final JComboBoxProduct productId = new JComboBoxProduct("ID");
-    private final CustomJTextField price = new CustomJTextField("Price",COLOR_BLACK,false);
+    private final CustomJTextField price = new CustomJTextField("Delivery Price",COLOR_BLACK,true);
     private final CustomJTextField quantityPerPiece = new CustomJTextField("Quantity Per Piece",COLOR_BLACK);
     private final CustomJTextField quantityPerBox = new CustomJTextField("Quantity Per Box",COLOR_BLACK);
     private final CustomJTextField piecesPerBox = new CustomJTextField( "Pieces Per Box",COLOR_BLACK,false);

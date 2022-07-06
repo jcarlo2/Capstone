@@ -20,7 +20,6 @@ public class InventoryViewCenter extends JPanel {
         setLayout(new GridLayout(1,1));
         id.setText("");
 
-
         JPanel wrapper2 = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.CENTER;

@@ -10,20 +10,19 @@ import static retail.shared.constant.Constant.USER;
 
 public interface CreateUserTable {
      default void createEmployeeTableAndAdminAccount() {
-        String insertAdmin = "INSERT IGNORE INTO employee VALUES(?,?,?,?)";
-        String createSchema = "CREATE TABLE IF NOT EXISTS employee(" +
+        String admin = "INSERT IGNORE INTO employee VALUES(?,?,?,?)";
+        String query = "CREATE TABLE IF NOT EXISTS employee(" +
                                         "id INT NOT NULL PRIMARY KEY," +
                                         "last_name VARCHAR(255) NOT NULL," +
                                         "first_name VARCHAR(255) NOT NULL," +
                                         "password VARCHAR(255) NOT NULL)";
         try {
-                Connection connection = DriverManager.getConnection
-                    (URL,USER,PASS);
+                Connection connection = DriverManager.getConnection(URL,USER,PASS);
                 // CREATE EMPLOYEE TABLE
-                PreparedStatement preparedStatement = connection.prepareStatement(createSchema);
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.executeUpdate();
                 // CREATE TABLE
-                preparedStatement = connection.prepareStatement(insertAdmin);
+                preparedStatement = connection.prepareStatement(admin);
                 preparedStatement.setLong(1,7777);
                 preparedStatement.setString(2,"admin");
                 preparedStatement.setString(3,"admin");
