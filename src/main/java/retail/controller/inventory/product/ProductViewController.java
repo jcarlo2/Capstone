@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import retail.model.facade.inventory.product.ProductFacade;
 import retail.shared.pojo.ProductDisplay;
 import retail.view.main.tab.bot.inventory.center.product.ProductCenter;
-import retail.view.main.tab.bot.inventory.manipulator.panel.product.ProductManipulator;
+import retail.view.main.tab.bot.inventory.manipulator.product.ProductManipulator;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

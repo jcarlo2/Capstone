@@ -2,6 +2,7 @@ package retail.model.repository.implementation;
 
 import retail.shared.entity.NullProductReport;
 import retail.shared.entity.NullReportItem;
+import retail.shared.pojo.InventoryItem;
 
 import java.util.ArrayList;
 
@@ -15,5 +16,11 @@ public interface NullProduct {
         addNullReportItem(itemList);
     }
 
-    boolean isReportExist(String formatId);
+    boolean isReportExist(String id);
+
+    ArrayList<NullProductReport> getAllReport();
+
+    ArrayList<NullProductReport> getAllReportByDate(String start, String end);
+
+    ArrayList<InventoryItem> findAllNullReportItemById(String id);
 }

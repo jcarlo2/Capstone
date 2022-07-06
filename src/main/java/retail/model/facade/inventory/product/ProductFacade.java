@@ -31,7 +31,7 @@ public class ProductFacade {
     }
 
     public boolean verifyProductDetail(String @NotNull [] data) {
-        return calculate.isValidNumber(data[2],data[3],data[4]) && !data[0].isBlank();
+        return calculate.isValidNumber(data[2],data[4]) && !data[0].isBlank();
     }
 
     public void addProduct(String[] data) {

@@ -3,6 +3,7 @@ package retail.model.repository.implementer;
 import retail.model.repository.implementation.NullProduct;
 import retail.shared.entity.NullProductReport;
 import retail.shared.entity.NullReportItem;
+import retail.shared.pojo.InventoryItem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -64,5 +65,69 @@ public class NullProductRepository implements NullProduct {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    @Override
+    public ArrayList<NullProductReport> getAllReport() {
+        ArrayList<NullProductReport> reportList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM null_report";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                reportList.add(new NullProductReport(resultSet.getString("id"),
+                                                     resultSet.getString("user"),
+                                                     resultSet.getString("total_amount"),
+                                                     resultSet.getString("transaction_link"),
+                                                     resultSet.getString("date_time")));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reportList;
+    }
+
+    @Override
+    public ArrayList<NullProductReport> getAllReportByDate(String start, String end) {
+        ArrayList<NullProductReport> itemList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM null_report WHERE date_time >= ? AND date_time <= ? ORDER BY date_time DESC";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,start);
+            preparedStatement.setString(2,end);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                itemList.add(new NullProductReport(resultSet.getString("id"),
+                                                     resultSet.getString("user"),
+                                                     resultSet.getString("total_amount"),
+                                                     resultSet.getString("transaction_link"),
+                                                     resultSet.getString("date_time")));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return itemList;
+    }
+
+    @Override
+    public ArrayList<InventoryItem> findAllNullReportItemById(String id) {
+        ArrayList<InventoryItem> itemList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM null_item WHERE report_id = ?";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                itemList.add(new InventoryItem(resultSet.getString("id"),
+                                                 resultSet.getString("price"),
+                                                 resultSet.getString("quantity_per_pieces")));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return itemList;
     }
 }

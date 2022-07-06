@@ -4,8 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import retail.model.facade.transaction.add.AddTransactionFacade;
 import retail.shared.entity.TransactionItemDetail;
 import retail.view.main.tab.bot.transaction.center.add.AddTransactionCenter;
-import retail.view.main.tab.bot.transaction.manipulator.panel.add.AddTransactionManipulator;
-import retail.view.main.tab.top.UserPanel;
+import retail.view.main.tab.bot.transaction.manipulator.add.AddTransactionManipulator;
+import retail.view.main.tab.top.User;
 
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
@@ -24,16 +24,16 @@ public class AddTransactionController {
     private final AddTransactionManipulator manipulator;
     private final AddTransactionCenter center;
     private final AddTransactionFacade facade;
-    private final UserPanel userPanel;
+    private final User user;
 
-    public AddTransactionController(@NotNull UserPanel userPanel,
+    public AddTransactionController(@NotNull User user,
                                     @NotNull AddTransactionManipulator manipulator,
                                     AddTransactionCenter center,
                                     @NotNull AddTransactionFacade facade) {
         this.manipulator = manipulator;
         this.center = center;
         this.facade = facade;
-        this.userPanel = userPanel;
+        this.user = user;
 
         autoUpdateProductList();
         autoCheckPrice();
@@ -210,7 +210,7 @@ public class AddTransactionController {
         data[0] = manipulator.getReportId().getText();
         data[1] = "";
         data[2] = "";
-        data[3] = userPanel.getLastName().getText();
+        data[3] = user.getLastName().getText();
         data[4] = center.getTotalAmountText();
         data[5] = "";
         data[6] = "";

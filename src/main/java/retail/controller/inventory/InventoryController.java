@@ -3,32 +3,37 @@ package retail.controller.inventory;
 import org.jetbrains.annotations.NotNull;
 import retail.controller.inventory.add.AddInventoryController;
 import retail.controller.inventory.product.ProductViewController;
+import retail.controller.inventory.view.ViewInventoryController;
 import retail.model.facade.MainFacade;
 import retail.view.BuildGUI;
-import retail.view.main.tab.bot.inventory.center.InventoryMainCard;
-import retail.view.main.tab.bot.inventory.manipulator.panel.AddViewProduct;
-import retail.view.main.tab.bot.inventory.manipulator.panel.InventoryManipulatorCard;
+import retail.view.main.tab.bot.inventory.center.InventoryMain;
+import retail.view.main.tab.bot.inventory.manipulator.InventoryManipulator;
+
+import javax.swing.table.DefaultTableModel;
 
 public class InventoryController {
-    private final AddViewProduct addViewProductPanel;
-    private final InventoryManipulatorCard manipulator;
-    private final InventoryMainCard main;
+    private final InventoryManipulator manipulator;
+    private final InventoryMain main;
 
     public InventoryController(@NotNull BuildGUI buildGUI, @NotNull MainFacade mainFacade) {
-        this.addViewProductPanel = buildGUI.getBottomPanel().getManipulatorCard().getInventory().getAddViewProduct();
-        this.manipulator = buildGUI.getBottomPanel().getManipulatorCard().getInventory().getInventory();
-        this.main = buildGUI.getBottomPanel().getBottomMainCard().getInventory();
+        this.manipulator = buildGUI.getBottomPanel().getInventoryManipulator();
+        this.main = buildGUI.getBottomPanel().getInventoryMain();
 
         new ProductViewController(
-                buildGUI.getBottomPanel().getBottomMainCard().getInventory().getProduct(),
-                buildGUI.getBottomPanel().getManipulatorCard().getInventory().getInventory().getProductManipulator(),
+                buildGUI.getBottomPanel().getInventoryMain().getProduct(),
+                buildGUI.getBottomPanel().getInventoryManipulator().getProductManipulator(),
                 mainFacade.getInventoryFacade().getProductFacade());
 
         new AddInventoryController(
-                buildGUI.getBottomPanel().getBottomMainCard().getInventory().getAdd().getAddCenter(),
-                buildGUI.getBottomPanel().getManipulatorCard().getInventory().getInventory().getAdd().getAddPanel().getAddManipulator(),
+                buildGUI.getBottomPanel().getInventoryMain().getAdd(),
+                buildGUI.getBottomPanel().getInventoryManipulator().getAddManipulator(),
                 mainFacade.getInventoryFacade().getAddInventoryFacade(),
-                buildGUI.getTopBorderPanel().getUserPanel());
+                buildGUI.getTopBorderPanel().getUser());
+
+        new ViewInventoryController(
+                buildGUI.getBottomPanel().getInventoryMain().getView(),
+                buildGUI.getBottomPanel().getInventoryManipulator().getViewManipulator(),
+                mainFacade.getInventoryFacade().getViewInventoryFacade());
         add();
         view();
         product();
@@ -37,55 +42,51 @@ public class InventoryController {
     }
 
     public void add() {
-        addViewProductPanel.getAdd().addActionListener(e -> {
-            addViewProductPanel.getAdd().setEnabled(false);
-            addViewProductPanel.getView().setEnabled(true);
-            addViewProductPanel.getProduct().setEnabled(true);
+        manipulator.getAdd().addActionListener(e -> {
+            manipulator.getAdd().setEnabled(false);
+            manipulator.getView().setEnabled(true);
+            manipulator.getProduct().setEnabled(true);
 
-            manipulator.getCardLayout().show(manipulator,"add");
+            manipulator.getCardLayout().show(manipulator.getWrapper2(),"add");
             main.getCardLayout().show(main,"add");
         });
     }
 
     public void view() {
-        addViewProductPanel.getView().addActionListener(e -> {
-            addViewProductPanel.getAdd().setEnabled(true);
-            addViewProductPanel.getView().setEnabled(false);
-            addViewProductPanel.getProduct().setEnabled(true);
+        manipulator.getView().addActionListener(e -> {
+            manipulator.getAdd().setEnabled(true);
+            manipulator.getView().setEnabled(false);
+            manipulator.getProduct().setEnabled(true);
 
-            manipulator.getCardLayout().show(manipulator,"view");
+            manipulator.getCardLayout().show(manipulator.getWrapper2(),"view");
             main.getCardLayout().show(main,"view");
         });
     }
 
     public void product() {
-        addViewProductPanel.getProduct().addActionListener(e -> {
-            addViewProductPanel.getAdd().setEnabled(true);
-            addViewProductPanel.getView().setEnabled(true);
-            addViewProductPanel.getProduct().setEnabled(false);
+        manipulator.getProduct().addActionListener(e -> {
+            manipulator.getAdd().setEnabled(true);
+            manipulator.getView().setEnabled(true);
+            manipulator.getProduct().setEnabled(false);
 
-            manipulator.getCardLayout().show(manipulator,"product");
+            manipulator.getCardLayout().show(manipulator.getWrapper2(),"product");
             main.getCardLayout().show(main,"product");
         });
     }
 
     public void addReport() {
-        manipulator.getAdd().getAddProduct().addActionListener(e -> {
-            manipulator.getAdd().getAddProduct().setEnabled(false);
-            manipulator.getAdd().getNullProduct().setEnabled(true);
-
-            manipulator.getAdd().getAddPanel().getCard().show(manipulator.getAdd().getAddPanel(),"add");
-            main.getAdd().getCard().show(main.getAdd(),"add");
+        manipulator.getAddManipulator().getAddProduct().addActionListener(e -> {
+            manipulator.getAddManipulator().getAddProduct().setEnabled(false);
+            manipulator.getAddManipulator().getNullProduct().setEnabled(true);
+            ((DefaultTableModel)main.getAdd().getTable().getModel()).setRowCount(0);
         });
     }
 
     public void nullReport() {
-        manipulator.getAdd().getNullProduct().addActionListener(e -> {
-            manipulator.getAdd().getAddProduct().setEnabled(true);
-            manipulator.getAdd().getNullProduct().setEnabled(false);
-
-            manipulator.getAdd().getAddPanel().getCard().show(manipulator.getAdd().getAddPanel(),"null");
-            main.getAdd().getCard().show(main.getAdd(),"null");
+        manipulator.getAddManipulator().getNullProduct().addActionListener(e -> {
+            manipulator.getAddManipulator().getAddProduct().setEnabled(true);
+            manipulator.getAddManipulator().getNullProduct().setEnabled(false);
+            ((DefaultTableModel)main.getAdd().getTable().getModel()).setRowCount(0);
         });
     }
 }

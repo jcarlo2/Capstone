@@ -2,7 +2,7 @@ package retail.controller.transaction.view;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.facade.transaction.view.ViewTransactionFacade;
-import retail.shared.custom.jpanel.ViewCenter;
+import retail.view.main.tab.bot.transaction.center.view.TransactionViewCenter;
 import retail.shared.custom.jpanel.ViewManipulator;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
@@ -24,10 +24,10 @@ import static retail.shared.constant.ConstantDialog.DELETE_ALL_OPTION;
 
 public class ViewTransactionController {
     private final ViewManipulator manipulator;
-    private final ViewCenter center;
+    private final TransactionViewCenter center;
     private final ViewTransactionFacade facade;
 
-    public ViewTransactionController(ViewCenter center, ViewManipulator manipulator, ViewTransactionFacade facade) {
+    public ViewTransactionController(TransactionViewCenter center, ViewManipulator manipulator, ViewTransactionFacade facade) {
         this.manipulator = manipulator;
         this.center = center;
         this.facade = facade;
@@ -43,12 +43,12 @@ public class ViewTransactionController {
         Runnable runnable = () -> {
             if(!manipulator.getSearch().getText().equals("")) return;
             String search = Objects.requireNonNull(manipulator.getSearchType().getSelectedItem()).toString();
-            String valid = Objects.requireNonNull(manipulator.getValidType().getSelectedItem()).toString();
+            String type = Objects.requireNonNull(manipulator.getType().getSelectedItem()).toString();
             if(search.equals("Auto")) {
-                if(valid.equals("All")) reportListOption("Auto","All");
+                if(type.equals("All")) reportListOption("Auto","All");
                 else reportListOption("Auto","Valid");
             }else {
-                if(valid.equals("All")) reportListOption("Date","All");
+                if(type.equals("All")) reportListOption("Date","All");
                 else reportListOption("Date","Valid");
             }
         };
@@ -56,9 +56,9 @@ public class ViewTransactionController {
         service.scheduleAtFixedRate(runnable, 1, 1, TimeUnit.SECONDS);
     }
 
-    private void reportListOption(@NotNull String search, String valid) {
+    private void reportListOption(@NotNull String search, String type) {
         if(search.equals("Auto")) {
-            if(valid.equals("All")) {
+            if(type.equals("All")) {
                 if(manipulator.getList().isNotSameTransactionList(facade.getAllReport())) {
                     SwingUtilities.invokeLater(() -> manipulator.getList().populateTransactionList(facade.getAllReport()));
                 }
@@ -70,7 +70,7 @@ public class ViewTransactionController {
         }else {
             String start = new SimpleDateFormat("yyyy/MM/dd HH:mm:00").format(manipulator.getStart().getValue());
             String end = new SimpleDateFormat("yyyy/MM/dd HH:mm:00").format(manipulator.getEnd().getValue());
-            if(valid.equals("All")) {
+            if(type.equals("All")) {
                 if(manipulator.getList().isNotSameTransactionList(facade.getAllReportByDate(start,end))) {
                     SwingUtilities.invokeLater(() -> manipulator.getList().populateTransactionList(facade.getAllReportByDate(start,end)));
                 }
@@ -102,7 +102,7 @@ public class ViewTransactionController {
     }
 
     private void search() {
-        String valid = Objects.requireNonNull(manipulator.getValidType().getSelectedItem()).toString();
+        String valid = Objects.requireNonNull(manipulator.getType().getSelectedItem()).toString();
         String search = manipulator.getSearch().getText();
         ArrayList<TransactionDetail> reportList;
 

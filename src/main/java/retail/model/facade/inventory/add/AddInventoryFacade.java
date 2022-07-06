@@ -5,10 +5,8 @@ import retail.model.service.Calculate;
 import retail.model.service.Creator;
 import retail.model.service.inventory.add.AddInventoryService;
 import retail.model.service.inventory.product.ProductViewService;
-import retail.shared.entity.DeliveryDetail;
-import retail.shared.entity.DeliveryItemDetail;
-import retail.shared.entity.Merchandise;
-import retail.shared.pojo.InventoryItemDetail;
+import retail.shared.entity.*;
+import retail.shared.pojo.DeliverItem;
 
 import java.util.ArrayList;
 
@@ -42,22 +40,34 @@ public class AddInventoryFacade {
         return calculate.multiplication(quantity,pieces);
     }
 
-    public boolean isReportIdExist(String id) {
-        return service.isReportIdExist(id);
+    public boolean isDeliveryReportIdExist(String id) {
+        return service.isDeliveryReportIdExist(id);
     }
 
-    public String generateId() {
-        return service.generateId();
+    public String generateId(boolean check) {
+        return service.generateId(check);
     }
 
-    public InventoryItemDetail createItemDetail(String @NotNull [] data) {
+    public DeliverItem createItemDetail(String @NotNull [] data) {
         String oldStock = productService.findQuantityById(data[0]);
         return creator.createItemDetail(data,oldStock);
     }
 
-    public void save(String[][] dataList, String[] data) {
+    public void saveDelivery(String[][] dataList, String[] data) {
         ArrayList<DeliveryItemDetail> itemList = creator.convertAllToDeliveryItem(dataList);
         DeliveryDetail report = creator.createDeliveryDetail(data);
-        service.save(report,itemList);
+        service.saveDelivery(report,itemList);
+    }
+
+    public void saveNull(String[][] dataList, String @NotNull [] data) {
+        ArrayList<NullReportItem> itemList = creator.createAllNullItem(dataList,data[0]);
+        data[2] = service.getNullTotalAmount(itemList);
+        NullProductReport report = creator.createNullReport(data);
+        service.saveNull(report,itemList);
+    }
+
+
+    public boolean isNullReportExist(String id) {
+        return service.isNullReportExist(id);
     }
 }

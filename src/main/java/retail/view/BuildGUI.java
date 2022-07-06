@@ -7,7 +7,7 @@ import retail.view.login.LogIn;
 import retail.view.login.LogInFrame;
 import retail.view.main.MainFrame;
 import retail.view.main.tab.bot.BottomPanel;
-import retail.view.main.tab.top.TopBorderPanel;
+import retail.view.main.tab.top.TopPanel;
 
 @Getter
 public class BuildGUI {
@@ -21,8 +21,8 @@ public class BuildGUI {
         optionFrame = new OptionFrame(Constant.SALES_AND_INVENTORY_SYSTEM);
     }
 
-    public TopBorderPanel getTopBorderPanel() {
-        return mainFrame.getMain().getTopBorderPanel();
+    public TopPanel getTopBorderPanel() {
+        return mainFrame.getMain().getTopPanel();
     }
 
     public BottomPanel getBottomPanel() {

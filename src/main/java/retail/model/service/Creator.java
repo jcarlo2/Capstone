@@ -3,7 +3,7 @@ package retail.model.service;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import retail.shared.entity.*;
-import retail.shared.pojo.InventoryItemDetail;
+import retail.shared.pojo.DeliverItem;
 import retail.shared.pojo.ProductDisplay;
 import retail.shared.pojo.ProductReturnedDetail;
 
@@ -17,11 +17,21 @@ public final class Creator {
     }
 
     @Contract(pure = true)
+    public @NotNull ArrayList<NullReportItem> createAllNullProduct(String @NotNull[] @NotNull [] dataList, String reportId) {
+        ArrayList<NullReportItem> itemList = new ArrayList<>();
+        for (String[] data : dataList) {
+            Double total = Double.parseDouble(data[1]) * Double.parseDouble(data[7]);
+            itemList.add(new NullReportItem(data[0], data[1], data[2], String.valueOf(total), reportId));
+        }
+        return itemList;
+    }
+
+    @Contract(pure = true)
     public @NotNull ArrayList<NullReportItem> createAllNullItem(String @NotNull[] @NotNull [] dataList, String reportId) {
         ArrayList<NullReportItem> itemList = new ArrayList<>();
         for(String[] data : dataList) {
-            Double total = Double.parseDouble(data[1]) * Double.parseDouble(data[7]);
-            itemList.add(new NullReportItem(data[0],data[1],data[2],String.valueOf(total),reportId,""));
+            Double total = Double.parseDouble(data[1]) * Double.parseDouble(data[2]);
+            itemList.add(new NullReportItem(data[0],data[1],data[2],String.valueOf(total),reportId));
         }
         return itemList;
     }
@@ -59,8 +69,8 @@ public final class Creator {
     }
 
     @Contract("_, _ -> new")
-    public @NotNull InventoryItemDetail createItemDetail(String @NotNull [] data, String oldStock) {
-        return new InventoryItemDetail(data[0],data[1],data[2],data[3],data[4],oldStock);
+    public @NotNull DeliverItem createItemDetail(String @NotNull [] data, String oldStock) {
+        return new DeliverItem(data[0],data[1],data[2],data[3],data[4],oldStock);
     }
 
     public @NotNull ArrayList<DeliveryItemDetail> convertAllToDeliveryItem(String @NotNull[] @NotNull[] dataList) {

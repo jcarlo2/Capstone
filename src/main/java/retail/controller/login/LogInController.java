@@ -5,7 +5,7 @@ import retail.model.facade.login.LogInFacade;
 import retail.shared.constant.ConstantDialog;
 import retail.view.login.LogIn;
 import retail.view.main.MainFrame;
-import retail.view.main.tab.top.UserPanel;
+import retail.view.main.tab.top.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,16 +14,16 @@ import java.awt.event.ActionListener;
 public class LogInController implements ActionListener {
     private final LogIn logIn;
     private final LogInFacade logInFacade;
-    private final UserPanel userPanel;
+    private final User user;
     private final MainFrame mainFrame;
 
     public LogInController(@NotNull LogIn logIn,
-                                    UserPanel userPanel,
+                                    User user,
                                     MainFrame mainFrame,
                                     LogInFacade logInFacade) {
         this.logIn = logIn;
         this.logInFacade = logInFacade;
-        this.userPanel = userPanel;
+        this.user = user;
         this.mainFrame = mainFrame;
 
         logIn.logInActionListener(this);
@@ -39,8 +39,8 @@ public class LogInController implements ActionListener {
             ConstantDialog.INCORRECT_ID_PASSWORD();
             return;
         }
-        userPanel.getId().setText(id);
-        userPanel.getLastName().setText(logInFacade.getLastName(id));
+        user.getId().setText(id);
+        user.getLastName().setText(logInFacade.getLastName(id));
         disposeLogInAndCreateMainFrame();
     }
 

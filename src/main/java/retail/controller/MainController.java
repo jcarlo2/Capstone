@@ -13,11 +13,11 @@ public class MainController {
     public MainController(@NotNull MainFacade mainFacade, @NotNull BuildGUI buildGUI) {
 
         new LogInController(buildGUI.getLogIn(),
-                            buildGUI.getTopBorderPanel().getUserPanel(),
+                            buildGUI.getTopBorderPanel().getUser(),
                             buildGUI.getMainFrame(),
                             mainFacade.getLogInFacade());
 
-        new NorthController(buildGUI.getTopBorderPanel().getNorthPanel(),
+        new NorthController(buildGUI.getTopBorderPanel().getNorth(),
                             buildGUI.getBottomPanel());
         new TransactionController(buildGUI,mainFacade);
 

@@ -11,5 +11,4 @@ public class NullReportItem {
     private String quantity;
     private String total;
     private String reportId;
-    private String date;
 }

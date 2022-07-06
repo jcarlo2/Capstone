@@ -3,6 +3,7 @@ package retail.model.repository.implementer;
 import retail.model.repository.implementation.Delivery;
 import retail.shared.entity.DeliveryDetail;
 import retail.shared.entity.DeliveryItemDetail;
+import retail.shared.pojo.InventoryItem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -70,5 +71,64 @@ public class DeliveryRepository implements Delivery {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    @Override
+    public ArrayList<DeliveryDetail> getAllReport() {
+        ArrayList<DeliveryDetail> reportList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM product_report ORDER BY date_time DESC";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                reportList.add(new DeliveryDetail(resultSet.getString("id"),
+                                                  resultSet.getString("user"),
+                                                  resultSet.getString("date_time")));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reportList;
+    }
+
+    @Override
+    public ArrayList<DeliveryDetail> getAllReportByDate(String start, String end) {
+        ArrayList<DeliveryDetail> reportList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM product_report WHERE date_time >= ? AND date_time <= ? ORDER BY date_time DESC";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,start);
+            preparedStatement.setString(2,end);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                reportList.add(new DeliveryDetail(resultSet.getString("id"),
+                        resultSet.getString("user"),
+                        resultSet.getString("date_time")));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reportList;
+    }
+
+    @Override
+    public ArrayList<InventoryItem> findDeliveryReportById(String id) {
+        ArrayList<InventoryItem> reportList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM product_item WHERE unique_id = ?";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                reportList.add(new InventoryItem(resultSet.getString("prod_id"),"",
+                                                 resultSet.getString("quantity_pieces")));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reportList;
     }
 }

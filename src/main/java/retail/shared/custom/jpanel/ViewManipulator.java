@@ -27,21 +27,25 @@ public class ViewManipulator extends JPanel {
     private final JSpinnerDate start = new JSpinnerDate();
     private final JSpinnerDate end = new JSpinnerDate();
     private final CustomComboBox searchType = new CustomComboBox("Auto","Date","Search Type");
-    private final CustomComboBox validType = new CustomComboBox("All","Valid Only","Valid Type");
+    private final CustomComboBox type;
+
+    public ViewManipulator(String a, String b, String title) {
+        type = new CustomComboBox(a,b,title);
+        type.setSelectedIndex(1);
+        setView();
+    }
 
 
-    public ViewManipulator() {
+    private void setView() {
         setLayout(new BorderLayout());
         search.setText("");
-        validType.setSelectedIndex(1);
-
         wrapper3.add(startDate,BorderLayout.WEST);
         wrapper3.add(start,BorderLayout.CENTER);
         wrapper4.add(endDate,BorderLayout.WEST);
         wrapper4.add(end,BorderLayout.CENTER);
 
         wrapper5.add(searchType);
-        wrapper5.add(validType);
+        wrapper5.add(type);
 
         wrapper2.add(wrapper3);
         wrapper2.add(wrapper4);

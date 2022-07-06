@@ -7,8 +7,8 @@ import retail.shared.custom.jdialog.ReturnJDialog;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
 import retail.view.main.tab.bot.transaction.center.add.ReturnedTransactionCenter;
-import retail.view.main.tab.bot.transaction.manipulator.panel.add.ReturnedTransactionManipulator;
-import retail.view.main.tab.top.UserPanel;
+import retail.view.main.tab.bot.transaction.manipulator.add.ReturnedTransactionManipulator;
+import retail.view.main.tab.top.User;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -31,10 +31,10 @@ public class ReturnTransactionController {
     private final ReturnTransactionFacade facade;
     private final ReturnedTransactionManipulator manipulator;
     private final ReturnedTransactionCenter center;
-    private final UserPanel userPanel;
+    private final User user;
     private final ReturnJDialog returnDialog;
 
-    public ReturnTransactionController(UserPanel userPanel,
+    public ReturnTransactionController(User user,
                                        @NotNull ReturnedTransactionManipulator manipulator,
                                        @NotNull ReturnedTransactionCenter center,
                                        @NotNull ReturnJDialog returnDialog,
@@ -42,7 +42,7 @@ public class ReturnTransactionController {
         this.facade = facade;
         this.center = center;
         this.manipulator = manipulator;
-        this.userPanel = userPanel;
+        this.user = user;
         this.returnDialog = returnDialog;
 
         autoUpdateList();
@@ -130,7 +130,7 @@ public class ReturnTransactionController {
         if(facade.verifyTableForSaving(center.getBotTable().tableGrabber())) {
             String[][] dataList = center.getBotTable().tableGrabber();
             String id = manipulator.getNewReportId().getText();
-            String user = userPanel.getLastName().getText();
+            String user = this.user.getLastName().getText();
             String newTotal = center.getNewTotal().getText();
             String credit = center.getCredit().getText();
             facade.saveReport(dataList,id,user,newTotal,credit);

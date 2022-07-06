@@ -122,14 +122,13 @@ public class ProductRepository implements Product {
     @Override
     public void addProduct(Merchandise merchandise) {
         try {
-            String query = "INSERT INTO product(id,description,price,quantity_per_pieces,pieces_per_box) VALUES(?,?,?,?,?)";
+            String query = "INSERT INTO product(id,description,price,pieces_per_box) VALUES(?,?,?,?)";
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1,merchandise.getId());
             preparedStatement.setString(2,merchandise.getDescription());
             preparedStatement.setString(3,merchandise.getPrice());
-            preparedStatement.setString(4, merchandise.getQuantityPerPieces());
-            preparedStatement.setString(5, merchandise.getPiecesPerBox());
+            preparedStatement.setString(4, merchandise.getPiecesPerBox());
             preparedStatement.executeUpdate();
         }catch (Exception e) {
             e.printStackTrace();

@@ -2,10 +2,10 @@ package retail.controller.inventory.add;
 
 import org.jetbrains.annotations.NotNull;
 import retail.model.facade.inventory.add.AddInventoryFacade;
-import retail.shared.pojo.InventoryItemDetail;
 import retail.view.main.tab.bot.inventory.center.add.AddInventoryCenter;
-import retail.view.main.tab.bot.inventory.manipulator.panel.add.AddInventoryManipulator;
-import retail.view.main.tab.top.UserPanel;
+import retail.shared.pojo.DeliverItem;
+import retail.view.main.tab.bot.inventory.manipulator.add.AddManipulator;
+import retail.view.main.tab.top.User;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -22,11 +22,11 @@ import static retail.shared.constant.ConstantDialog.SAVED_REPORT;
 
 public class AddInventoryController {
     private final AddInventoryCenter center;
-    private final AddInventoryManipulator manipulator;
+    private final AddManipulator manipulator;
     private final AddInventoryFacade facade;
-    private final UserPanel user;
+    private final User user;
 
-    public AddInventoryController(AddInventoryCenter center, @NotNull AddInventoryManipulator manipulator, AddInventoryFacade facade, UserPanel user) {
+    public AddInventoryController(AddInventoryCenter center, @NotNull AddManipulator manipulator, AddInventoryFacade facade, User user) {
         this.center = center;
         this.manipulator = manipulator;
         this.facade = facade;
@@ -48,8 +48,8 @@ public class AddInventoryController {
 
     private void addEvent() {
         manipulator.getAdd().addActionListener(e -> {
-            InventoryItemDetail item = facade.createItemDetail(manipulator.getData());
-            if(facade.isValidNumber(item.getQuantityPerPieces()) && facade.isValidNumber(item.getQuantityPerBox())) {
+            DeliverItem item = facade.createItemDetail(manipulator.getData());
+            if(facade.isValidNumber(item.getQuantityPerBox())) {
                 center.getTable().addItem(item);
             }
         });
@@ -57,14 +57,18 @@ public class AddInventoryController {
 
     private void saveEvent() {
         manipulator.getSave().addActionListener(e -> {
+            boolean check = manipulator.getNullProduct().isEnabled();
             if(center.getTable().getRowCount() == 0) {
                 EMPTY_TABLE();
                 return;
             }
             String[][] dataList = center.getTable().tableGrabber();
-            String[] data = {manipulator.getReportId().getText(),user.getLastName().getText(),""};
-            facade.save(dataList,data);
+            String[] data = {manipulator.getReportId().getText(),user.getLastName().getText(),"",""};
+
+            if(check) facade.saveDelivery(dataList,data);
+            else facade.saveNull(dataList,data);
             ((DefaultTableModel)center.getTable().getModel()).setRowCount(0);
+            manipulator.clear();
             SAVED_REPORT();
         });
     }
@@ -156,10 +160,17 @@ public class AddInventoryController {
 
     private void autoUpdateReportId() {
         Runnable runnable = () -> {
+            boolean check = manipulator.getNullProduct().isEnabled();
             String id = manipulator.getReportId().getText();
-            if(id.equals("0") || facade.isReportIdExist(id)) {
-                SwingUtilities.invokeLater(() -> manipulator.getReportId().setText(facade.generateId()));
-            }
+            String initial = "";
+            if(id.length() > 2) initial = id.substring(0,2);
+
+            if(initial.equals("IR") && !check)
+                SwingUtilities.invokeLater(() -> manipulator.getReportId().setText(facade.generateId(false)));
+            else if(initial.equals("NR") && check)
+                SwingUtilities.invokeLater(() -> manipulator.getReportId().setText(facade.generateId(true)));
+            else if(id.equals("0") || facade.isDeliveryReportIdExist(id) || facade.isNullReportExist(id))
+                SwingUtilities.invokeLater(() -> manipulator.getReportId().setText(facade.generateId(check)));
         };
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
         service.scheduleAtFixedRate(runnable,1,1,TimeUnit.SECONDS);
