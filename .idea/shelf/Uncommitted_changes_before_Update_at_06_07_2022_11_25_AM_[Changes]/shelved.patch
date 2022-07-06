@@ -1,0 +1,546 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/shelved.patch	(revision efa45b38caee8527cab54d6d7d9eb469413471b8)
++++ /dev/null	(revision efa45b38caee8527cab54d6d7d9eb469413471b8)
+@@ -1,402 +0,0 @@
+-Index: src/main/java/retail/RetailApplication.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package retail;\r\n\r\nimport com.formdev.flatlaf.FlatDarculaLaf;\r\nimport retail.controller.MainController;\r\nimport retail.model.facade.MainFacade;\r\nimport retail.shared.tablecreator.TableCreatorImpl;\r\nimport retail.view.BuildGUI;\r\n\r\nimport javax.swing.*;\r\n\r\npublic class RetailApplication {\r\n    public static void main(String[] args) {\r\n        try {\r\n            new TableCreatorImpl();\r\n            UIManager.setLookAndFeel(new FlatDarculaLaf());\r\n            new MainController(new MainFacade(),new BuildGUI());\r\n        }catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/retail/RetailApplication.java b/src/main/java/retail/RetailApplication.java
+---- a/src/main/java/retail/RetailApplication.java	(revision 99812bd13ef3f6f67971d4e35cf503428f82ddd2)
+-+++ b/src/main/java/retail/RetailApplication.java	(date 1654873870685)
+-@@ -10,12 +10,16 @@
+- 
+- public class RetailApplication {
+-     public static void main(String[] args) {
+--        try {
+--            new TableCreatorImpl();
+--            UIManager.setLookAndFeel(new FlatDarculaLaf());
+--            new MainController(new MainFacade(),new BuildGUI());
+--        }catch (Exception e) {
+--            e.printStackTrace();
+--        }
+-+        SwingUtilities.invokeLater(() -> {
+-+            try {
+-+                new TableCreatorImpl();
+-+//                com.jtattoo.plaf.acryl.AcrylLookAndFeel.setTheme("Green", "INSERT YOUR LICENSE KEY HERE", "my company");
+-+//                UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+-+                UIManager.setLookAndFeel(new FlatDarculaLaf());
+-+                new MainController(new MainFacade(),new BuildGUI());
+-+            }catch (Exception e) {
+-+                e.printStackTrace();
+-+            }
+-+        });
+-     }
+- }
+-Index: pom.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>org.example</groupId>\r\n    <artifactId>MVC</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.projectlombok</groupId>\r\n            <artifactId>lombok</artifactId>\r\n            <version>1.18.24</version>\r\n            <scope>provided</scope>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>com.formdev</groupId>\r\n            <artifactId>flatlaf</artifactId>\r\n            <version>2.2</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.swinglabs.swingx</groupId>\r\n            <artifactId>swingx-autocomplete</artifactId>\r\n            <version>1.6.5-1</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>mysql</groupId>\r\n            <artifactId>mysql-connector-java</artifactId>\r\n            <version>8.0.29</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.jetbrains</groupId>\r\n            <artifactId>annotations</artifactId>\r\n            <version>23.0.0</version>\r\n            <scope>compile</scope>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter</artifactId>\r\n            <version>5.8.2</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>junit</groupId>\r\n            <artifactId>junit</artifactId>\r\n            <version>4.13.2</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <properties>\r\n        <maven.compiler.source>18</maven.compiler.source>\r\n        <maven.compiler.target>18</maven.compiler.target>\r\n    </properties>\r\n\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/pom.xml b/pom.xml
+---- a/pom.xml	(revision 99812bd13ef3f6f67971d4e35cf503428f82ddd2)
+-+++ b/pom.xml	(date 1654873639974)
+-@@ -21,6 +21,19 @@
+-             <version>2.2</version>
+-         </dependency>
+- 
+-+        <dependency>
+-+            <groupId>de.sciss</groupId>
+-+            <artifactId>weblaf</artifactId>
+-+            <version>2.2.1</version>
+-+            <type>pom</type>
+-+        </dependency>
+-+
+-+        <dependency>
+-+            <groupId>com.jtattoo</groupId>
+-+            <artifactId>JTattoo</artifactId>
+-+            <version>1.6.13</version>
+-+        </dependency>
+-+
+-         <dependency>
+-             <groupId>org.swinglabs.swingx</groupId>
+-             <artifactId>swingx-autocomplete</artifactId>
+-Index: src/main/java/retail/shared/eventlistener/tablemodel/BotTableModel.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package retail.shared.eventlistener.tablemodel;\r\n\r\nimport retail.model.facade.transaction.add.ReturnTransactionFacade;\r\nimport retail.view.main.tab.bot.transaction.center.add.ReturnedTransactionCenter;\r\n\r\nimport javax.swing.event.TableModelEvent;\r\nimport javax.swing.event.TableModelListener;\r\nimport java.math.BigDecimal;\r\n\r\npublic class BotTableModel implements TableModelListener {\r\n    private final ReturnedTransactionCenter center;\r\n    private final ReturnTransactionFacade facade;\r\n\r\n    public BotTableModel(ReturnedTransactionCenter center,\r\n                        ReturnTransactionFacade facade) {\r\n        this.center = center;\r\n        this.facade = facade;\r\n    }\r\n\r\n    @Override\r\n    public void tableChanged(TableModelEvent e) {\r\n        calculateNewTotalAmount();\r\n        calculateCredit();\r\n    }\r\n\r\n    private void calculateNewTotalAmount() {\r\n        String newTotal = facade.calculateNewTotal(center.getBotTable());\r\n        center.getNewTotal().setText(newTotal);\r\n    }\r\n\r\n    private void calculateCredit() {\r\n        BigDecimal credit = new BigDecimal(center.getTopTotal().getText());\r\n        BigDecimal newTotal = new BigDecimal(center.getNewTotal().getText());\r\n        center.getCredit().setText(credit.add(newTotal).toString());\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/retail/shared/eventlistener/tablemodel/BotTableModel.java b/src/main/java/retail/shared/eventlistener/tablemodel/BotTableModel.java
+---- a/src/main/java/retail/shared/eventlistener/tablemodel/BotTableModel.java	(revision 99812bd13ef3f6f67971d4e35cf503428f82ddd2)
+-+++ b/src/main/java/retail/shared/eventlistener/tablemodel/BotTableModel.java	(date 1654869002788)
+-@@ -30,6 +30,7 @@
+- 
+-     private void calculateCredit() {
+-         BigDecimal credit = new BigDecimal(center.getTopTotal().getText());
+-+        credit = credit.multiply(BigDecimal.valueOf(-1));
+-         BigDecimal newTotal = new BigDecimal(center.getNewTotal().getText());
+-         center.getCredit().setText(credit.add(newTotal).toString());
+-     }
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"abcf531d-c7ff-42a3-9a59-20457f5d9665\" name=\"Changes\" comment=\"refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/controller/login/LogInController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/controller/transaction/TransactionController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/controller/transaction/add/AddTransactionController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/facade/MainFacade.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/facade/login/LogInFacade.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/facade/transaction/TransactionFacade.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/facade/transaction/add/AddTransactionFacade.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/facade/transaction/add/ReturnTransactionFacade.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/User.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/ProductRepository.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/TransactionRepository.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/UserRepository.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/service/Calculate.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/service/ReportCreator.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/service/TableUtil.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/service/login/UserService.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/service/transaction/AddTransactionService.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/service/transaction/ReturnTransactionService.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jlist/ListHLC.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/other/TransactionTableHLC.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/entity/DeliveryDetail.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/entity/DeliveryItemDetail.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/entity/Merchandise.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/entity/TransactionDetail.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/entity/TransactionItemDetail.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/AddAction.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/ClearAction.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/DeleteAction.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/GenerateAction.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/SaveAction.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/returned/AddAction.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/returned/DeleteAction.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/document/transaction/DiscountAmountDocument.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/document/transaction/DiscountPercentageDocument.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/document/transaction/SearchDocument.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/document/transaction/SoldDocument.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/mouse/transaction/BotTableMouse.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/mouse/transaction/ListMouse.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/mouse/transaction/TopTableMouse.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/tablemodel/BotTableModel.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/CreateTransactionTable.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.gitignore\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/RetailApplication.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/RetailApplication.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/MainController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/controller/MainController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/logic/ITransactionAdd.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/InventoryController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddInventoryController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/product/ProductController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/view/ViewController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/login/LogInController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/northbutton/NorthButtonController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/TransactionController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/ReturnedController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/view/ViewController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/controller/viewcontroller/TransactionAdd.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/dao/AddTransactionDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/TransactionReport.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/dao/ProductDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/Product.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/dao/ReturnedTransactionDAO.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/dao/UserDAO.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/getter/transaction/add/AddTransaction.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/getter/transaction/add/ReturnTransaction.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/model/User.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/constant/Constant.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/constant/Constant.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/constant/ConstantDialog.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/constant/ConstantDialog.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/CustomJButton.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/CustomJButton.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/CustomJDialog.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/CustomJDialog.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jcombobox/JComboBoxProduct.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jcombobox/JComboBoxProduct.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jlist/CustomJList.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jlist/CustomJList.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableInventory.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/JTableInventory.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableProduct.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/JTableProduct.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableTransaction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/JTableTransaction.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/other/TableButtonRenderer.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/other/TableButtonRenderer.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/other/TableJComboBox.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/other/TableJComboBox.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtextfield/CustomJTextField.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/custom/jtextfield/CustomJTextField.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/pojo/Product.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/pojo/ProductReport.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/pojo/ProductReportItem.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/pojo/ReturnTransactionReport.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/pojo/ReturnedReport.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/pojo/TransactionReport.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/pojo/TransactionReportItem.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/AutoSetPrice.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/CalculateDiscount.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/CalculateSold.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/ValidNumberChecker.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/CreateEmployeeTable.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/CreateUserTable.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/CreateProductTable.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/CreateProductTable.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/CreateTransactionTable.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/TableCreatorImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/TableCreatorImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/shared/util/update/JComboBoxUpdate.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/login/LogIn.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/login/LogIn.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomMainCard.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomMainCard.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomManipulatorCard.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomManipulatorCard.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/AddInventory.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/AddInventory.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/Product.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/Product.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/View.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/View.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/Product.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/Product.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/View.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/View.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/add/AddInventory.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/add/AddInventory.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddCard.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddCard.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddTransaction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddTransactionCenter.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/ReturnedTransaction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/ReturnedTransactionCenter.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/view/View.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/view/View.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/AddViewPanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/AddViewPanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/Add.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/Add.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddCard.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddCard.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddTransaction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddTransactionManipulator.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/ReturnedTransaction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/ReturnedTransactionManipulator.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/view/View.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/view/View.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/NorthButton.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/NorthPanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/TopBorderPanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/TopBorderPanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/UserPanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/UserPanel.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"package-info\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"jar://$MAVEN_REPOSITORY$/com/fifesoft/rsyntaxtextarea/3.2.0/rsyntaxtextarea-3.2.0-sources.jar!/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"jar://$MAVEN_REPOSITORY$/org/swinglabs/swingx/swingx-autocomplete/1.6.5-1/swingx-autocomplete-1.6.5-1-sources.jar!/org/jdesktop/swingx/autocomplete/AutoComplete.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"27NlsooHPe5wnjU8OeLgS7EM4sU\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/darkm_000/Desktop/Portfolio/java/capstone/src/main/java/retail/controller/tab/transaction/add&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateClassDialog.RecentsKey\">\r\n      <recent name=\"retail.shared.custom.jlist\" />\r\n      <recent name=\"retail.controller\" />\r\n      <recent name=\"retail.model.service.\" />\r\n    </key>\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\java\\capstone\\src\\main\\java\\retail\\controller\\tab\\transaction\\add\" />\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\MVC\\src\\main\\java\\retail\" />\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\MVC\\src\\main\\java\\retail\\model\\CustomJTable\" />\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\MVC\\src\\main\\resources\" />\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\MVC\\src\\main\\java\\retail\\controller\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"retail.shared.eventlistener.mouse.transaction\" />\r\n      <recent name=\"retail.service.transaction\" />\r\n      <recent name=\"retail.constant\" />\r\n      <recent name=\"retail\" />\r\n      <recent name=\"retail.model\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"RetailApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"ALTERNATIVE_JRE_PATH\" value=\"$USER_HOME$/.jdks/openjdk-18\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"true\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"retail.RetailApplication\" />\r\n      <module name=\"capstone\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"retail.constant.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.RetailApplication\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"abcf531d-c7ff-42a3-9a59-20457f5d9665\" name=\"Changes\" comment=\"\" />\r\n      <created>1649168636143</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1649168636143</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Initial Commit: Applied MVC Architecture\">\r\n      <created>1649217928710</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649217928710</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Initial Commit: Applied MVC Architecture\">\r\n      <created>1649217947135</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649217947136</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Initial Commit: Applied MVC Architecture\">\r\n      <created>1649238414240</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649238414240</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"sales add done\">\r\n      <created>1649456677358</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649456677358</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"sales add done\">\r\n      <created>1649462210942</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649462210942</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"sales delete ongoing update\">\r\n      <created>1649565702884</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649565702884</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"new inventory tab\">\r\n      <created>1649715351753</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649715351753</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"new inventory tab\">\r\n      <created>1649716305168</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649716305168</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"new inventory tab\">\r\n      <created>1649716317086</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649716317086</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"new inventory tab\">\r\n      <created>1649889473830</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649889473830</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"add ReturnedTransaction - need to fix\">\r\n      <created>1651806985739</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651806985740</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"add ReturnedTransaction - need to fix\">\r\n      <created>1651807746982</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651807746982</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"update ReturnedTransaction\">\r\n      <created>1652417139768</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652417139768</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"update ReturnedTransaction; need to fix\">\r\n      <created>1653458774637</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1653458774637</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"updating ReturnedTransaction; need report to reflect in null inventory\">\r\n      <created>1653703468439</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1653703468439</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"refactoring add and returned controller\">\r\n      <created>1653719480857</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1653719480857</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java\">\r\n      <created>1654043542650</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1654043542650</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"18\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Initial Commit\" />\r\n    <MESSAGE value=\"Initial Commit: Applied MVC Architecture\" />\r\n    <MESSAGE value=\"sales add done\" />\r\n    <MESSAGE value=\"sales delete update\" />\r\n    <MESSAGE value=\"sales delete ongoing update\" />\r\n    <MESSAGE value=\"new inventory tab\" />\r\n    <MESSAGE value=\"add ReturnedTransaction\" />\r\n    <MESSAGE value=\"add ReturnedTransaction - need to fix\" />\r\n    <MESSAGE value=\"update ReturnedTransaction\" />\r\n    <MESSAGE value=\"update ReturnedTransaction; need to fix\" />\r\n    <MESSAGE value=\"updating ReturnedTransaction; need report to reflect in null inventory\" />\r\n    <MESSAGE value=\"refactoring add and returned controller\" />\r\n    <MESSAGE value=\"refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <breakpoint enabled=\"true\" type=\"java-exception\">\r\n          <properties class=\"java.lang.ArrayIndexOutOfBoundsException\" package=\"java.lang\" />\r\n          <option name=\"timeStamp\" value=\"2\" />\r\n        </breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 99812bd13ef3f6f67971d4e35cf503428f82ddd2)
+-+++ b/.idea/workspace.xml	(date 1656420902336)
+-@@ -4,124 +4,23 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java">
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/login/LogInController.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/TransactionController.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/add/AddTransactionController.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/facade/MainFacade.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/facade/login/LogInFacade.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/facade/transaction/TransactionFacade.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/facade/transaction/add/AddTransactionFacade.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/facade/transaction/add/ReturnTransactionFacade.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/User.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/ProductRepository.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/TransactionRepository.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/UserRepository.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/service/Calculate.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/service/ReportCreator.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/service/TableUtil.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/service/login/UserService.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/service/transaction/AddTransactionService.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/model/service/transaction/ReturnTransactionService.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jlist/ListHLC.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/other/TransactionTableHLC.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/entity/DeliveryDetail.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/entity/DeliveryItemDetail.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/entity/Merchandise.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/entity/TransactionDetail.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/entity/TransactionItemDetail.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/AddAction.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/ClearAction.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/DeleteAction.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/GenerateAction.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/add/SaveAction.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/returned/AddAction.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/returned/DeleteAction.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/document/transaction/DiscountAmountDocument.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/document/transaction/DiscountPercentageDocument.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/document/transaction/SearchDocument.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/document/transaction/SoldDocument.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/mouse/transaction/BotTableMouse.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/mouse/transaction/ListMouse.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/mouse/transaction/TopTableMouse.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/tablemodel/BotTableModel.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/CreateTransactionTable.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+-+    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="implement MVC: Model - facade - service - repository">
+-+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/returned/AddAllAction.java" afterDir="false" />
+-+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/action/transaction/returned/DeleteAllAction.java" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/src/main/java/retail/RetailApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/RetailApplication.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/MainController.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/logic/ITransactionAdd.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/InventoryController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/add/AddInventoryController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/product/ProductController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/inventory/view/ViewController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/login/LogInController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/northbutton/NorthButtonController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/TransactionController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/add/ReturnedController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/tab/transaction/view/ViewController.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/viewcontroller/TransactionAdd.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/dao/AddTransactionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/TransactionReport.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/Product.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/dao/ReturnedTransactionDAO.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/dao/UserDAO.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/getter/transaction/add/AddTransaction.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/getter/transaction/add/ReturnTransaction.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/User.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/constant/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/constant/Constant.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/constant/ConstantDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/constant/ConstantDialog.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/CustomJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/CustomJButton.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/CustomJDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/CustomJDialog.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jcombobox/JComboBoxProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jcombobox/JComboBoxProduct.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jlist/CustomJList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jlist/CustomJList.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/JTableInventory.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/JTableProduct.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/JTableTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/JTableTransaction.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/other/TableButtonRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/other/TableButtonRenderer.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtable/other/TableJComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/other/TableJComboBox.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/customcomponent/jtextfield/CustomJTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtextfield/CustomJTextField.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/Product.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/ProductReport.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/ProductReportItem.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/ReturnTransactionReport.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/ReturnedReport.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/TransactionReport.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/pojo/TransactionReportItem.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/AutoSetPrice.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/CalculateDiscount.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/CalculateSold.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/calculate/ValidNumberChecker.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/CreateEmployeeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/CreateUserTable.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/CreateProductTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/CreateProductTable.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/CreateTransactionTable.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/tablecreator/TableCreatorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/tablecreator/TableCreatorImpl.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/util/update/JComboBoxUpdate.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/login/LogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/login/LogIn.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomMainCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomMainCard.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomManipulatorCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomManipulatorCard.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/AddInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/AddInventory.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/Product.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/center/View.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/Product.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/View.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/add/AddInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/inventory/manipulator/panel/add/AddInventory.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddCard.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/AddTransactionCenter.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/ReturnedTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/add/ReturnedTransactionCenter.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/center/view/View.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/AddViewPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/AddViewPanel.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/Add.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddCard.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/AddTransactionManipulator.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/ReturnedTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/add/ReturnedTransactionManipulator.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/panel/view/View.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/NorthButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/NorthPanel.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/TopBorderPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/TopBorderPanel.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/UserPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/UserPanel.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/tablemodel/BotTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/eventlistener/tablemodel/BotTableModel.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/retail/RetailApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/RetailApplication.class" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/retail/controller/transaction/add/ReturnTransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/controller/transaction/add/ReturnTransactionController.class" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/constant/Constant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/constant/Constant.class" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/constant/ConstantDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/constant/ConstantDialog.class" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/custom/jtable/JTableInventory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/custom/jtable/JTableInventory.class" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/eventlistener/document/transaction/SearchDocument.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/eventlistener/document/transaction/SearchDocument.class" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/eventlistener/tablemodel/BotTableModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/eventlistener/tablemodel/BotTableModel.class" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/retail/view/login/LogIn.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/view/login/LogIn.class" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/retail/view/main/tab/bot/transaction/center/view/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/view/main/tab/bot/transaction/center/view/View.class" afterDir="false" />
+-     </list>
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-@@ -169,7 +68,7 @@
+-     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+-     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+-     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+--    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+-+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
+-   }
+- }</component>
+-   <component name="RecentsManager">
+-@@ -346,7 +245,21 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1654043542650</updated>
+-     </task>
+--    <option name="localTasksCounter" value="18" />
+-+    <task id="LOCAL-00018" summary="implement MVC: Model - facade - service - repository">
+-+      <created>1654858818874</created>
+-+      <option name="number" value="00018" />
+-+      <option name="presentableId" value="LOCAL-00018" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1654858818874</updated>
+-+    </task>
+-+    <task id="LOCAL-00019" summary="implement MVC: Model - facade - service - repository">
+-+      <created>1654858839937</created>
+-+      <option name="number" value="00019" />
+-+      <option name="presentableId" value="LOCAL-00019" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1654858839937</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="20" />
+-     <servers />
+-   </component>
+-   <component name="Vcs.Log.Tabs.Properties">
+-@@ -375,7 +288,8 @@
+-     <MESSAGE value="updating ReturnedTransaction; need report to reflect in null inventory" />
+-     <MESSAGE value="refactoring add and returned controller" />
+-     <MESSAGE value="refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java" />
+--    <option name="LAST_COMMIT_MESSAGE" value="refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java" />
+-+    <MESSAGE value="implement MVC: Model - facade - service - repository" />
+-+    <option name="LAST_COMMIT_MESSAGE" value="implement MVC: Model - facade - service - repository" />
+-   </component>
+-   <component name="XDebuggerManager">
+-     <breakpoint-manager>
+-Index: src/main/java/retail/controller/transaction/add/ReturnTransactionController.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package retail.controller.transaction.add;\r\n\r\nimport org.jetbrains.annotations.NotNull;\r\nimport retail.model.facade.transaction.add.ReturnTransactionFacade;\r\nimport retail.shared.custom.CustomJDialog;\r\nimport retail.shared.eventlistener.action.transaction.returned.AddAction;\r\nimport retail.shared.eventlistener.action.transaction.returned.DeleteAction;\r\nimport retail.shared.eventlistener.document.transaction.SearchDocument;\r\nimport retail.shared.eventlistener.mouse.transaction.BotTableMouse;\r\nimport retail.shared.eventlistener.mouse.transaction.ListMouse;\r\nimport retail.shared.eventlistener.mouse.transaction.TopTableMouse;\r\nimport retail.shared.eventlistener.tablemodel.BotTableModel;\r\nimport retail.view.main.tab.bot.transaction.center.add.ReturnedTransactionCenter;\r\nimport retail.view.main.tab.bot.transaction.manipulator.panel.add.ReturnedTransactionManipulator;\r\nimport retail.view.main.tab.top.UserPanel;\r\n\r\nimport java.util.concurrent.Executors;\r\nimport java.util.concurrent.ScheduledExecutorService;\r\nimport java.util.concurrent.TimeUnit;\r\n\r\npublic class ReturnTransactionController {\r\n    private final ReturnTransactionFacade facade;\r\n    private final ReturnedTransactionManipulator manipulator;\r\n    private final ReturnedTransactionCenter center;\r\n    private final UserPanel userPanel;\r\n    private final CustomJDialog returnDialog;\r\n\r\n    public ReturnTransactionController(UserPanel userPanel,\r\n                                       @NotNull ReturnedTransactionManipulator manipulator,\r\n                                       @NotNull ReturnedTransactionCenter center,\r\n                                       CustomJDialog returnDialog,\r\n                                       ReturnTransactionFacade facade) {\r\n        this.facade = facade;\r\n        this.center = center;\r\n        this.manipulator = manipulator;\r\n        this.userPanel = userPanel;\r\n        this.returnDialog = returnDialog;\r\n\r\n        autoUpdateList();\r\n\r\n        // ADD ALL - DELETE ALL - RETURN DIALOG - SAVE\r\n        center.getTopTable().addMouseListener(new TopTableMouse(center,facade,returnDialog));\r\n        center.getBotTable().addMouseListener(new BotTableMouse(manipulator,center,facade));\r\n        center.getBotTable().getModel().addTableModelListener(new BotTableModel(center,facade));\r\n        manipulator.getList().addMouseListener(new ListMouse(manipulator,center,facade));\r\n        manipulator.getAdd().addActionListener(new AddAction(center,facade,returnDialog));\r\n        manipulator.getDelete().addActionListener(new DeleteAction(manipulator,center,facade));\r\n        manipulator.getSearch().getDocument().addDocumentListener(new SearchDocument(manipulator,facade));\r\n    }\r\n\r\n    private void autoUpdateList() {\r\n        Runnable runnable = () -> {\r\n            if(!manipulator.getSearch().getText().equals(\"\")) return;\r\n            if(manipulator.getList().isNotSameTransactionList(facade.getAllValidReport())) {\r\n                manipulator.getList().populateTransactionList(facade.getAllValidReport());\r\n            }\r\n        };\r\n        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);\r\n        service.scheduleAtFixedRate(runnable, 1, 1, TimeUnit.SECONDS);\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java b/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java
+---- a/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java	(revision 99812bd13ef3f6f67971d4e35cf503428f82ddd2)
+-+++ b/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java	(date 1654868703650)
+-@@ -4,7 +4,9 @@
+- import retail.model.facade.transaction.add.ReturnTransactionFacade;
+- import retail.shared.custom.CustomJDialog;
+- import retail.shared.eventlistener.action.transaction.returned.AddAction;
+-+import retail.shared.eventlistener.action.transaction.returned.AddAllAction;
+- import retail.shared.eventlistener.action.transaction.returned.DeleteAction;
+-+import retail.shared.eventlistener.action.transaction.returned.DeleteAllAction;
+- import retail.shared.eventlistener.document.transaction.SearchDocument;
+- import retail.shared.eventlistener.mouse.transaction.BotTableMouse;
+- import retail.shared.eventlistener.mouse.transaction.ListMouse;
+-@@ -38,13 +40,15 @@
+- 
+-         autoUpdateList();
+- 
+--        // ADD ALL - DELETE ALL - RETURN DIALOG - SAVE
+-+        // RETURN DIALOG - SAVE
+-         center.getTopTable().addMouseListener(new TopTableMouse(center,facade,returnDialog));
+-         center.getBotTable().addMouseListener(new BotTableMouse(manipulator,center,facade));
+-         center.getBotTable().getModel().addTableModelListener(new BotTableModel(center,facade));
+-         manipulator.getList().addMouseListener(new ListMouse(manipulator,center,facade));
+-         manipulator.getAdd().addActionListener(new AddAction(center,facade,returnDialog));
+-+        manipulator.getAddAll().addActionListener(new AddAllAction(center,facade));
+-         manipulator.getDelete().addActionListener(new DeleteAction(manipulator,center,facade));
+-+        manipulator.getDeleteAll().addActionListener(new DeleteAllAction(manipulator,center,facade));
+-         manipulator.getSearch().getDocument().addDocumentListener(new SearchDocument(manipulator,facade));
+-     }
+- 
+-Index: src/main/java/retail/shared/eventlistener/action/transaction/returned/DeleteAllAction.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/retail/shared/eventlistener/action/transaction/returned/DeleteAllAction.java b/src/main/java/retail/shared/eventlistener/action/transaction/returned/DeleteAllAction.java
+-new file mode 100644
+---- /dev/null	(date 1654868806235)
+-+++ b/src/main/java/retail/shared/eventlistener/action/transaction/returned/DeleteAllAction.java	(date 1654868806235)
+-@@ -0,0 +1,38 @@
+-+package retail.shared.eventlistener.action.transaction.returned;
+-+
+-+import retail.model.facade.transaction.add.ReturnTransactionFacade;
+-+import retail.shared.entity.TransactionItemDetail;
+-+import retail.view.main.tab.bot.transaction.center.add.ReturnedTransactionCenter;
+-+import retail.view.main.tab.bot.transaction.manipulator.panel.add.ReturnedTransactionManipulator;
+-+
+-+import javax.swing.table.DefaultTableModel;
+-+import java.awt.event.ActionEvent;
+-+import java.awt.event.ActionListener;
+-+
+-+import static retail.shared.constant.ConstantDialog.DELETE_ALL;
+-+
+-+public class DeleteAllAction implements ActionListener {
+-+    private final ReturnedTransactionCenter center;
+-+    private final ReturnTransactionFacade facade;
+-+    private final ReturnedTransactionManipulator manipulator;
+-+
+-+    public DeleteAllAction(ReturnedTransactionManipulator manipulator,
+-+                           ReturnedTransactionCenter center,
+-+                           ReturnTransactionFacade facade) {
+-+        this.manipulator = manipulator;
+-+        this.center = center;
+-+        this.facade = facade;
+-+    }
+-+
+-+    @Override
+-+    public void actionPerformed(ActionEvent e) {
+-+        if(DELETE_ALL() != 0) return;
+-+        String id = facade.reverseConvertId(manipulator.getNewReportId().getText());
+-+        ((DefaultTableModel)center.getBotTable().getModel()).setRowCount(0);
+-+        ((DefaultTableModel)center.getTopTable().getModel()).setRowCount(0);
+-+        for(TransactionItemDetail item : facade.getAllReportItem(id)) {
+-+            center.getTopTable().addReportItem(item, "");
+-+        }
+-+        facade.fixNumberColumn(center.getTopTable());
+-+    }
+-+}
+-Index: src/main/java/retail/shared/eventlistener/action/transaction/returned/AddAllAction.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/retail/shared/eventlistener/action/transaction/returned/AddAllAction.java b/src/main/java/retail/shared/eventlistener/action/transaction/returned/AddAllAction.java
+-new file mode 100644
+---- /dev/null	(date 1654868806220)
+-+++ b/src/main/java/retail/shared/eventlistener/action/transaction/returned/AddAllAction.java	(date 1654868806220)
+-@@ -0,0 +1,34 @@
+-+package retail.shared.eventlistener.action.transaction.returned;
+-+
+-+import retail.model.facade.transaction.add.ReturnTransactionFacade;
+-+import retail.shared.entity.TransactionItemDetail;
+-+import retail.view.main.tab.bot.transaction.center.add.ReturnedTransactionCenter;
+-+
+-+import java.awt.event.ActionEvent;
+-+import java.awt.event.ActionListener;
+-+import java.util.ArrayList;
+-+
+-+import static retail.shared.constant.ConstantDialog.ADD_ALL;
+-+
+-+public class AddAllAction implements ActionListener {
+-+    private final ReturnedTransactionCenter center;
+-+    private final ReturnTransactionFacade facade;
+-+
+-+    public AddAllAction(ReturnedTransactionCenter center,
+-+                     ReturnTransactionFacade facade) {
+-+        this.center = center;
+-+        this.facade = facade;
+-+    }
+-+
+-+    @Override
+-+    public void actionPerformed(ActionEvent e) {
+-+        if(ADD_ALL() != 0) return;
+-+        ArrayList<TransactionItemDetail> itemList = facade.getRowDataByNoneReason(center.getTopTable());
+-+        for(TransactionItemDetail item : itemList) {
+-+            center.getBotTable().addReportItem(item, "0");
+-+        }
+-+        facade.removeRowWithReason(center.getTopTable());
+-+        facade.fixNumberColumn(center.getBotTable());
+-+        facade.fixNumberColumn(center.getTopTable());
+-+    }
+-+}
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM__Changes_.xml	(revision efa45b38caee8527cab54d6d7d9eb469413471b8)
++++ /dev/null	(revision efa45b38caee8527cab54d6d7d9eb469413471b8)
+@@ -1,49 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]" date="1656421010392" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 6/28/2022 8:56 PM [Changes]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/retail/view/login/LogIn.class" />
+-    <option name="AFTER_PATH" value="target/classes/retail/view/login/LogIn.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/LogIn.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/retail/view/main/tab/bot/transaction/center/view/View.class" />
+-    <option name="AFTER_PATH" value="target/classes/retail/view/main/tab/bot/transaction/center/view/View.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/View.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/retail/shared/constant/Constant.class" />
+-    <option name="AFTER_PATH" value="target/classes/retail/shared/constant/Constant.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/Constant.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/retail/shared/custom/jtable/JTableInventory.class" />
+-    <option name="AFTER_PATH" value="target/classes/retail/shared/custom/jtable/JTableInventory.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/JTableInventory.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/retail/shared/eventlistener/document/transaction/SearchDocument.class" />
+-    <option name="AFTER_PATH" value="target/classes/retail/shared/eventlistener/document/transaction/SearchDocument.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/SearchDocument.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/retail/shared/constant/ConstantDialog.class" />
+-    <option name="AFTER_PATH" value="target/classes/retail/shared/constant/ConstantDialog.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/ConstantDialog.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/retail/controller/transaction/add/ReturnTransactionController.class" />
+-    <option name="AFTER_PATH" value="target/classes/retail/controller/transaction/add/ReturnTransactionController.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/ReturnTransactionController.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/retail/RetailApplication.class" />
+-    <option name="AFTER_PATH" value="target/classes/retail/RetailApplication.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/RetailApplication.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/retail/shared/eventlistener/tablemodel/BotTableModel.class" />
+-    <option name="AFTER_PATH" value="target/classes/retail/shared/eventlistener/tablemodel/BotTableModel.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/BotTableModel.class" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"abcf531d-c7ff-42a3-9a59-20457f5d9665\" name=\"Changes\" comment=\"created view panel\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"package-info\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"27NlsooHPe5wnjU8OeLgS7EM4sU\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_ADD_EXTERNAL_FILES\": \"true\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/darkm_000/Desktop/Portfolio/java/capstone/src/main/java/retail/controller/tab/transaction/add\",\r\n    \"project.structure.last.edited\": \"Project\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"inlay.hints\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateClassDialog.RecentsKey\">\r\n      <recent name=\"retail.shared.custom.jlist\" />\r\n      <recent name=\"retail.controller\" />\r\n      <recent name=\"retail.model.service.\" />\r\n    </key>\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\java\\capstone\\src\\main\\java\\retail\\controller\\tab\\transaction\\add\" />\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\MVC\\src\\main\\java\\retail\" />\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\MVC\\src\\main\\java\\retail\\model\\CustomJTable\" />\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\MVC\\src\\main\\resources\" />\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\\MVC\\src\\main\\java\\retail\\controller\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\darkm_000\\Desktop\\Portfolio\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"retail.shared.eventlistener.mouse.transaction\" />\r\n      <recent name=\"retail.service.transaction\" />\r\n      <recent name=\"retail.constant\" />\r\n      <recent name=\"retail\" />\r\n      <recent name=\"retail.model\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"retail.RetailApplication\" type=\"Application\" factoryName=\"Application\" nameIsGenerated=\"true\">\r\n      <option name=\"ALTERNATIVE_JRE_PATH\" value=\"$USER_HOME$/.jdks/openjdk-18.0.1.1\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"true\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"retail.RetailApplication\" />\r\n      <module name=\"MVC\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"retail.constant.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"abcf531d-c7ff-42a3-9a59-20457f5d9665\" name=\"Changes\" comment=\"\" />\r\n      <created>1649168636143</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1649168636143</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Initial Commit: Applied MVC Architecture\">\r\n      <created>1649217928710</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649217928710</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Initial Commit: Applied MVC Architecture\">\r\n      <created>1649217947135</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649217947136</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Initial Commit: Applied MVC Architecture\">\r\n      <created>1649238414240</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649238414240</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"sales add done\">\r\n      <created>1649456677358</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649456677358</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"sales add done\">\r\n      <created>1649462210942</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649462210942</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"sales delete ongoing update\">\r\n      <created>1649565702884</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649565702884</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"new inventory tab\">\r\n      <created>1649715351753</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649715351753</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"new inventory tab\">\r\n      <created>1649716305168</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649716305168</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"new inventory tab\">\r\n      <created>1649716317086</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649716317086</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"new inventory tab\">\r\n      <created>1649889473830</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1649889473830</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"add ReturnedTransaction - need to fix\">\r\n      <created>1651806985739</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651806985740</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"add ReturnedTransaction - need to fix\">\r\n      <created>1651807746982</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651807746982</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"update ReturnedTransaction\">\r\n      <created>1652417139768</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652417139768</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"update ReturnedTransaction; need to fix\">\r\n      <created>1653458774637</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1653458774637</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"updating ReturnedTransaction; need report to reflect in null inventory\">\r\n      <created>1653703468439</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1653703468439</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"refactoring add and returned controller\">\r\n      <created>1653719480857</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1653719480857</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java\">\r\n      <created>1654043542650</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1654043542650</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\"created view panel\">\r\n      <created>1656914514338</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1656914514339</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\"created view panel\">\r\n      <created>1656914549122</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1656914549122</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"20\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Initial Commit\" />\r\n    <MESSAGE value=\"Initial Commit: Applied MVC Architecture\" />\r\n    <MESSAGE value=\"sales add done\" />\r\n    <MESSAGE value=\"sales delete update\" />\r\n    <MESSAGE value=\"sales delete ongoing update\" />\r\n    <MESSAGE value=\"new inventory tab\" />\r\n    <MESSAGE value=\"add ReturnedTransaction\" />\r\n    <MESSAGE value=\"add ReturnedTransaction - need to fix\" />\r\n    <MESSAGE value=\"update ReturnedTransaction\" />\r\n    <MESSAGE value=\"update ReturnedTransaction; need to fix\" />\r\n    <MESSAGE value=\"updating ReturnedTransaction; need report to reflect in null inventory\" />\r\n    <MESSAGE value=\"refactoring add and returned controller\" />\r\n    <MESSAGE value=\"refactored AddController; split it to TransactionAdd.java and ITransactionAdd.java\" />\r\n    <MESSAGE value=\"created view panel\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"created view panel\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <breakpoint enabled=\"true\" type=\"java-exception\">\r\n          <properties class=\"java.lang.ArrayIndexOutOfBoundsException\" package=\"java.lang\" />\r\n          <option name=\"timeStamp\" value=\"2\" />\r\n        </breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision efa45b38caee8527cab54d6d7d9eb469413471b8)
++++ b/.idea/workspace.xml	(date 1657075158622)
+@@ -4,7 +4,20 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="created view panel" />
++    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="created view panel">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/BotTableModel.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/Constant.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/ConstantDialog.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/JTableInventory.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/LogIn.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/RetailApplication.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/ReturnTransactionController.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/SearchDocument.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/View.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_28_2022_8_56_PM__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -37,19 +50,19 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ASKED_ADD_EXTERNAL_FILES": "true",
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "last_opened_file_path": "C:/Users/darkm_000/Desktop/Portfolio/java/capstone/src/main/java/retail/controller/tab/transaction/add",
+-    "project.structure.last.edited": "Project",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "inlay.hints"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/darkm_000/Desktop/Portfolio/java/capstone/src/main/java/retail/controller/tab/transaction/add&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CreateClassDialog.RecentsKey">
+       <recent name="retail.shared.custom.jlist" />
+@@ -233,7 +246,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1656914549122</updated>
+     </task>
+-    <option name="localTasksCounter" value="20" />
++    <task id="LOCAL-00020" summary="created view panel">
++      <created>1656914574181</created>
++      <option name="number" value="00020" />
++      <option name="presentableId" value="LOCAL-00020" />
++      <option name="project" value="LOCAL" />
++      <updated>1656914574181</updated>
++    </task>
++    <option name="localTasksCounter" value="21" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
