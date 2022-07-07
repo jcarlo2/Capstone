@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class DeliverItem {
+public class DeliveryAdd {
     private String productId;
     private String price;
     private String quantityPerPieces;

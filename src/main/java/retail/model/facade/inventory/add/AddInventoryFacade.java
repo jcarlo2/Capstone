@@ -6,7 +6,7 @@ import retail.model.service.Creator;
 import retail.model.service.inventory.add.AddInventoryService;
 import retail.model.service.inventory.product.ProductViewService;
 import retail.shared.entity.*;
-import retail.shared.pojo.DeliverItem;
+import retail.shared.pojo.DeliveryAdd;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class AddInventoryFacade {
         return service.generateId(check);
     }
 
-    public DeliverItem createItemDetail(String @NotNull [] data) {
+    public DeliveryAdd createItemDetail(String @NotNull [] data) {
         String oldStock = productService.findQuantityById(data[0]);
         return creator.createItemDetail(data,oldStock);
     }

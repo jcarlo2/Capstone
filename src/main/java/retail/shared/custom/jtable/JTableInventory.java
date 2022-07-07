@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import retail.shared.custom.jtable.other.TableAbstract;
 import retail.shared.pojo.InventoryItem;
-import retail.shared.pojo.DeliverItem;
+import retail.shared.pojo.DeliveryAdd;
 
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class JTableInventory extends TableAbstract {
         }
     }
 
-    public void addItem(@NotNull DeliverItem item) {
+    public void addItem(@NotNull DeliveryAdd item) {
         if(isDuplicate(item.getProductId())) {
             String[] data = new String[8];
             data[0] = "";

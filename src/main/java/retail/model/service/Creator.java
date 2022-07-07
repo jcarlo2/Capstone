@@ -3,7 +3,7 @@ package retail.model.service;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import retail.shared.entity.*;
-import retail.shared.pojo.DeliverItem;
+import retail.shared.pojo.DeliveryAdd;
 import retail.shared.pojo.ProductDisplay;
 import retail.shared.pojo.ProductReturnedDetail;
 
@@ -69,8 +69,8 @@ public final class Creator {
     }
 
     @Contract("_, _ -> new")
-    public @NotNull DeliverItem createItemDetail(String @NotNull [] data, String oldStock) {
-        return new DeliverItem(data[0],data[1],data[2],data[3],data[4],oldStock);
+    public @NotNull DeliveryAdd createItemDetail(String @NotNull [] data, String oldStock) {
+        return new DeliveryAdd(data[0],data[1],data[2],data[3],data[4],oldStock);
     }
 
     public @NotNull ArrayList<DeliveryItemDetail> convertAllToDeliveryItem(String @NotNull[] @NotNull[] dataList) {

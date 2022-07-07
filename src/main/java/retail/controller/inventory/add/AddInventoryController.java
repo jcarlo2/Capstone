@@ -3,7 +3,7 @@ package retail.controller.inventory.add;
 import org.jetbrains.annotations.NotNull;
 import retail.model.facade.inventory.add.AddInventoryFacade;
 import retail.view.main.tab.bot.inventory.center.add.AddInventoryCenter;
-import retail.shared.pojo.DeliverItem;
+import retail.shared.pojo.DeliveryAdd;
 import retail.view.main.tab.bot.inventory.manipulator.add.AddManipulator;
 import retail.view.main.tab.top.User;
 
@@ -48,7 +48,7 @@ public class AddInventoryController {
 
     private void addEvent() {
         manipulator.getAdd().addActionListener(e -> {
-            DeliverItem item = facade.createItemDetail(manipulator.getData());
+            DeliveryAdd item = facade.createItemDetail(manipulator.getData());
             if(facade.isValidNumber(item.getQuantityPerBox())) {
                 center.getTable().addItem(item);
             }
@@ -64,9 +64,9 @@ public class AddInventoryController {
             }
             String[][] dataList = center.getTable().tableGrabber();
             String[] data = {manipulator.getReportId().getText(),user.getLastName().getText(),"",""};
-
             if(check) facade.saveDelivery(dataList,data);
             else facade.saveNull(dataList,data);
+
             ((DefaultTableModel)center.getTable().getModel()).setRowCount(0);
             manipulator.clear();
             SAVED_REPORT();
@@ -145,13 +145,9 @@ public class AddInventoryController {
         Runnable runnable = () -> {
             if(manipulator.getProductId().getSelectedItem() == null) return;
             String id = manipulator.getProductId().getSelectedItem().toString();
-            String price = new BigDecimal(facade.findPriceById(id)).setScale(2, RoundingMode.HALF_EVEN).toString();
             String pieces = new BigDecimal(facade.findBoxPiecesById(id)).setScale(2, RoundingMode.HALF_EVEN).toString();
-            if(!manipulator.getPrice().getText().equals(price)) {
-                SwingUtilities.invokeLater(() -> {
-                    manipulator.getPrice().setText(price);
-                    manipulator.getPiecesPerBox().setText(pieces);
-                });
+            if(!manipulator.getPiecesPerBox().getText().equals(pieces)) {
+                SwingUtilities.invokeLater(() -> manipulator.getPiecesPerBox().setText(pieces));
             }
         };
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
