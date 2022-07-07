@@ -6,10 +6,16 @@ import retail.model.repository.implementation.TransactionReport;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static retail.shared.constant.Constant.*;
+import static retail.shared.constant.Constant.PASS;
+import static retail.shared.constant.Constant.URL;
+import static retail.shared.constant.Constant.USER;
 
 public class TransactionRepository implements TransactionReport {
 

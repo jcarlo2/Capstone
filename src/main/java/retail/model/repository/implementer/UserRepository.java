@@ -7,7 +7,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static retail.shared.constant.Constant.*;
+import static retail.shared.constant.Constant.PASS;
+import static retail.shared.constant.Constant.URL;
+import static retail.shared.constant.Constant.USER;
 
 public class UserRepository implements User {
 

@@ -1,7 +1,7 @@
 package retail.view.main.tab.bot.inventory.center;
 
 import lombok.Getter;
-import retail.view.main.tab.bot.inventory.center.add.AddInventoryCenter;
+import retail.view.main.tab.bot.inventory.center.add.AddCenterCard;
 import retail.view.main.tab.bot.inventory.center.product.ProductCenter;
 import retail.view.main.tab.bot.inventory.center.view.InventoryViewCenter;
 
@@ -11,7 +11,7 @@ import java.awt.*;
 @Getter
 public class InventoryMain extends JPanel {
     private final CardLayout cardLayout = new CardLayout();
-    private final AddInventoryCenter add = new AddInventoryCenter();
+    private final AddCenterCard add = new AddCenterCard();
     private final InventoryViewCenter view = new InventoryViewCenter();
     private final ProductCenter product = new ProductCenter();
 

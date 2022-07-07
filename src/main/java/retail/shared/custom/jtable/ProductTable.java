@@ -7,8 +7,8 @@ import retail.shared.entity.Merchandise;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
-public class JTableProduct extends TableAbstract {
-    public JTableProduct(DefaultTableModel model) {
+public class ProductTable extends TableAbstract {
+    public ProductTable(DefaultTableModel model) {
         super(model,new String[]{"No.","ID","Description","Price","Quantity By Pieces","Pieces Per Box","Quantity By Box"});
         setModel(model);
     }

@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import static retail.shared.constant.Constant.*;
+import static retail.shared.constant.Constant.PASS;
+import static retail.shared.constant.Constant.URL;
+import static retail.shared.constant.Constant.USER;
 
 public class NullProductRepository implements NullProduct {
     @Override

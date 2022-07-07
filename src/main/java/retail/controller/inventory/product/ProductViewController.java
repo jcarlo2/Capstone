@@ -20,7 +20,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static retail.shared.constant.ConstantDialog.*;
+import static retail.shared.constant.ConstantDialog.ADD_PRODUCT;
+import static retail.shared.constant.ConstantDialog.DELETE;
+import static retail.shared.constant.ConstantDialog.ID_DOES_NOT_EXIST;
+import static retail.shared.constant.ConstantDialog.PRODUCT_UPDATE_SUCCESS;
 
 public class ProductViewController {
     private final ProductCenter center;

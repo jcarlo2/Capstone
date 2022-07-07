@@ -42,10 +42,13 @@ public interface CreateProductTable {
 
     default void createProductReportItem() {
         String query = "CREATE TABLE IF NOT EXISTS product_item(" +
-                "no INT PRIMARY KEY AUTO_INCREMENT, prod_id VARCHAR(255) NOT NULL ," +
+                "no INT PRIMARY KEY AUTO_INCREMENT, " +
+                "prod_id VARCHAR(255) NOT NULL ," +
                 "quantity_pieces DECIMAL(30,2) NOT NULL," + // int
                 "quantity_box DECIMAL(30,2) NOT NULL," +
-                "pieces_per_box DECIMAL(30,2) NOT NULL," + // int
+                "total_price DECIMAL(30,2) NOT NULL," +
+                "discount DECIMAL(30,2) NOT NULL," +
+                "total_amount DECIMAL(30,2) NOT NULL," + // int
                 "unique_id VARCHAR(255) NOT NULL)";
         try{
             Connection connection = DriverManager.getConnection(URL,USER,PASS);

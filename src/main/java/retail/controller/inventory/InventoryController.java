@@ -1,15 +1,11 @@
 package retail.controller.inventory;
 
 import org.jetbrains.annotations.NotNull;
-import retail.controller.inventory.add.AddInventoryController;
 import retail.controller.inventory.product.ProductViewController;
-import retail.controller.inventory.view.ViewInventoryController;
 import retail.model.facade.MainFacade;
 import retail.view.BuildGUI;
 import retail.view.main.tab.bot.inventory.center.InventoryMain;
 import retail.view.main.tab.bot.inventory.manipulator.InventoryManipulator;
-
-import javax.swing.table.DefaultTableModel;
 
 public class InventoryController {
     private final InventoryManipulator manipulator;
@@ -24,16 +20,7 @@ public class InventoryController {
                 buildGUI.getBottomPanel().getInventoryManipulator().getProductManipulator(),
                 mainFacade.getInventoryFacade().getProductFacade());
 
-        new AddInventoryController(
-                buildGUI.getBottomPanel().getInventoryMain().getAdd(),
-                buildGUI.getBottomPanel().getInventoryManipulator().getAddManipulator(),
-                mainFacade.getInventoryFacade().getAddInventoryFacade(),
-                buildGUI.getTopBorderPanel().getUser());
 
-        new ViewInventoryController(
-                buildGUI.getBottomPanel().getInventoryMain().getView(),
-                buildGUI.getBottomPanel().getInventoryManipulator().getViewManipulator(),
-                mainFacade.getInventoryFacade().getViewInventoryFacade());
         add();
         view();
         product();
@@ -75,18 +62,22 @@ public class InventoryController {
     }
 
     public void addReport() {
-        manipulator.getAddManipulator().getAddProduct().addActionListener(e -> {
-            manipulator.getAddManipulator().getAddProduct().setEnabled(false);
-            manipulator.getAddManipulator().getNullProduct().setEnabled(true);
-            ((DefaultTableModel)main.getAdd().getTable().getModel()).setRowCount(0);
+        manipulator.getAddManipulatorCard().getAddProduct().addActionListener(e -> {
+            manipulator.getAddManipulatorCard().getAddProduct().setEnabled(false);
+            manipulator.getAddManipulatorCard().getNullProduct().setEnabled(true);
+
+            manipulator.getAddManipulatorCard().getCard().show(manipulator.getAddManipulatorCard().getWrapper1(), "add");
+            main.getAdd().getCard().show(main.getAdd(),"add");
         });
     }
 
     public void nullReport() {
-        manipulator.getAddManipulator().getNullProduct().addActionListener(e -> {
-            manipulator.getAddManipulator().getAddProduct().setEnabled(true);
-            manipulator.getAddManipulator().getNullProduct().setEnabled(false);
-            ((DefaultTableModel)main.getAdd().getTable().getModel()).setRowCount(0);
+        manipulator.getAddManipulatorCard().getNullProduct().addActionListener(e -> {
+            manipulator.getAddManipulatorCard().getAddProduct().setEnabled(true);
+            manipulator.getAddManipulatorCard().getNullProduct().setEnabled(false);
+
+            manipulator.getAddManipulatorCard().getCard().show(manipulator.getAddManipulatorCard().getWrapper1(), "null");
+            main.getAdd().getCard().show(main.getAdd(),"null");
         });
     }
 }

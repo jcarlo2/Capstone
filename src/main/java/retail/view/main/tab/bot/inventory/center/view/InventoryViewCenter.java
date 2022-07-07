@@ -2,7 +2,7 @@ package retail.view.main.tab.bot.inventory.center.view;
 
 import lombok.Getter;
 import retail.shared.custom.jspinner.JSpinnerDate;
-import retail.shared.custom.jtable.JTableInventory;
+import retail.shared.custom.jtable.AddDeliveryTable;
 import retail.shared.custom.jtextfield.CustomJTextField;
 
 import javax.swing.*;
@@ -11,8 +11,8 @@ import java.awt.*;
 
 @Getter
 public class InventoryViewCenter extends JPanel {
-    private final DefaultTableModel model = new DefaultTableModel(0,8);
-    private final JTableInventory table = new JTableInventory(model,true);
+    private final DefaultTableModel model = new DefaultTableModel(0,9);
+    private final AddDeliveryTable table = new AddDeliveryTable(model);
     private final JTextField total = new CustomJTextField("Total", Color.BLACK,15);
     private final JTextField id = new CustomJTextField("Report Id", Color.BLACK,15);
     private final JSpinnerDate date = new JSpinnerDate();

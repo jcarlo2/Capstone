@@ -10,28 +10,17 @@ import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
 @Getter
-public class JTableInventory extends TableAbstract {
-    public JTableInventory(TableModel model,boolean hide) {
+public class AddDeliveryTable extends TableAbstract {
+    public AddDeliveryTable(TableModel model) {
         super(model, new String[] {"No.",
                                    "Product ID","" +
-                                   "Price",
-                                   "Quantity By Pieces",
-                                   "Quantity By Box",
-                                   "Pieces Per Box",
+                                   "Quantity Per Pieces",
+                                   "Quantity Per Box",
+                                   "Total Price",
+                                   "Discount",
+                                   "Total Amount",
                                    "Old Stock Count",
                                    "New Stock Count"});
-        getColumnModel().getColumn(0).setMinWidth(35);
-        getColumnModel().getColumn(0).setMaxWidth(35);
-        hideColumn(hide);
-    }
-
-    private void hideColumn(boolean hide) {
-        if(hide) {
-            getColumnModel().removeColumn(getColumnModel().getColumn(7));
-            getColumnModel().removeColumn(getColumnModel().getColumn(6));
-            getColumnModel().removeColumn(getColumnModel().getColumn(5));
-            getColumnModel().removeColumn(getColumnModel().getColumn(4));
-        }
     }
 
     public void addNullItemList(@NotNull ArrayList<InventoryItem> itemList) {

@@ -1,10 +1,10 @@
 package retail.shared.custom.jpanel;
 
 import lombok.Getter;
-import retail.shared.custom.jcombobox.CustomComboBox;
 import retail.shared.custom.jlist.CustomJList;
-import retail.shared.custom.jspinner.JSpinnerDate;
 import retail.shared.custom.jtextfield.CustomJTextField;
+import retail.shared.custom.jcombobox.CustomComboBox;
+import retail.shared.custom.jspinner.JSpinnerDate;
 
 import javax.swing.*;
 import java.awt.*;

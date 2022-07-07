@@ -6,12 +6,11 @@ import retail.shared.custom.jtable.other.TableJComboBox;
 import retail.shared.entity.TransactionItemDetail;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
-public class JTableTransaction extends TableAbstract {
-    public JTableTransaction(TableModel model, boolean isReturned, boolean isComboBoxEditable, boolean isBotTable) {
+public class TransactionTable extends TableAbstract {
+    public TransactionTable(TableModel model, boolean isReturned, boolean isComboBoxEditable, boolean isBotTable) {
         super(model, new String[] {"No.",
                               "Product ID",
                               "Price",
@@ -24,7 +23,6 @@ public class JTableTransaction extends TableAbstract {
                               "Return"});
         setJComboBox(isComboBoxEditable);
         hideColumn(isReturned,isBotTable);
-        centerTableText();
     }
 
     public void addItemWithCount(@NotNull TransactionItemDetail item, String count) {
@@ -69,7 +67,6 @@ public class JTableTransaction extends TableAbstract {
 
     private void setJComboBox(boolean isComboBoxEditable) {
         if(isComboBoxEditable) {
-//            getColumnModel().getColumn(8).setCellRenderer(new ComboBoxRenderer());
             getColumnModel().getColumn(8).setCellEditor(new DefaultCellEditor(new TableJComboBox()));
         }
     }
@@ -80,17 +77,6 @@ public class JTableTransaction extends TableAbstract {
         }
         if(!isReturned) {
             getColumnModel().removeColumn(getColumnModel().getColumn(8));
-        }
-    }
-
-
-
-    private void centerTableText() {
-        int COLUMN_NUMBER = getColumnModel().getColumnCount();
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i=0;i<COLUMN_NUMBER;i++) {
-            getColumnModel().getColumn(i).setCellRenderer(renderer);
         }
     }
 }

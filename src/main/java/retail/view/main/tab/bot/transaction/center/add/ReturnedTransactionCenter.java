@@ -1,7 +1,7 @@
 package retail.view.main.tab.bot.transaction.center.add;
 
 import lombok.Getter;
-import retail.shared.custom.jtable.JTableTransaction;
+import retail.shared.custom.jtable.TransactionTable;
 import retail.shared.custom.jtextfield.CustomJTextField;
 
 import javax.swing.*;
@@ -16,12 +16,12 @@ public class ReturnedTransactionCenter extends JPanel {
     private final JPanel wrapper4 = new JPanel();
 
     private final DefaultTableModel topModel = new DefaultTableModel(0,10);
-    private final JTableTransaction topTable = new JTableTransaction(topModel,true,true,false);
+    private final TransactionTable topTable = new TransactionTable(topModel,true,true,false);
     private final JScrollPane topScroll = new JScrollPane(topTable);
     private final CustomJTextField topTotal = new CustomJTextField("Total Amount", Color.BLACK,15);
 
     private final DefaultTableModel botModel = new DefaultTableModel(0,10);
-    private final JTableTransaction botTable = new JTableTransaction(botModel,false,false,true);
+    private final TransactionTable botTable = new TransactionTable(botModel,false,false,true);
     private final JScrollPane botScroll = new JScrollPane(botTable);
 
     private final CustomJTextField credit = new CustomJTextField("Credit", Color.BLACK,15);
