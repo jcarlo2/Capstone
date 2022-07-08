@@ -26,11 +26,11 @@ public class ViewManipulator extends JPanel {
     private final CustomJTextField endDate = new CustomJTextField(false,"End");
     private final JSpinnerDate start = new JSpinnerDate();
     private final JSpinnerDate end = new JSpinnerDate();
-    private final CustomComboBox searchType = new CustomComboBox("Auto","Date","Search Type");
+    private final CustomComboBox searchType = new CustomComboBox("Search Type", "Auto","Date");
     private final CustomComboBox reportType;
 
-    public ViewManipulator(String a, String b, String title) {
-        reportType = new CustomComboBox(a,b,title);
+    public ViewManipulator(String title, String a, String b) {
+        reportType = new CustomComboBox(title,a,b);
         reportType.setSelectedIndex(1);
         setView();
     }

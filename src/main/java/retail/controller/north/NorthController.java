@@ -8,7 +8,7 @@ import retail.view.main.tab.top.North;
 public class NorthController {
     private final CustomJButton transaction;
     private final CustomJButton inventory;
-    private final CustomJButton sales;
+    private final CustomJButton report;
     private final CustomJButton log;
     private final BottomPanel bottomPanel;
 
@@ -17,18 +17,19 @@ public class NorthController {
         this.bottomPanel = bottomPanel;
         transaction = north.getTransaction();
         inventory = north.getInventory();
-        sales = north.getSales();
+        report = north.getReport();
         log = north.getLogFile();
 
         setTransaction();
         setInventory();
+        setReport();
     }
 
     private void setTransaction() {
         transaction.addActionListener(e -> {
             transaction.setEnabled(false);
             inventory.setEnabled(true);
-            sales.setEnabled(true);
+            report.setEnabled(true);
             log.setEnabled(true);
             bottomPanel.getMain().show(bottomPanel.getMainPanel(),"transaction");
             bottomPanel.getManipulator().show(bottomPanel.getManipulatorPanel(),"transaction");
@@ -39,10 +40,21 @@ public class NorthController {
         inventory.addActionListener(e -> {
             transaction.setEnabled(true);
             inventory.setEnabled(false);
-            sales.setEnabled(true);
+            report.setEnabled(true);
             log.setEnabled(true);
             bottomPanel.getMain().show(bottomPanel.getMainPanel(),"inventory");
             bottomPanel.getManipulator().show(bottomPanel.getManipulatorPanel(),"inventory");
+        });
+    }
+
+    private void setReport() {
+        report.addActionListener(e -> {
+            transaction.setEnabled(true);
+            inventory.setEnabled(true);
+            report.setEnabled(false);
+            log.setEnabled(true);
+            bottomPanel.getMain().show(bottomPanel.getMainPanel(),"report");
+            bottomPanel.getManipulator().show(bottomPanel.getManipulatorPanel(),"report");
         });
     }
 }

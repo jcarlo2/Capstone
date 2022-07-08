@@ -4,37 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="updating inventory">
+    <list default="true" id="abcf531d-c7ff-42a3-9a59-20457f5d9665" name="Changes" comment="inventory done">
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/report/center/SalesPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/report/manipulator/ReportManipulator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/inventory/add/AddInventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/inventory/add/AddInventoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/inventory/view/InventoryViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/inventory/view/InventoryViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/transaction/add/ReturnTransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/facade/inventory/add/NullInventoryFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/facade/inventory/add/NullInventoryFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/facade/inventory/view/InventoryViewFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/facade/inventory/view/InventoryViewFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/facade/transaction/add/ReturnTransactionFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/facade/transaction/add/ReturnTransactionFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/Delivery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/NullProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementation/NullProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/DeliveryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/DeliveryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/NullProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/repository/implementer/NullProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/service/Creator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/service/Creator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/model/service/inventory/view/InventoryViewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/model/service/inventory/view/InventoryViewService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/AddDeliveryTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/AddDeliveryTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/NullProductTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jtable/NullProductTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/controller/inventory/add/AddInventoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/controller/inventory/add/AddInventoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/controller/inventory/view/InventoryViewController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/controller/inventory/view/InventoryViewController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/controller/inventory/view/InventoryViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/controller/inventory/view/InventoryViewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/controller/transaction/add/ReturnTransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/controller/transaction/add/ReturnTransactionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/facade/inventory/add/NullInventoryFacade.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/facade/inventory/add/NullInventoryFacade.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/facade/inventory/view/InventoryViewFacade.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/facade/inventory/view/InventoryViewFacade.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/facade/transaction/add/ReturnTransactionFacade.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/facade/transaction/add/ReturnTransactionFacade.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/repository/implementation/Delivery.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/repository/implementation/Delivery.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/repository/implementation/NullProduct.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/repository/implementation/NullProduct.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/DeliveryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/DeliveryRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/NullProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/repository/implementer/NullProductRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/service/Creator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/service/Creator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/model/service/inventory/view/InventoryViewService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/model/service/inventory/view/InventoryViewService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/custom/jtable/AddDeliveryTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/custom/jtable/AddDeliveryTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/retail/shared/custom/jtable/NullProductTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/shared/custom/jtable/NullProductTable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/controller/north/NorthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/controller/north/NorthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jcombobox/CustomComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jcombobox/CustomComboBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jpanel/ViewManipulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/shared/custom/jpanel/ViewManipulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/BottomPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/salesreport/SalesReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/report/center/ReportCenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/TransactionManipulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/bot/transaction/manipulator/TransactionManipulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/North.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/retail/view/main/tab/top/North.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/retail/view/main/tab/bot/BottomPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/view/main/tab/bot/BottomPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/retail/view/main/tab/bot/transaction/manipulator/TransactionManipulator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retail/view/main/tab/bot/transaction/manipulator/TransactionManipulator.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -68,20 +50,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/darkm_000/Desktop/Portfolio/java/capstone/src/main/java/retail/controller/tab/transaction/add",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/darkm_000/Desktop/Portfolio/java/capstone/src/main/java/retail/controller/tab/transaction/add&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="retail.shared.custom.jlist" />
@@ -132,7 +114,8 @@
       <option name="presentableId" value="Default" />
       <updated>1649168636143</updated>
       <workItem from="1657230256113" duration="9799000" />
-      <workItem from="1657256070451" duration="26794000" />
+      <workItem from="1657256070451" duration="27464000" />
+      <workItem from="1657318566779" duration="3161000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit: Applied MVC Architecture">
       <created>1649217928710</created>
@@ -309,7 +292,21 @@
       <option name="project" value="LOCAL" />
       <updated>1657285046256</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="inventory done">
+      <created>1657289747323</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1657289747323</updated>
+    </task>
+    <task id="LOCAL-00027" summary="inventory done">
+      <created>1657289765270</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1657289765270</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,7 +341,8 @@
     <MESSAGE value="created view panel" />
     <MESSAGE value="updating inventory // need to fix" />
     <MESSAGE value="updating inventory" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating inventory" />
+    <MESSAGE value="inventory done" />
+    <option name="LAST_COMMIT_MESSAGE" value="inventory done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

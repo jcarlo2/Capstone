@@ -16,7 +16,7 @@ public class TransactionManipulator extends JPanel {
     private final CardLayout cardLayout = new CardLayout();
     private final JPanel wrapper2 = new JPanel(cardLayout);
     private final AddManipulator addManipulator = new AddManipulator();
-    private final ViewManipulator viewManipulator = new ViewManipulator("All","Valid Only","Valid Type");
+    private final ViewManipulator viewManipulator = new ViewManipulator("Valid Type","All","Valid Only");
 
     public TransactionManipulator() {
         setLayout(new BorderLayout());

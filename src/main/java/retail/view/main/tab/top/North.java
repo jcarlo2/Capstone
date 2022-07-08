@@ -10,14 +10,14 @@ import java.awt.*;
 public class North extends JPanel {
     private final CustomJButton transaction = new CustomJButton("Transaction");
     private final CustomJButton inventory = new CustomJButton("Inventory");
-    private final CustomJButton sales = new CustomJButton("Sales Report");
+    private final CustomJButton report = new CustomJButton("Report");
     private final CustomJButton logFile = new CustomJButton("Log File");
 
     public North() {
         setLayout(new GridLayout());
         add(transaction);
         add(inventory);
-        add(sales);
+        add(report);
         add(logFile);
         transaction.setEnabled(false);
     }
