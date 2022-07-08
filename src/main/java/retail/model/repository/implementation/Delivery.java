@@ -16,9 +16,9 @@ public interface Delivery {
     void addReportItem(ArrayList<DeliveryItemDetail> itemList, String id);
     boolean isReportExist(String id);
 
-    ArrayList<DeliveryDetail> getAllReport();
+    ArrayList<DeliveryDetail> findAllReport();
 
-    ArrayList<DeliveryDetail> getAllReportByDate(String start, String end);
+    ArrayList<DeliveryDetail> findAllReportByDate(String start, String end);
 
     ArrayList<InventoryItem> findDeliveryReportById(String id);
 }

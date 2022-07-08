@@ -42,7 +42,7 @@ public class AddTransactionService implements Service {
 
     public void reflectToInventory(@NotNull ArrayList<TransactionItemDetail> itemList) {
         for(TransactionItemDetail item : itemList) {
-            product.updateProductQuantity(item.getProductId(),Double.parseDouble(item.getSold()) * -1);
+            product.updateByQuantity(item.getProductId(),Double.parseDouble(item.getSold()) * -1);
         }
     }
 

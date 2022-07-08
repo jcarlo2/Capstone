@@ -17,15 +17,13 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static retail.shared.constant.ConstantDialog.ADD_ALL;
-import static retail.shared.constant.ConstantDialog.DELETE_ALL;
+import static retail.shared.constant.ConstantDialog.*;
 
 public class ReturnTransactionController {
     private final ReturnTransactionFacade facade;
@@ -142,20 +140,24 @@ public class ReturnTransactionController {
 
     private void returnSaveEvent() {
         if(facade.verifyReturnedItemDetails(returnDialog.getProductData())) {
+            String sold = returnDialog.getSold().getText();
+            if(!facade.isWholeNumber(sold)) {
+                INVALID_INPUT();
+                return;
+            }
             int row = center.getTopTable().getSelectedRow();
-            String add = facade.addition(returnDialog.getSold().getText(),returnDialog.getProductCount().getText());
+            String add = facade.addition(sold,returnDialog.getProductCount().getText());
             if(facade.lessThanComparison(add,returnDialog.getCount().getText()) || row == -1) {
                 Toolkit.getDefaultToolkit().beep();
                 return;
             }
 
             TransactionItemDetail item = facade.createItem(center.getTopTable().rowGrabber());
-            item.setSold(returnDialog.getSold().getText());
+            item.setSold(sold);
             item.setTotalAmount(returnDialog.getTotalAmount().getText());
             item.setSoldTotal(returnDialog.getSoldTotal().getText());
             center.getBotTable().addItemWithCount(item,returnDialog.getProductCount().getText());
             center.getTopTable().removeRow(row);
-            center.fixTableColumn();
             returnDialog.setVisible(false);
         }
     }
@@ -166,8 +168,8 @@ public class ReturnTransactionController {
         if(facade.isValidNumber(sold)) {
             String price = returnDialog.getPrice().getText();
             String percent = returnDialog.getDiscountPercentage().getText();
-            String total = facade.calculateSoldTotal(new BigDecimal(price), new BigDecimal(sold));
-            String discount = facade.calculateDiscountAmount(new BigDecimal(total),new BigDecimal(percent));
+            String total = facade.calculateSoldTotal(price,sold);
+            String discount = facade.calculateDiscountAmount(total,percent);
             String totalAmount = facade.calculateTotalAmount(total,discount);
 
             returnDialog.getTotalAmount().setText(totalAmount);
@@ -180,22 +182,20 @@ public class ReturnTransactionController {
         String productCount = returnDialog.getProductCount().getText();
         if(facade.isValidNumber(productCount)) {
             String totalCount = returnDialog.getCount().getText();
-            double prodCount = Double.parseDouble(productCount);
-            double count = Double.parseDouble(totalCount);
-            if(prodCount <= count) {
-                autoCalculate(count,prodCount);
+            if(Double.parseDouble(productCount) <= Double.parseDouble(totalCount)) {
+                autoCalculate(totalCount,productCount);
             }else {
                 if(isUpdate) Toolkit.getDefaultToolkit().beep();
             }
         }
     }
 
-    private void autoCalculate(double count, double prodCount) {
+    private void autoCalculate(String count, String prodCount) {
         String sold = facade.subtraction(count,prodCount);
         String price = returnDialog.getPrice().getText();
-        String soldTotal = facade.calculateSoldTotal(new BigDecimal(price),new BigDecimal(sold));
+        String soldTotal = facade.calculateSoldTotal(price,sold);
         String percent = returnDialog.getDiscountPercentage().getText();
-        String discountTotal = facade.calculateDiscountAmount(new BigDecimal(soldTotal),new BigDecimal(percent));
+        String discountTotal = facade.calculateDiscountAmount(soldTotal,percent);
         returnDialog.getSold().setText(sold);
         returnDialog.getSoldTotal().setText(soldTotal);
         returnDialog.getDiscountTotal().setText(discountTotal);

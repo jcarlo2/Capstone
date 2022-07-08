@@ -1,12 +1,13 @@
 package retail.model.facade.transaction.view;
 
+import retail.model.facade.Facade;
 import retail.model.service.transaction.view.ViewTransactionService;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
 
 import java.util.ArrayList;
 
-public class ViewTransactionFacade {
+public class ViewTransactionFacade implements Facade {
     private final ViewTransactionService service = new ViewTransactionService();
 
     public ArrayList<TransactionDetail> getAllReport() {
@@ -27,12 +28,12 @@ public class ViewTransactionFacade {
 
     public ArrayList<TransactionDetail> findAllValidReportByString(String str) {
         ArrayList<TransactionDetail> reportList = service.getAllValidReport();
-        return service.findMatchingReport(str,reportList);
+        return finder.findMatchingTransactionReport(str,reportList);
     }
 
     public ArrayList<TransactionDetail> findAllReportByString(String str) {
         ArrayList<TransactionDetail> reportList = service.getAllReport();
-        return service.findMatchingReport(str,reportList);
+        return finder.findMatchingTransactionReport(str,reportList);
     }
 
     public String[] getIdList(String id) {

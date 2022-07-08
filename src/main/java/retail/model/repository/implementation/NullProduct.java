@@ -18,9 +18,11 @@ public interface NullProduct {
 
     boolean isReportExist(String id);
 
-    ArrayList<NullProductReport> getAllReport();
+    ArrayList<NullProductReport> findAllReport();
 
-    ArrayList<NullProductReport> getAllReportByDate(String start, String end);
+    ArrayList<NullProductReport> findAllReportByDate(String start, String end);
 
     ArrayList<InventoryItem> findAllNullReportItemById(String id);
+
+    ArrayList<NullProductReport> findNullReportByLink(String search);
 }

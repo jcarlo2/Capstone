@@ -14,7 +14,7 @@ import static retail.shared.constant.Constant.COLOR_BLACK;
 public class NullInventoryManipulator extends JPanel {
     private final JPanel wrapper1 = new JPanel(new GridLayout(1,3));
     private final JComboBoxProduct productId = new JComboBoxProduct("ID");
-    private final CustomJTextField price = new CustomJTextField("Price",COLOR_BLACK);
+    private final CustomJTextField price = new CustomJTextField("Price",COLOR_BLACK,false);
     private final CustomJTextField quantity = new CustomJTextField( "Quantity Per Pieces",COLOR_BLACK);
     private final CustomJTextField box = new CustomJTextField( "Quantity Per Box",COLOR_BLACK);
     private final CustomJTextField pieces = new CustomJTextField( "Pieces Per Box",COLOR_BLACK,false);
@@ -52,7 +52,6 @@ public class NullInventoryManipulator extends JPanel {
     public void clear() {
         quantity.setText("0");
         box.setText("0");
-        price.setText("0");
         totalAmount.setText("0");
     }
 
@@ -62,7 +61,8 @@ public class NullInventoryManipulator extends JPanel {
         data[1] = price.getText();
         data[2] = quantity.getText();
         data[3] = box.getText();
-        data[4] = totalAmount.getText();
+        data[4] = pieces.getText();
+        data[5] = totalAmount.getText();
         return data;
     }
 }

@@ -8,5 +8,6 @@ import lombok.Getter;
 public class DeliveryDetail {
     private String id;
     private String user;
+    private String total;
     private String date;
 }

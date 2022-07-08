@@ -43,7 +43,7 @@ public class ViewTransactionController {
         Runnable runnable = () -> {
             if(!manipulator.getSearch().getText().equals("")) return;
             String search = Objects.requireNonNull(manipulator.getSearchType().getSelectedItem()).toString();
-            String type = Objects.requireNonNull(manipulator.getType().getSelectedItem()).toString();
+            String type = Objects.requireNonNull(manipulator.getReportType().getSelectedItem()).toString();
             if(search.equals("Auto")) {
                 if(type.equals("All")) reportListOption("Auto","All");
                 else reportListOption("Auto","Valid");
@@ -102,7 +102,7 @@ public class ViewTransactionController {
     }
 
     private void search() {
-        String valid = Objects.requireNonNull(manipulator.getType().getSelectedItem()).toString();
+        String valid = Objects.requireNonNull(manipulator.getReportType().getSelectedItem()).toString();
         String search = manipulator.getSearch().getText();
         ArrayList<TransactionDetail> reportList;
 
@@ -131,8 +131,6 @@ public class ViewTransactionController {
         });
     }
 
-
-    // add solo delete
     private void deleteEvent() {
         manipulator.getDelete().addActionListener(e -> {
             String id = center.getId().getText();

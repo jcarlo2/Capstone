@@ -117,18 +117,6 @@ public class ReturnTransactionService implements Service {
         return credit.add(newTotal).setScale(2, RoundingMode.HALF_EVEN).toString();
     }
 
-    public String negation(String num) {
-       return new BigDecimal(num).multiply(BigDecimal.valueOf(-1)).toString();
-    }
-
-    public String subtraction(Double a, Double b) {
-        return String.valueOf(a - b);
-    }
-
-    public String addition(Double a, Double b) {
-        return String.valueOf(a + b);
-    }
-
     public boolean verifyTableForSaving(String @NotNull[] @NotNull [] dataList) {
         for(String[] data : dataList) {
             String strData = data[data.length-1];
@@ -157,7 +145,7 @@ public class ReturnTransactionService implements Service {
                     double count = Double.parseDouble(item.getSold());
                     Double returned = Double.valueOf(strings[7]);
                     Double sold = Double.valueOf(strings[2]);
-                    product.updateProductQuantity(item.getProductId(), count - (sold + returned));
+                    product.updateByQuantity(item.getProductId(), count - (sold + returned));
                 }
             }
         }

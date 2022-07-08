@@ -8,7 +8,7 @@ import lombok.Getter;
 public class NullProductReport {
     private String id;
     private String user;
-    private String totalAmount;
-    private String transactionLink;
+    private String total;
+    private String link;
     private String date;
 }

@@ -25,19 +25,6 @@ public class ViewTransactionService implements Service {
         return transaction.getAllReportByDateAndValidity(start,end);
     }
 
-    public ArrayList<TransactionDetail> findMatchingReport(String str, @NotNull ArrayList<TransactionDetail> reportList) {
-        ArrayList<TransactionDetail> reports = new ArrayList<>();
-        for (TransactionDetail report : reportList) {
-            String id = report.getId().toLowerCase();
-            String date = report.getDate().toLowerCase();
-            String combine = date + " - " + id;
-            if (combine.contains(str.toLowerCase())) {
-                reports.add(report);
-            }
-        }
-        return reports;
-    }
-
     public String[] getIdList(@NotNull String id) {
         int num = Character.getNumericValue(id.charAt(id.length() - 1)) + 1;
         String[] idList = new String[num];

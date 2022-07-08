@@ -29,6 +29,7 @@ public interface CreateProductTable {
         String query = "CREATE TABLE IF NOT EXISTS product_report(" +
                 "id VARCHAR(255) NOT NULL PRIMARY KEY," +
                 "user VARCHAR(255) NOT NULL," +
+                "total VARCHAR(255) NOT NULL," +
                 "date DATE  AS (DATE(date_time)) NOT NULL," +
                 "date_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL)";
         try{
@@ -46,8 +47,10 @@ public interface CreateProductTable {
                 "prod_id VARCHAR(255) NOT NULL ," +
                 "quantity_pieces DECIMAL(30,2) NOT NULL," + // int
                 "quantity_box DECIMAL(30,2) NOT NULL," +
+                "pieces_per_box DECIMAL(30,2) NOT NULL," +
                 "total_price DECIMAL(30,2) NOT NULL," +
-                "discount DECIMAL(30,2) NOT NULL," +
+                "discount_percent DECIMAL(30,2) NOT NULL," +
+                "discount_total DECIMAL(30,2) NOT NULL," +
                 "total_amount DECIMAL(30,2) NOT NULL," + // int
                 "unique_id VARCHAR(255) NOT NULL)";
         try{
@@ -67,7 +70,7 @@ public interface CreateProductTable {
                 "date DATE AS (DATE(date_time)) NOT NULL," +
                 "date_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL," +
                 "total_amount VARCHAR(255) NOT NULL," +
-                "transaction_link VARCHAR(255) NOT NULL)";
+                "link VARCHAR(255) NOT NULL)";
         try{
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(createTable);
@@ -84,6 +87,8 @@ public interface CreateProductTable {
                 "id VARCHAR(255) NOT NULL," +
                 "price DECIMAL(30,4) NOT NULL," +
                 "quantity_per_pieces INT NOT NULL," +
+                "quantity_per_box INT NOT NULL," +
+                "pieces_per_box INT NOT NULL," +
                 "total_amount VARCHAR(255) NOT NULL," +
                 "report_id VARCHAR(255) NOT NULL)";
         try{

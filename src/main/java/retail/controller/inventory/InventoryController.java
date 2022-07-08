@@ -1,7 +1,10 @@
 package retail.controller.inventory;
 
 import org.jetbrains.annotations.NotNull;
+import retail.controller.inventory.add.AddInventoryController;
+import retail.controller.inventory.add.NullInventoryController;
 import retail.controller.inventory.product.ProductViewController;
+import retail.controller.inventory.view.InventoryViewController;
 import retail.model.facade.MainFacade;
 import retail.view.BuildGUI;
 import retail.view.main.tab.bot.inventory.center.InventoryMain;
@@ -20,6 +23,22 @@ public class InventoryController {
                 buildGUI.getBottomPanel().getInventoryManipulator().getProductManipulator(),
                 mainFacade.getInventoryFacade().getProductFacade());
 
+        new AddInventoryController(
+                buildGUI.getBottomPanel().getInventoryMain().getAdd().getAddInventoryCenter(),
+                buildGUI.getBottomPanel().getInventoryManipulator().getAddManipulatorCard().getAddInventory(),
+                mainFacade.getInventoryFacade().getAddInventoryFacade(),
+                buildGUI.getTopBorderPanel().getUser());
+
+        new NullInventoryController(
+                buildGUI.getBottomPanel().getInventoryMain().getAdd().getNullInventoryCenter(),
+                buildGUI.getBottomPanel().getInventoryManipulator().getAddManipulatorCard().getNullInventory(),
+                mainFacade.getInventoryFacade().getNullInventoryFacade(),
+                buildGUI.getTopBorderPanel().getUser());
+
+        new InventoryViewController(
+                buildGUI.getBottomPanel().getInventoryMain().getView(),
+                buildGUI.getBottomPanel().getInventoryManipulator().getViewManipulator(),
+                mainFacade.getInventoryFacade().getInventoryViewFacade());
 
         add();
         view();

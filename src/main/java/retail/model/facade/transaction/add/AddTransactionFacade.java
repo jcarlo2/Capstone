@@ -9,7 +9,6 @@ import retail.shared.entity.Merchandise;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static retail.shared.constant.ConstantDialog.INVALID_INPUT;
@@ -65,22 +64,26 @@ public class AddTransactionFacade {
         if(!calculate.isValidNumber(input[2],input[3],input[4],input[5])) {
             return "0";
         }
-        return calculate.calculateSoldTotal(new BigDecimal(input[1]), new BigDecimal(input[2]));
+        return calculate.calculateSoldTotal(input[1],input[2]);
     }
 
     public String discountPercentageEvent(String @NotNull ... input) {
         if(!calculate.isValidNumber(input[2],input[3],input[4],input[5])) {
             return "0";
         }
-        return calculate.calculateDiscountAmount(new BigDecimal(input[3]),new BigDecimal(input[4]));
+        return calculate.calculateDiscountAmount(input[3], input[4]);
     }
 
-    public String discountAmountEvent(String @NotNull [] allData) {
+    public String discountAmountEvent(String @NotNull [] dataList) {
         String discount = "";
-        if(calculate.isValidNumber(allData[3],allData[5])) {
-            discount = calculate.calculateDiscountPercentage(new BigDecimal(allData[3]), new BigDecimal(allData[5]));
+        if(calculate.isValidNumber(dataList[3],dataList[5])) {
+            discount = calculate.calculateDiscountPercentage(dataList[3],dataList[5]);
         }
         return discount;
+    }
+
+    public boolean isWholeNumber(String a) {
+        return calculate.isWholeNumber(a);
     }
 }
 

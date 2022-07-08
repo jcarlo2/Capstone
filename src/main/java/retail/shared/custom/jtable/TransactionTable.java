@@ -31,6 +31,7 @@ public class TransactionTable extends TableAbstract {
             transactionItemToArray(item, data);
             data[9] = count;
             model.addRow(data);
+            fixNumberColumn();
         }
     }
 

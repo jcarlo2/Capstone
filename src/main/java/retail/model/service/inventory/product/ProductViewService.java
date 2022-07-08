@@ -46,7 +46,7 @@ public class ProductViewService implements Service {
     }
 
     public String findBoxPiecesById(String id) {
-        return product.findBoxPiecesById(id);
+        return product.findPiecesPerBoxById(id);
     }
 
     public String findQuantityById(String id) {

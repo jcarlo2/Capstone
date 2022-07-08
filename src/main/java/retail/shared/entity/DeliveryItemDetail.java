@@ -7,8 +7,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class DeliveryItemDetail {
     private String productId;
-    private String price;
     private String quantityPerPieces;
     private String quantityPerBox;
     private String piecesPerBox;
+    private String totalPrice;
+    private String discountPercentage;
+    private String discountTotal;
+    private String totalAmount;
 }

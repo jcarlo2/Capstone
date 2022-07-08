@@ -15,7 +15,7 @@ public interface Product {
 
     ArrayList<Merchandise> getAllProduct();
 
-    void updateProductQuantity(String id, Double quantity);
+    void updateByQuantity(String id, Double quantity);
 
     void updateProduct(ProductDisplay display);
 
@@ -23,7 +23,7 @@ public interface Product {
 
     void delete(String id);
 
-    String findBoxPiecesById(String id);
+    String findPiecesPerBoxById(String id);
 
     String findQuantityById(String id);
 

@@ -91,7 +91,7 @@ public class ProductRepository implements Product {
     }
 
     @Override
-    public void updateProductQuantity(String id, Double quantity) {
+    public void updateByQuantity(String id, Double quantity) {
         String query = "UPDATE product SET quantity_per_pieces = quantity_per_pieces + ? WHERE id = ?";
         try {
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
@@ -151,7 +151,7 @@ public class ProductRepository implements Product {
     }
 
     @Override
-    public String findBoxPiecesById(String id) {
+    public String findPiecesPerBoxById(String id) {
         return findProductById(id).getPiecesPerBox();
     }
 

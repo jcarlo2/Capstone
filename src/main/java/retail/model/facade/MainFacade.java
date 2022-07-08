@@ -10,5 +10,4 @@ public class MainFacade {
     private final LogInFacade logInFacade = new LogInFacade();
     private final TransactionFacade transactionFacade = new TransactionFacade();
     private final InventoryFacade inventoryFacade = new InventoryFacade();
-
 }

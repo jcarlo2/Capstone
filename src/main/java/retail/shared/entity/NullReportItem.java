@@ -9,6 +9,8 @@ public class NullReportItem {
     private String id;
     private String price;
     private String quantity;
+    private String box;
+    private String pieces;
     private String total;
     private String reportId;
 }

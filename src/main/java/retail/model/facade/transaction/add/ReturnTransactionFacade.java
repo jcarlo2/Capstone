@@ -3,20 +3,19 @@ package retail.model.facade.transaction.add;
 import org.jetbrains.annotations.NotNull;
 import retail.model.service.Calculate;
 import retail.model.service.Creator;
-import retail.model.service.inventory.add.NullProduct;
+import retail.model.service.inventory.add.NullInventoryService;
 import retail.model.service.transaction.add.ReturnTransactionService;
 import retail.shared.entity.NullProductReport;
 import retail.shared.entity.NullReportItem;
 import retail.shared.entity.TransactionDetail;
 import retail.shared.entity.TransactionItemDetail;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ReturnTransactionFacade {
     private final ReturnTransactionService service = new ReturnTransactionService();
-    private final NullProduct nullService = new NullProduct();
+    private final NullInventoryService nullService = new NullInventoryService();
     private final Creator creator = new Creator();
     private final Calculate calculate = new Calculate();
 
@@ -79,11 +78,11 @@ public class ReturnTransactionFacade {
         return calculate.isValidNumber(str);
     }
 
-    public String calculateSoldTotal(BigDecimal price, BigDecimal sold) {
+    public String calculateSoldTotal(String price, String sold) {
         return calculate.calculateSoldTotal(price,sold);
     }
 
-    public String calculateDiscountAmount(BigDecimal soldTotal, BigDecimal percentage) {
+    public String calculateDiscountAmount(String soldTotal, String percentage) {
         return calculate.calculateDiscountAmount(soldTotal,percentage);
     }
 
@@ -92,7 +91,7 @@ public class ReturnTransactionFacade {
     }
 
     public String negation(String num) {
-        return service.negation(num);
+        return calculate.negation(num);
     }
 
     public String reverseConvertId(String id) {
@@ -107,8 +106,8 @@ public class ReturnTransactionFacade {
         return service.verifyReturnedItemDetails(creator.createProductReturnDetail(data));
     }
 
-    public String subtraction(Double a, Double b) {
-        return service.subtraction(a,b);
+    public String subtraction(String a, String b) {
+        return calculate.subtract(a,b);
     }
 
     public boolean verifyTableForSaving(String[][] dataList) {
@@ -123,17 +122,23 @@ public class ReturnTransactionFacade {
         service.reflectItemToInventory(dataList, id);
 
         String nullId = nullService.generateId();
-        ArrayList<NullReportItem> nullList = creator.createAllNullProduct(dataList,nullId);
-        String[] nullReport = {nullId,user,service.calculateNullTotal(nullList),service.reverseConvertId(id)};
-        NullProductReport nullProductReport = creator.createNullReport(nullReport);
+        ArrayList<NullReportItem> nullList = creator.createAllNullItem(dataList,nullId);
+        NullProductReport nullProductReport = creator.createNullReport(nullId,
+                                                                       user,
+                                                                       service.calculateNullTotal(nullList),
+                                                                       service.reverseConvertId(id));
         service.addTransactionNullReport(nullProductReport,nullList);
     }
 
     public String addition(String a, String b) {
-        return service.addition(Double.parseDouble(a),Double.parseDouble(b));
+        return calculate.add(a,b);
     }
 
     public boolean lessThanComparison(String a, String b) {
         return service.lessThanComparison(a,b);
+    }
+
+    public boolean isWholeNumber(String a) {
+        return calculate.isWholeNumber(a);
     }
 }

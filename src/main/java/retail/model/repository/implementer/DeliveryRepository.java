@@ -20,11 +20,12 @@ public class DeliveryRepository implements Delivery {
     @Override
     public void addReport(DeliveryDetail report) {
         try {
-            String query = "INSERT INTO product_report(id,user) VALUES(?,?)";
+            String query = "INSERT INTO product_report(id,user,total) VALUES(?,?,?)";
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, report.getId());
             preparedStatement.setString(2, report.getUser());
+            preparedStatement.setString(3, report.getTotal());
             preparedStatement.executeUpdate();
         }catch (Exception e) {
             e.printStackTrace();
@@ -38,8 +39,12 @@ public class DeliveryRepository implements Delivery {
                                                     "quantity_pieces," +
                                                     "quantity_box," +
                                                     "pieces_per_box," +
+                                                    "total_price," +
+                                                    "discount_percent," +
+                                                    "discount_total," +
+                                                    "total_amount," +
                                                     "unique_id)" +
-                                                    " VALUES(?,?,?,?,?)";
+                                                    " VALUES(?,?,?,?,?,?,?,?,?)";
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             for(DeliveryItemDetail item : itemList) {
@@ -47,7 +52,11 @@ public class DeliveryRepository implements Delivery {
                 preparedStatement.setString(2,item.getQuantityPerPieces());
                 preparedStatement.setString(3,item.getQuantityPerBox());
                 preparedStatement.setString(4,item.getPiecesPerBox());
-                preparedStatement.setString(5,id);
+                preparedStatement.setString(5,item.getTotalPrice());
+                preparedStatement.setString(6,item.getDiscountPercentage());
+                preparedStatement.setString(7, item.getDiscountTotal());
+                preparedStatement.setString(8, item.getTotalAmount());
+                preparedStatement.setString(9,id);
                 preparedStatement.executeUpdate();
             }
         }catch (Exception e) {
@@ -74,7 +83,7 @@ public class DeliveryRepository implements Delivery {
     }
 
     @Override
-    public ArrayList<DeliveryDetail> getAllReport() {
+    public ArrayList<DeliveryDetail> findAllReport() {
         ArrayList<DeliveryDetail> reportList = new ArrayList<>();
         try {
             String query = "SELECT * FROM product_report ORDER BY date_time DESC";
@@ -84,6 +93,7 @@ public class DeliveryRepository implements Delivery {
             while(resultSet.next()) {
                 reportList.add(new DeliveryDetail(resultSet.getString("id"),
                                                   resultSet.getString("user"),
+                                                  resultSet.getString("total"),
                                                   resultSet.getString("date_time")));
             }
         }catch (Exception e) {
@@ -93,7 +103,7 @@ public class DeliveryRepository implements Delivery {
     }
 
     @Override
-    public ArrayList<DeliveryDetail> getAllReportByDate(String start, String end) {
+    public ArrayList<DeliveryDetail> findAllReportByDate(String start, String end) {
         ArrayList<DeliveryDetail> reportList = new ArrayList<>();
         try {
             String query = "SELECT * FROM product_report WHERE date_time >= ? AND date_time <= ? ORDER BY date_time DESC";
@@ -104,8 +114,9 @@ public class DeliveryRepository implements Delivery {
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 reportList.add(new DeliveryDetail(resultSet.getString("id"),
-                        resultSet.getString("user"),
-                        resultSet.getString("date_time")));
+                                                    resultSet.getString("user"),
+                                                    resultSet.getString("total"),
+                                                    resultSet.getString("date_time")));
             }
         }catch (Exception e) {
             e.printStackTrace();

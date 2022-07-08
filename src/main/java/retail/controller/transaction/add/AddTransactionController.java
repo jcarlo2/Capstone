@@ -7,18 +7,15 @@ import retail.view.main.tab.bot.transaction.center.add.AddTransactionCenter;
 import retail.view.main.tab.bot.transaction.manipulator.add.AddTransactionManipulator;
 import retail.view.main.tab.top.User;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static retail.shared.constant.ConstantDialog.EMPTY_FIELD;
-import static retail.shared.constant.ConstantDialog.SAVED_REPORT;
+import static retail.shared.constant.ConstantDialog.*;
 
 public class AddTransactionController {
     private final AddTransactionManipulator manipulator;
@@ -36,7 +33,7 @@ public class AddTransactionController {
         this.user = user;
 
         autoUpdateProductList();
-        autoCheckPrice();
+        productItemListener();
         autoCalculateTotalAmount();
         autoUpdateReportId();
 
@@ -55,7 +52,7 @@ public class AddTransactionController {
     private void saveEvent() {
         manipulator.getSave().addActionListener(e -> {
             if(center.getTable().getRowCount() == 0) {
-                EMPTY_FIELD();
+                EMPTY_TABLE();
                 return;
             }
             String[][] dataList = center.getTable().tableGrabber();
@@ -76,6 +73,10 @@ public class AddTransactionController {
         manipulator.getAdd().addActionListener(e -> {
             TransactionItemDetail item = facade.addEvent(manipulator.getAllData());
             if(item == null) return;
+            if(!facade.isWholeNumber(item.getSold())) {
+                INVALID_INPUT();
+                return;
+            }
             center.getTable().addItemWithCount(item, "0");
             center.getTable().fixNumberColumn();
             manipulator.clear();
@@ -192,17 +193,13 @@ public class AddTransactionController {
         service.scheduleAtFixedRate(runnable, 1, 1, TimeUnit.SECONDS);
     }
 
-    private void autoCheckPrice() {
-        Runnable runnable = () -> {
+    private void productItemListener() {
+        manipulator.getProduct().addItemListener(e -> {
             if(manipulator.getProduct().getSelectedItem() == null) return;
             String id = manipulator.getProduct().getSelectedItem().toString();
-            String price = new BigDecimal(facade.findPriceById(id)).setScale(2, RoundingMode.HALF_EVEN).toString();
-            if(!manipulator.getPrice().getText().equals(price)) {
-                SwingUtilities.invokeLater(() -> manipulator.getPrice().setText(price));
-            }
-        };
-        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
-        service.scheduleAtFixedRate(runnable, 1, 500, TimeUnit.MILLISECONDS);
+            manipulator.getPrice().setText(facade.findPriceById(id));
+            manipulator.clear();
+        });
     }
 
     private String @NotNull [] gatherReportData() {

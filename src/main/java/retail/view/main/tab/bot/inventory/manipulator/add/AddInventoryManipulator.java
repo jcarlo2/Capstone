@@ -15,11 +15,12 @@ public class AddInventoryManipulator extends JPanel {
     private final JPanel wrapper1 = new JPanel(new GridLayout(1,3));
     private final JPanel wrapper2 = new JPanel(new GridLayout(1,2));
     private final JComboBoxProduct productId = new JComboBoxProduct("ID");
-    private final CustomJTextField pieces = new CustomJTextField( "Pieces Per Box",COLOR_BLACK);
     private final CustomJTextField quantity = new CustomJTextField( "Quantity Per Pieces",COLOR_BLACK);
     private final CustomJTextField box = new CustomJTextField( "Quantity Per Box",COLOR_BLACK);
+    private final CustomJTextField pieces = new CustomJTextField( "Pieces Per Box",COLOR_BLACK,false);
     private final CustomJTextField price = new CustomJTextField("Total Price",COLOR_BLACK);
-    private final CustomJTextField discount = new CustomJTextField("Discount",COLOR_BLACK);
+    private final CustomJTextField discountPercentage = new CustomJTextField("Discount %%",COLOR_BLACK);
+    private final CustomJTextField discountTotal = new CustomJTextField("Discount Total",COLOR_BLACK);
     private final CustomJTextField totalAmount = new CustomJTextField("Total Amount",COLOR_BLACK,false);
     private final CustomJTextField reportId = new CustomJTextField( "Report ID",COLOR_BLACK,false);
     private final JButton save = new JButton("Save");
@@ -42,14 +43,16 @@ public class AddInventoryManipulator extends JPanel {
     }
 
     private void setWrapper2() {
-        wrapper2.add(price);
-        wrapper2.add(discount);
+        wrapper2.add(discountPercentage);
+        wrapper2.add(discountTotal);
     }
 
     private void setComponent() {
         add(productId);
         add(quantity);
         add(box);
+        add(pieces);
+        add(price);
         add(wrapper2);
         add(totalAmount);
         add(wrapper1);
@@ -61,18 +64,20 @@ public class AddInventoryManipulator extends JPanel {
         quantity.setText("0");
         box.setText("0");
         price.setText("0");
-        discount.setText("0");
+        discountPercentage.setText("0");
         totalAmount.setText("0");
     }
 
     public String[] getData() {
-        String[] data = new String[6];
+        String[] data = new String[8];
         data[0] = Objects.requireNonNull(productId.getSelectedItem()).toString();
         data[1] = quantity.getText();
         data[2] = box.getText();
-        data[3] = price.getText();
-        data[4] = discount.getText();
-        data[5] = totalAmount.getText();
+        data[3] = pieces.getText();
+        data[4] = price.getText();
+        data[5] = discountPercentage.getText();
+        data[6] = discountTotal.getText();
+        data[7] = totalAmount.getText();
         return data;
     }
 }
