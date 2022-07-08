@@ -2,8 +2,10 @@ package retail.shared.custom.jtable;
 
 import org.jetbrains.annotations.NotNull;
 import retail.shared.custom.jtable.other.TableAbstract;
+import retail.shared.entity.NullReportItem;
 
 import javax.swing.table.TableModel;
+import java.util.ArrayList;
 
 public class NullProductTable extends TableAbstract {
     public NullProductTable(TableModel model) {
@@ -24,5 +26,21 @@ public class NullProductTable extends TableAbstract {
             model.addRow(item);
             fixNumberColumn();
         }
+    }
+
+    public void addAllItem(@NotNull ArrayList<NullReportItem> itemList) {
+        String[] data = new String[7];
+        model.setRowCount(0);
+        for(NullReportItem item : itemList) {
+            data[0] = "";
+            data[1] = item.getId();
+            data[2] = item.getPrice();
+            data[3] = item.getQuantity();
+            data[4] = item.getBox();
+            data[5] = item.getPieces();
+            data[6] = item.getTotal();
+            model.addRow(data);
+        }
+        fixNumberColumn();
     }
 }

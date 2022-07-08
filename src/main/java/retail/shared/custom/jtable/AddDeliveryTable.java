@@ -3,8 +3,10 @@ package retail.shared.custom.jtable;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import retail.shared.custom.jtable.other.TableAbstract;
+import retail.shared.entity.DeliveryItemDetail;
 
 import javax.swing.table.TableModel;
+import java.util.ArrayList;
 
 @Getter
 public class AddDeliveryTable extends TableAbstract {
@@ -33,5 +35,22 @@ public class AddDeliveryTable extends TableAbstract {
             model.addRow(item);
             fixNumberColumn();
         }
+    }
+
+    public void addAllItem(@NotNull ArrayList<DeliveryItemDetail> itemList) {
+        String[] data = new String[8];
+        model.setRowCount(0);
+        for(DeliveryItemDetail item : itemList) {
+            data[0] = "";
+            data[1] = item.getProductId();
+            data[2] = item.getQuantityPerPieces() + " / " + item.getQuantityPerBox();
+            data[3] = item.getPiecesPerBox();
+            data[4] = item.getTotalPrice();
+            data[5] = item.getDiscountPercentage();
+            data[6] = item.getDiscountTotal();
+            data[7] = item.getTotalAmount();
+            model.addRow(data);
+        }
+        fixNumberColumn();
     }
 }

@@ -3,7 +3,6 @@ package retail.model.repository.implementer;
 import retail.model.repository.implementation.Delivery;
 import retail.shared.entity.DeliveryDetail;
 import retail.shared.entity.DeliveryItemDetail;
-import retail.shared.pojo.InventoryItem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,9 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import static retail.shared.constant.Constant.PASS;
-import static retail.shared.constant.Constant.URL;
-import static retail.shared.constant.Constant.USER;
+import static retail.shared.constant.Constant.*;
 
 public class DeliveryRepository implements Delivery {
 
@@ -125,8 +122,8 @@ public class DeliveryRepository implements Delivery {
     }
 
     @Override
-    public ArrayList<InventoryItem> findDeliveryReportById(String id) {
-        ArrayList<InventoryItem> reportList = new ArrayList<>();
+    public ArrayList<DeliveryItemDetail> findAllDeliveryItemById(String id) {
+        ArrayList<DeliveryItemDetail> reportList = new ArrayList<>();
         try {
             String query = "SELECT * FROM product_item WHERE unique_id = ?";
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
@@ -134,12 +131,41 @@ public class DeliveryRepository implements Delivery {
             preparedStatement.setString(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
-                reportList.add(new InventoryItem(resultSet.getString("prod_id"),"",
-                                                 resultSet.getString("quantity_pieces")));
+                reportList.add(new DeliveryItemDetail(
+                        resultSet.getString("prod_id"),
+                        resultSet.getString("quantity_pieces"),
+                        resultSet.getString("quantity_box"),
+                        resultSet.getString("pieces_per_box"),
+                        resultSet.getString("total_price"),
+                        resultSet.getString("discount_percent"),
+                        resultSet.getString("discount_total"),
+                        resultSet.getString("total_amount")));
             }
         }catch (Exception e) {
             e.printStackTrace();
         }
         return reportList;
+    }
+
+    @Override
+    public DeliveryDetail findDeliveryReportById(String id) {
+        DeliveryDetail report = null;
+        try {
+            String query = "SELECT * FROM product_report WHERE id = ? ";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                report  = new DeliveryDetail(
+                        resultSet.getString("id"),
+                        resultSet.getString("user"),
+                        resultSet.getString("total"),
+                        resultSet.getString("date_time"));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return report;
     }
 }

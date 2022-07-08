@@ -122,7 +122,7 @@ public class ReturnTransactionFacade {
         service.reflectItemToInventory(dataList, id);
 
         String nullId = nullService.generateId();
-        ArrayList<NullReportItem> nullList = creator.createAllNullItem(dataList,nullId);
+        ArrayList<NullReportItem> nullList = creator.createAllNullItem(dataList,nullId,true);
         NullProductReport nullProductReport = creator.createNullReport(nullId,
                                                                        user,
                                                                        service.calculateNullTotal(nullList),

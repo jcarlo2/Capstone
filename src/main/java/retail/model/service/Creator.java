@@ -6,6 +6,8 @@ import retail.shared.entity.*;
 import retail.shared.pojo.ProductDisplay;
 import retail.shared.pojo.ProductReturnedDetail;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public final class Creator {
@@ -61,10 +63,13 @@ public final class Creator {
         return new DeliveryDetail(id,lastName,total,"");
     }
 
-    public @NotNull ArrayList<NullReportItem> createAllNullItem(String @NotNull[] @NotNull [] dataList, String id) {
+    public @NotNull ArrayList<NullReportItem> createAllNullItem(String @NotNull[] @NotNull [] dataList, String id,boolean transaction) {
         ArrayList<NullReportItem> itemList = new ArrayList<>();
         for(String[] data : dataList) {
-            itemList.add(new NullReportItem(data[0],data[1],data[2],data[3],data[4],data[5],id));
+            if(transaction) {
+                BigDecimal total = new BigDecimal(data[1]).multiply(new BigDecimal(data[7])).setScale(2, RoundingMode.HALF_EVEN);
+                itemList.add(new NullReportItem(data[0],data[1],data[7],"0","0",total.toString(),id));
+            }else itemList.add(new NullReportItem(data[0],data[1],data[2],data[3],data[4],data[5],id));
         }
         return itemList;
     }

@@ -68,7 +68,7 @@ public class AddInventoryController {
     private void addEvent() {
         String[] data = manipulator.getData();
         data[0] = "0";
-        if(!facade.isValidNumber(data) ||  facade.isWholeNumber(data[1]) || !(Double.parseDouble(data[4]) > 0)) {
+        if(!facade.isValidNumber(data) ||  !facade.isWholeNumber(data[1]) || !(Double.parseDouble(data[4]) > 0)) {
             INVALID_INPUT();
         } else {
             String total = facade.subtraction(data[4],data[6]);

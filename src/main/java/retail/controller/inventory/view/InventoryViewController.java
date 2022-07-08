@@ -10,6 +10,8 @@ import retail.view.main.tab.bot.inventory.center.view.InventoryViewCenter;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -29,6 +31,7 @@ public class InventoryViewController {
         autoUpdateList();
         reportTypeListener();
         searchDocumentListener();
+        listMouseListener();
     }
 
     private void reportTypeListener() {
@@ -110,25 +113,43 @@ public class InventoryViewController {
         if(manipulator.getReportType().getSelectedItem() == null) return;
         String reportType = manipulator.getReportType().getSelectedItem().toString();
         String search = manipulator.getSearch().getText();
-
-        if(search.length() > 1 && search.charAt(0) == 'T') {
-            searchByTransaction(search);
-            return;
-        }
-
-        ArrayList<DeliveryDetail> deliveryList;
-        ArrayList<NullProductReport> nullList;
         if(reportType.equals("Delivery")) {
-            deliveryList = facade.findAllDeliveryReportById(search);
+            ArrayList<DeliveryDetail> deliveryList = facade.findAllDeliveryReportById(search);
             manipulator.getList().populateDeliveryList(deliveryList);
-        } else {
-            nullList = facade.findAllNullReportById(search);
-            manipulator.getList().populateNullList(nullList);
-        }
+        } else nullSearch(search);
     }
 
-    private void searchByTransaction(String search) {
-        ArrayList<NullProductReport> nullList = facade.findNullReportByLink(search);
+    private void nullSearch(@NotNull String search) {
+        if(search.length() > 1 && search.charAt(0) == 'T') {
+            ArrayList<NullProductReport> nullList = facade.findNullReportByLink(search);
+            manipulator.getList().populateNullList(nullList);
+            return;
+        }
+        ArrayList<NullProductReport> nullList = facade.findAllNullReportById(search);
         manipulator.getList().populateNullList(nullList);
+    }
+
+    private void listMouseListener() {
+        manipulator.getList().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                    if(manipulator.getReportType().getSelectedItem() == null) return;
+                    String type = manipulator.getReportType().getSelectedItem().toString();
+                    String id = manipulator.getList().getSelectedValue();
+                    if(id == null) return;
+
+                    id = facade.substringReportId(id);
+                    center.getId().setText(id);
+                    if(type.equals("Null")) {
+                        center.getTotal().setText(facade.findNullReportTotal(id));
+                        center.getTable2().addAllItem(facade.findAllNullItemById(id));
+                    }else {
+                        center.getTotal().setText(facade.findDeliveryReportTotal(id));
+                        center.getTable1().addAllItem(facade.findAllDeliveryItemById(id));
+                    }
+                }
+            }
+        });
     }
 }

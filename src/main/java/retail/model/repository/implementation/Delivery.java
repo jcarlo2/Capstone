@@ -2,7 +2,6 @@ package retail.model.repository.implementation;
 
 import retail.shared.entity.DeliveryDetail;
 import retail.shared.entity.DeliveryItemDetail;
-import retail.shared.pojo.InventoryItem;
 
 import java.util.ArrayList;
 
@@ -20,5 +19,7 @@ public interface Delivery {
 
     ArrayList<DeliveryDetail> findAllReportByDate(String start, String end);
 
-    ArrayList<InventoryItem> findDeliveryReportById(String id);
+    ArrayList<DeliveryItemDetail> findAllDeliveryItemById(String id);
+
+    DeliveryDetail findDeliveryReportById(String id);
 }

@@ -3,7 +3,6 @@ package retail.model.repository.implementer;
 import retail.model.repository.implementation.NullProduct;
 import retail.shared.entity.NullProductReport;
 import retail.shared.entity.NullReportItem;
-import retail.shared.pojo.InventoryItem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,9 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import static retail.shared.constant.Constant.PASS;
-import static retail.shared.constant.Constant.URL;
-import static retail.shared.constant.Constant.USER;
+import static retail.shared.constant.Constant.*;
 
 public class NullProductRepository implements NullProduct {
     @Override
@@ -116,8 +113,8 @@ public class NullProductRepository implements NullProduct {
     }
 
     @Override
-    public ArrayList<InventoryItem> findAllNullReportItemById(String id) {
-        ArrayList<InventoryItem> itemList = new ArrayList<>();
+    public ArrayList<NullReportItem> findAllNullReportItemById(String id) {
+        ArrayList<NullReportItem> itemList = new ArrayList<>();
         try {
             String query = "SELECT * FROM null_item WHERE report_id = ?";
             Connection connection = DriverManager.getConnection(URL,USER,PASS);
@@ -125,9 +122,13 @@ public class NullProductRepository implements NullProduct {
             preparedStatement.setString(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
-                itemList.add(new InventoryItem(resultSet.getString("id"),
+                itemList.add(new NullReportItem(resultSet.getString("id"),
                                                  resultSet.getString("price"),
-                                                 resultSet.getString("quantity_per_pieces")));
+                                                 resultSet.getString("quantity_per_pieces"),
+                                                 resultSet.getString("quantity_per_box"),
+                                                 resultSet.getString("pieces_per_box"),
+                                                 resultSet.getString("total_amount"),
+                                                 resultSet.getString("report_id")));
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -154,5 +155,29 @@ public class NullProductRepository implements NullProduct {
             e.printStackTrace();
         }
         return reportList;
+    }
+
+    @Override
+    public NullProductReport findNullReportById(String id) {
+        NullProductReport report = null;
+        try {
+            String query = "SELECT * FROM null_report WHERE id = ? ";
+            Connection connection = DriverManager.getConnection(URL,USER,PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                report  = new NullProductReport(
+                        resultSet.getString("id"),
+                        resultSet.getString("user"),
+                        resultSet.getString("total_amount"),
+                        resultSet.getString("link"),
+                        resultSet.getString("date_time"));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return report;
     }
 }

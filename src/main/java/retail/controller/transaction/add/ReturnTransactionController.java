@@ -142,7 +142,7 @@ public class ReturnTransactionController {
         if(facade.verifyReturnedItemDetails(returnDialog.getProductData())) {
             String sold = returnDialog.getSold().getText();
             if(!facade.isWholeNumber(sold)) {
-                INVALID_INPUT();
+                Toolkit.getDefaultToolkit().beep();
                 return;
             }
             int row = center.getTopTable().getSelectedRow();

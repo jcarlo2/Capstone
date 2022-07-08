@@ -55,7 +55,7 @@ public class NullInventoryFacade {
     }
 
     public void save(String[][] dataList, String total, String id, String lastName) {
-        ArrayList<NullReportItem> itemList = creator.createAllNullItem(dataList,id);
+        ArrayList<NullReportItem> itemList = creator.createAllNullItem(dataList,id,false);
         NullProductReport report = creator.createNullReport(id,lastName,total,"");
         service.save(report,itemList);
     }
